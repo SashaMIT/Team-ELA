@@ -280,7 +280,7 @@ const HashrateVisualizer: FC = () => {
 
             <div className="space-y-4">
               <motion.div 
-                className="relative h-36 sm:h-24 bg-accent/10 rounded-lg overflow-hidden"
+                className="relative h-28 bg-accent/10 rounded-lg overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
@@ -291,16 +291,16 @@ const HashrateVisualizer: FC = () => {
                   animate={{ width: '100%' }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="p-4 text-black font-medium">
+                  <div className="h-full flex flex-col justify-center p-3 text-black font-medium space-y-0.5">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div>
-                            <div className="font-bold text-lg mb-1">Bitcoin Network</div>
+                          <div className="space-y-0.5">
+                            <div className="font-bold text-lg">Bitcoin Network</div>
                             <div className="text-sm sm:text-base break-words pr-2">
                               {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
-                            <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(5)} EH/s</div>
+                            <div className="text-xs sm:text-sm">{bitcoinHashrate.toFixed(5)} EH/s</div>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
@@ -313,7 +313,7 @@ const HashrateVisualizer: FC = () => {
               </motion.div>
 
               <motion.div 
-                className="relative h-36 sm:h-24 bg-accent/10 rounded-lg overflow-hidden"
+                className="relative h-28 bg-accent/10 rounded-lg overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
@@ -324,16 +324,16 @@ const HashrateVisualizer: FC = () => {
                   animate={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                  <div className="p-4 text-black font-medium">
+                  <div className="h-full flex flex-col justify-center p-3 text-black font-medium space-y-0.5">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div>
-                            <div className="font-bold text-lg mb-1">Elastos Network</div>
+                          <div className="space-y-0.5">
+                            <div className="font-bold text-lg">Elastos Network</div>
                             <div className="text-sm sm:text-base break-words pr-2">
                               {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
-                            <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(5)} EH/s</div>
+                            <div className="text-xs sm:text-sm">{elastosHashrate.toFixed(5)} EH/s</div>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
