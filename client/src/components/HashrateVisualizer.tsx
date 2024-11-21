@@ -20,7 +20,6 @@ interface Scales {
   computers: Scale;
   datacenters: Scale;
   supercomputers: Scale;
-  cloud: Scale;
   electricity: Scale;
 }
 
@@ -86,18 +85,7 @@ const HashrateVisualizer: FC = () => {
         "Located at Oak Ridge National Laboratory"
       ]
     },
-    cloud: {
-      unit: "AWS data centers",
-      buttonText: "AWS Centers",
-      base: 2_000_000_000_000,
-      icon: "☁️",
-      explanation: "Compared to estimated AWS global infrastructure performance",
-      details: [
-        "Based on estimated AWS global infrastructure",
-        "Includes all AWS regions combined",
-        "Theoretical peak performance across all services"
-      ]
-    },
+    
     electricity: {
       unit: "Nuclear reactors",
       buttonText: "Nuclear Plants",
