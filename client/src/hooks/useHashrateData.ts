@@ -8,7 +8,9 @@ interface HashrateData {
 const fetchHashrate = async (): Promise<number> => {
   const response = await fetch('https://blockchain.info/q/hashrate');
   const hashrate = await response.json();
-  return Number((hashrate / 1_000_000).toFixed(8)); // Convert GH/s to EH/s with full precision
+  // Convert GH/s to EH/s by dividing by 1,000,000
+  const ehashrate = hashrate / 1_000_000;
+  return Number(ehashrate.toFixed(5)); // Keep 5 decimal places for precision
 };
 
 export const useHashrateData = () => {
