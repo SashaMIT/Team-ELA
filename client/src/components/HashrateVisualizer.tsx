@@ -99,11 +99,11 @@ const HashrateVisualizer: FC = () => {
   const bitcoinHashrate = 671.05;
   const elastosHashrate = 341.94;
 
-  const calculateEquivalent = (hashrate, base) => {
+  const calculateEquivalent = (hashrate: number, base: number): number => {
     return (hashrate * 1_000_000_000_000) / base;
   };
 
-  const formatNumber = (num) => {
+  const formatNumber = (num: number): string => {
     if (num >= 1_000_000_000_000) {
       return `${(num / 1_000_000_000_000).toFixed(1)} trillion`;
     }
@@ -201,7 +201,7 @@ const HashrateVisualizer: FC = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
-              {Object.entries(scales).map(([key, { icon, unit }]) => (
+              {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit }]) => (
                 <Button
                   key={key}
                   variant={selectedScale === key ? "default" : "outline"}
