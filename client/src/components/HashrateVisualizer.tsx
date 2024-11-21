@@ -196,10 +196,13 @@ const HashrateVisualizer: FC = () => {
               </TooltipProvider>
               <div className="text-muted-foreground space-y-2">
                 <p>
-                  Hashrate is the speed at which a computer can make calculations. In cryptocurrency networks, these calculations are called "hashes" - think of them like extremely complex math puzzles that computers solve to secure the network.
+                  Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
                 </p>
                 <p>
-                  This massive computational power is crucial as it provides the foundation for a robust reserve asset. Just like gold's scarcity and the difficulty in mining it gives it value, the enormous computing power securing these networks makes them virtually impossible to manipulate or attack, establishing their credibility as digital reserve assets.
+                  A higher hashrate means more computational power, making the network stronger and more secure against attacks, such as a 51% attack, where an entity could potentially control the network. This immense computational effort creates trust and ensures the network remains decentralized and tamper-proof.
+                </p>
+                <p>
+                  Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
                 </p>
               </div>
             </div>
