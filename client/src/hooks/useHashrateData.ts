@@ -27,6 +27,8 @@ const fetchBitcoinPrice = async (): Promise<number> => {
   }
   const price = await response.json();
   return Number(price);
+};
+
 const fetchELAPrice = async (): Promise<number> => {
   const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd');
   if (!response.ok) {
@@ -34,8 +36,6 @@ const fetchELAPrice = async (): Promise<number> => {
   }
   const data = await response.json();
   return data.elastos.usd;
-};
-
 };
 
 export const useHashrateData = () => {

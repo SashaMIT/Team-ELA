@@ -6,10 +6,10 @@ import { useHashrateData } from '../hooks/useHashrateData';
 const ValueCalcPage = () => {
   // Calculator state
   const [showMethodology, setShowMethodology] = useState(false);
-  const marketPrice = hashrateData?.elaPrice ?? 1.78;
   const [estimatedValue, setEstimatedValue] = useState(0);
   const [potentialUpside, setPotentialUpside] = useState(0);
   const { data: hashrateData, isLoading, error } = useHashrateData();
+  const marketPrice = hashrateData?.elaPrice ?? 1.78;
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 671.05;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 48.52;
