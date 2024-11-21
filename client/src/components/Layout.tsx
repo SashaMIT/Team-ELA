@@ -40,10 +40,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <button
                     onClick={() => setLocation(item.path)}
                     data-active={location === item.path}
-                    className="flex w-full items-center gap-2 rounded-md p-2 text-sm hover:bg-accent"
+                    className="flex w-full items-center gap-1.5 rounded-md px-1.5 py-2 text-xs hover:bg-accent"
                   >
                     {item.icon}
-                    <span>{item.label}</span>
+                    <span className="truncate">{item.label}</span>
                   </button>
                 </SidebarMenuItem>
               ))}
