@@ -90,11 +90,11 @@ const HashrateVisualizer: FC = () => {
     electricity: {
       unit: "Nuclear reactors",
       buttonText: "Nuclear Plants",
-      base: 3_600_000_000_000,
+      base: 300_000_000_000,
       icon: "⚡",
       explanation: "Equivalent to modern nuclear power plants (1GW average output)",
       details: [
-        "Based on 1GW nuclear reactor power output",
+        "Based on 1GW nuclear reactor continuous output",
         "Shows energy consumption perspective",
         "Helps visualize the massive power requirements"
       ]
@@ -102,12 +102,12 @@ const HashrateVisualizer: FC = () => {
     country: {
       unit: "US power grid",
       buttonText: "US Grid",
-      base: 4_000_000_000_000,
+      base: 400_000_000_000,
       icon: "🇺🇸",
       explanation: "Compared to the entire United States power grid capacity",
       details: [
-        "Based on US annual electricity consumption",
-        "Represents power usage of world's largest economy",
+        "Based on US annual electricity consumption of ~4,000 TWh",
+        "Represents total power usage of United States",
         "Shows scale relative to a major nation's infrastructure"
       ]
     }
