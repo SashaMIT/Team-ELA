@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useHashrateData } from '../hooks/useHashrateData';
 interface Scale {
   unit: string;
   buttonText?: string;
@@ -98,8 +99,34 @@ const HashrateVisualizer: FC = () => {
     </div>
   );
 
-  const bitcoinHashrate = 671.05;
-  const elastosHashrate = 341.94;
+  const { data: hashrateData, isLoading, error } = useHashrateData();
+  const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
+  const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
+
+  if (isLoading) {
+    return (
+      <Card className="w-full max-w-3xl mx-auto">
+        <CardHeader className="p-4 sm:p-6">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 bg-accent/20 rounded-lg w-3/4"></div>
+            <div className="h-4 bg-accent/20 rounded w-1/2"></div>
+          </div>
+        </CardHeader>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card className="w-full max-w-3xl mx-auto">
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-red-500">
+            Error loading hashrate data. Please try again later.
+          </CardTitle>
+        </CardHeader>
+      </Card>
+    );
+  }
 
   const calculateEquivalent = (hashrate: number, base: number): number => {
     return (hashrate * 1_000_000_000_000) / base;
