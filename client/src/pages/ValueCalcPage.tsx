@@ -9,9 +9,16 @@ const ValueCalcPage = () => {
   const [marketPrice, setMarketPrice] = useState(1.78);
   const [estimatedValue, setEstimatedValue] = useState(0);
   const [potentialUpside, setPotentialUpside] = useState(0);
-  const [bitcoinPrice, setBitcoinPrice] = useState(69585);
+  const [bitcoinPrice, setBitcoinPrice] = useState(0);
 
-  const { data: hashrateData } = useHashrateData();
+  const { data: hashrateData, isLoading, error } = useHashrateData();
+
+  // Initialize bitcoinPrice when data is loaded
+  useEffect(() => {
+    if (hashrateData?.bitcoinPrice) {
+      setBitcoinPrice(hashrateData.bitcoinPrice);
+    }
+  }, [hashrateData?.bitcoinPrice]);
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 671.05;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 48.52;
 
