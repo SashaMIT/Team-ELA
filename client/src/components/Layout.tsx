@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Sidebar>
           <SidebarHeader className="flex items-center justify-between">
             <span className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
-              Blockchain Stats
+              Team ELA
             </span>
             <SidebarTrigger />
           </SidebarHeader>
