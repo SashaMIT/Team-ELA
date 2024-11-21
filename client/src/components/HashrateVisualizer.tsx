@@ -34,7 +34,7 @@ const HashrateVisualizer: FC = () => {
   
   const scales: Scales = {
     smartphones: {
-      unit: "iPhone calculations per second",
+      unit: "iPhone calculations",
       base: 15_000_000,
       icon: "📱",
       explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
