@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import SecurityPage from "./pages/SecurityPage";
+import ValueCalcPage from "./pages/ValueCalcPage";
 
 function Router() {
   return (
@@ -15,6 +16,7 @@ function Router() {
       <Switch>
         <Route path="/" component={HomePage} />
         <Route path="/security" component={SecurityPage} />
+        <Route path="/value-calc" component={ValueCalcPage} />
         <Route>404 Page Not Found</Route>
       </Switch>
     </Layout>

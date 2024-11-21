@@ -1,0 +1,168 @@
+import React, { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { ChevronDown, ChevronUp, Zap, Calculator, Cpu, Network, Server, DollarSign, BarChart2 } from 'lucide-react';
+
+const ElastosDashboard = () => {
+  // Original hashrateVisualizer state
+  const [selectedScale, setSelectedScale] = useState('smartphones');
+  const [showEHS, setShowEHS] = useState(false);
+  const [showMerge, setShowMerge] = useState(false);
+  
+  // Calculator state
+  const [bitcoinPrice, setBitcoinPrice] = useState(69585);
+  const [bitcoinHashrate, setBitcoinHashrate] = useState(671.05);
+  const [elastosHashrate, setElastosHashrate] = useState(48.52);
+  const [marketPrice, setMarketPrice] = useState(1.78);
+  const [estimatedValue, setEstimatedValue] = useState(0);
+  const [potentialUpside, setPotentialUpside] = useState(0);
+  const [showMethodology, setShowMethodology] = useState(false);
+
+  const elaSupply = 26.22; // ELA supply in millions
+
+  React.useEffect(() => {
+    calculateELAValue();
+  }, [bitcoinPrice, bitcoinHashrate, elastosHashrate, marketPrice]);
+
+  const calculateELAValue = () => {
+    const btcBlockReward = 3.125;
+    const blocksPerYear = 52560;
+    const annualBTCRewards = btcBlockReward * blocksPerYear;
+    const annualUSDRewards = annualBTCRewards * bitcoinPrice;
+    const elastosHashpowerValue = (annualUSDRewards * elastosHashrate) / 100;
+    const elaValue = elastosHashpowerValue / (elaSupply * 1000000);
+    setEstimatedValue(elaValue.toFixed(2));
+    setPotentialUpside(((elaValue / marketPrice - 1) * 100).toFixed(2));
+  };
+
+  // ... [Previous scales and helper functions from HashrateVisualizer remain the same] ...
+
+  return (
+    <div className="space-y-6 max-w-3xl mx-auto">
+      {/* First Card: Hashrate Visualization */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-2xl">
+            <Zap className="w-8 h-8 text-yellow-500" />
+            The Mind-Blowing Scale of Crypto Computing Power
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* ... [Previous hashrate visualization content] ... */}
+        </CardContent>
+      </Card>
+
+      {/* Second Card: Value Calculator */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-2xl">
+            <Calculator className="w-8 h-8 text-blue-500" />
+            Elastos Value Calculator
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            <p className="text-gray-700">
+              Calculate ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
+            </p>
+
+            <div className="bg-gray-50 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
+              <div className="flex items-center gap-2 mb-2">
+                <DollarSign className="w-6 h-6 text-green-500" />
+                <span>Estimated ELA Value: ${estimatedValue}</span>
+              </div>
+              <div className="text-lg text-green-600">
+                Potential Upside: {potentialUpside}%
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block mb-2 font-medium">
+                  Bitcoin Price (USD): ${bitcoinPrice.toLocaleString()}
+                </label>
+                <input
+                  type="range"
+                  min="10000"
+                  max="100000"
+                  value={bitcoinPrice}
+                  onChange={(e) => setBitcoinPrice(Number(e.target.value))}
+                  className="w-full h-2 bg-blue-100 rounded-lg appearance-none cursor-pointer"
+                />
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="font-medium">Bitcoin Hashrate (EH/s):</label>
+                  <input
+                    type="number"
+                    value={bitcoinHashrate}
+                    onChange={(e) => setBitcoinHashrate(Number(e.target.value))}
+                    className="w-24 p-2 border rounded"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <label className="font-medium">Elastos Hashrate (% of Bitcoin's):</label>
+                  <input
+                    type="number"
+                    value={elastosHashrate}
+                    onChange={(e) => setElastosHashrate(Number(e.target.value))}
+                    className="w-24 p-2 border rounded"
+                  />
+                </div>
+              </div>
+
+              <div className="bg-green-50 p-4 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <label className="font-medium">Current Market Price:</label>
+                  <input
+                    type="number"
+                    value={marketPrice}
+                    onChange={(e) => setMarketPrice(Number(e.target.value))}
+                    className="w-24 p-2 border rounded"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowMethodology(!showMethodology)}
+                className="w-full p-4 bg-gray-50 rounded-lg flex items-center justify-between hover:bg-gray-100 transition-colors"
+              >
+                <span className="flex items-center gap-2">
+                  <BarChart2 className="w-5 h-5" />
+                  Calculation Methodology
+                </span>
+                {showMethodology ? <ChevronUp /> : <ChevronDown />}
+              </button>
+
+              {showMethodology && (
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="font-bold mb-2">🧮 How it's calculated:</h3>
+                  <ol className="list-decimal pl-6 space-y-2">
+                    <li>
+                      <strong>Bitcoin Mining Rewards:</strong> 3.125 BTC per block,
+                      52,560 blocks per year = 164,250 BTC/year
+                    </li>
+                    <li>
+                      <strong>Annual Value:</strong> 164,250 BTC × Current Bitcoin Price
+                    </li>
+                    <li>
+                      <strong>Elastos Share:</strong> Annual Value × Elastos
+                      Hashrate %
+                    </li>
+                    <li>
+                      <strong>Per Token Value:</strong> Elastos Share ÷ Total
+                      Supply (26.22M)
+                    </li>
+                  </ol>
+                </div>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default ElastosDashboard;
