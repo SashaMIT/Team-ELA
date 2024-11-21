@@ -293,7 +293,7 @@ const HashrateVisualizer: FC = () => {
                     <div className="text-sm sm:text-base break-words pr-2">
                       {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                     </div>
-                    <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(2)} EH/s</div>
+                    <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(5)} EH/s</div>
                   </div>
                 </motion.div>
               </motion.div>
@@ -315,7 +315,7 @@ const HashrateVisualizer: FC = () => {
                     <div className="text-sm sm:text-base break-words pr-2">
                       {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                     </div>
-                    <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(2)} EH/s</div>
+                    <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(5)} EH/s</div>
                   </div>
                 </motion.div>
               </motion.div>
