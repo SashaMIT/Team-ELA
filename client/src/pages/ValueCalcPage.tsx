@@ -9,10 +9,10 @@ const ValueCalcPage = () => {
   const [estimatedValue, setEstimatedValue] = useState(0);
   const [potentialUpside, setPotentialUpside] = useState(0);
   const { data: hashrateData, isLoading, error } = useHashrateData();
-  const marketPrice = hashrateData?.elaPrice ?? 1.78;
-  const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 671.05;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 48.52;
+  const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
+  const marketPrice = hashrateData?.elaPrice ?? 1.78;
 
   const elaSupply = 26.22; // ELA supply in millions
 
@@ -72,9 +72,6 @@ const ValueCalcPage = () => {
                   <label className="font-medium">Bitcoin Price:</label>
                   <span>${bitcoinPrice.toLocaleString()}</span>
                 </div>
-              </div>
-
-              <div className="bg-accent/10 p-4 rounded-lg">
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Current Market Price:</label>
                   <span>${marketPrice.toFixed(2)}</span>
