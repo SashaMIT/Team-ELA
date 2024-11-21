@@ -4,6 +4,7 @@ interface HashrateData {
   bitcoinHashrate: number;
   elastosHashrate: number;
   bitcoinPrice: number;
+  elaPrice: number;
   isLoading: boolean;
   error: Error | null;
 }
@@ -26,6 +27,15 @@ const fetchBitcoinPrice = async (): Promise<number> => {
   }
   const price = await response.json();
   return Number(price);
+const fetchELAPrice = async (): Promise<number> => {
+  const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd');
+  if (!response.ok) {
+    throw new Error('Failed to fetch ELA price');
+  }
+  const data = await response.json();
+  return data.elastos.usd;
+};
+
 };
 
 export const useHashrateData = () => {
@@ -33,16 +43,18 @@ export const useHashrateData = () => {
     queryKey: ['hashrate-and-price'],
     queryFn: async () => {
       try {
-        const [bitcoinHashrate, bitcoinPrice] = await Promise.all([
+        const [bitcoinHashrate, bitcoinPrice, elaPrice] = await Promise.all([
           fetchHashrate(),
-          fetchBitcoinPrice()
+          fetchBitcoinPrice(),
+          fetchELAPrice()
         ]);
-        const elastosHashrate = bitcoinHashrate * 0.48; // Elastos hashrate is 48% of Bitcoin's
+        const elastosHashrate = bitcoinHashrate * 0.48;
         
         return {
           bitcoinHashrate,
           elastosHashrate,
           bitcoinPrice,
+          elaPrice,
           isLoading: false,
           error: null
         };

@@ -6,7 +6,7 @@ import { useHashrateData } from '../hooks/useHashrateData';
 const ValueCalcPage = () => {
   // Calculator state
   const [showMethodology, setShowMethodology] = useState(false);
-  const [marketPrice, setMarketPrice] = useState(1.78);
+  const marketPrice = hashrateData?.elaPrice ?? 1.78;
   const [estimatedValue, setEstimatedValue] = useState(0);
   const [potentialUpside, setPotentialUpside] = useState(0);
   const { data: hashrateData, isLoading, error } = useHashrateData();
@@ -77,12 +77,7 @@ const ValueCalcPage = () => {
               <div className="bg-accent/10 p-4 rounded-lg">
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Current Market Price:</label>
-                  <input
-                    type="number"
-                    value={marketPrice}
-                    onChange={(e) => setMarketPrice(Number(e.target.value))}
-                    className="w-24 p-2 border rounded"
-                  />
+                  <span>${marketPrice.toFixed(2)}</span>
                 </div>
               </div>
 
