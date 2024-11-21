@@ -170,7 +170,7 @@ const HashrateVisualizer: FC = () => {
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="p-4 sm:p-6 space-y-2">
         <CardTitle className="flex items-start gap-2 text-lg sm:text-xl">
-          <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500 shrink-0 mt-1" />
+          <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500 shrink-0 mt-1" />
           <span className="leading-tight bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
             The Mind-Blowing Scale of Bitcoin and Elastos' Computing Power
           </span>
