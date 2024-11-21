@@ -21,6 +21,7 @@ interface Scales {
   datacenters: Scale;
   supercomputers: Scale;
   electricity: Scale;
+  global: Scale;
 }
 
 interface DropdownSectionProps {
@@ -96,6 +97,18 @@ const HashrateVisualizer: FC = () => {
         "Based on 1GW nuclear reactor power output",
         "Shows energy consumption perspective",
         "Helps visualize the massive power requirements"
+      ]
+    },
+    global: {
+      unit: "Global power grid",
+      buttonText: "Global Grid",
+      base: 15_000_000_000_000,
+      icon: "🌍",
+      explanation: "Compared to the entire world's electrical grid capacity",
+      details: [
+        "Based on global annual electricity consumption",
+        "Puts network power in perspective of humanity's total power generation",
+        "Shows scale of cryptocurrency mining versus world energy usage"
       ]
     }
   };
