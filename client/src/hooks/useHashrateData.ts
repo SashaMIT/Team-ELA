@@ -23,35 +23,43 @@ const fetchHashrate = async (): Promise<number> => {
 };
 
 const fetchBitcoinPrice = async (): Promise<{ price: number; change24h: number }> => {
-  const [currentResponse, yesterdayResponse] = await Promise.all([
-    fetch('https://blockchain.info/q/24hrprice'),
-    fetch('https://blockchain.info/q/24hrago')
-  ]);
-  
-  if (!currentResponse.ok || !yesterdayResponse.ok) {
-    throw new Error('Failed to fetch Bitcoin price data');
+  try {
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch Bitcoin price: ${response.statusText}`);
+    }
+    const data = await response.json();
+    if (!data.bitcoin?.usd || !data.bitcoin?.usd_24h_change) {
+      throw new Error('Invalid Bitcoin price data format from API');
+    }
+    return {
+      price: data.bitcoin.usd,
+      change24h: Number(data.bitcoin.usd_24h_change.toFixed(2))
+    };
+  } catch (error) {
+    console.error('Bitcoin price fetch error:', error);
+    throw new Error(error instanceof Error ? error.message : 'Failed to fetch Bitcoin price data');
   }
-  
-  const currentPrice = await currentResponse.json();
-  const yesterdayPrice = await yesterdayResponse.json();
-  const priceChange = ((Number(currentPrice) - Number(yesterdayPrice)) / Number(yesterdayPrice)) * 100;
-  
-  return {
-    price: Number(currentPrice),
-    change24h: Number(priceChange.toFixed(2))
-  };
 };
 
 const fetchELAPrice = async (): Promise<{ price: number; change24h: number }> => {
-  const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd&include_24hr_change=true');
-  if (!response.ok) {
-    throw new Error('Failed to fetch ELA price');
+  try {
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd&include_24hr_change=true');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ELA price: ${response.statusText}`);
+    }
+    const data = await response.json();
+    if (!data.elastos?.usd || !data.elastos?.usd_24h_change) {
+      throw new Error('Invalid ELA price data format from API');
+    }
+    return {
+      price: data.elastos.usd,
+      change24h: Number(data.elastos.usd_24h_change.toFixed(2))
+    };
+  } catch (error) {
+    console.error('ELA price fetch error:', error);
+    throw new Error(error instanceof Error ? error.message : 'Failed to fetch ELA price data');
   }
-  const data = await response.json();
-  return {
-    price: data.elastos.usd,
-    change24h: Number(data.elastos.usd_24h_change.toFixed(2))
-  };
 };
 
 export const useHashrateData = () => {
