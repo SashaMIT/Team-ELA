@@ -90,13 +90,14 @@ const HashrateVisualizer: FC = () => {
     electricity: {
       unit: "Nuclear reactors",
       buttonText: "Nuclear Plants",
-      base: 300_000_000_000,
+      base: 16, // Based on actual Bitcoin energy consumption equivalent
       icon: "⚡",
-      explanation: "Equivalent to modern nuclear power plants (1GW average output)",
+      explanation: "Energy consumption equivalent to nuclear power plants (1GW average output) - This scale represents actual energy usage, not computational power",
       details: [
-        "Based on 1GW nuclear reactor continuous output",
-        "Shows energy consumption perspective",
-        "Helps visualize the massive power requirements"
+        "Based on actual Bitcoin energy consumption (~16 nuclear reactors)",
+        "This represents energy usage, not computational power",
+        "Helps understand real-world energy impact",
+        "Each reactor produces 1GW of power"
       ]
     },
     hydropower: {
@@ -171,7 +172,12 @@ const HashrateVisualizer: FC = () => {
     );
   }
 
-  const calculateEquivalent = (hashrate: number, base: number): number => {
+  const calculateEquivalent = (hashrate: number, base: number, scaleType: ScaleType): number => {
+    // Special handling for electricity scale - direct energy consumption comparison
+    if (scaleType === 'electricity') {
+      return base; // Return the actual number of nuclear reactors needed
+    }
+    // Normal hashrate-based calculation for other scales
     return (hashrate * 1_000_000_000_000) / base;
   };
 
@@ -305,7 +311,7 @@ const HashrateVisualizer: FC = () => {
                   <div className="p-4 text-black font-medium">
                     <div className="font-bold text-lg mb-1">Bitcoin Network</div>
                     <div className="text-sm sm:text-base break-words pr-2">
-                      {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
+                      {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base, selectedScale))} {scales[selectedScale].unit}
                     </div>
                     <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(5)} EH/s</div>
                   </div>
@@ -327,7 +333,7 @@ const HashrateVisualizer: FC = () => {
                   <div className="p-4 text-black font-medium">
                     <div className="font-bold text-lg mb-1">Elastos Network</div>
                     <div className="text-sm sm:text-base break-words pr-2">
-                      {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
+                      {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base, selectedScale))} {scales[selectedScale].unit}
                     </div>
                     <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(5)} EH/s</div>
                   </div>
