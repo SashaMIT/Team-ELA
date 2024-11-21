@@ -20,8 +20,6 @@ interface Scales {
   computers: Scale;
   datacenters: Scale;
   supercomputers: Scale;
-  electricity: Scale;
-  hydropower: Scale;
 }
 
 interface DropdownSectionProps {
@@ -85,33 +83,6 @@ const HashrateVisualizer: FC = () => {
         "World's first exascale computing system",
         "Located at Oak Ridge National Laboratory"
       ]
-    },
-    
-    electricity: {
-      unit: "Nuclear reactors",
-      buttonText: "Nuclear Plants",
-      base: 16, // Based on actual Bitcoin energy consumption equivalent
-      icon: "⚡",
-      explanation: "Energy consumption equivalent to nuclear power plants (1GW average output) - This scale represents actual energy usage, not computational power",
-      details: [
-        "Based on actual Bitcoin energy consumption (~16 nuclear reactors)",
-        "This represents energy usage, not computational power",
-        "Helps understand real-world energy impact",
-        "Each reactor produces 1GW of power"
-      ]
-    },
-    hydropower: {
-      unit: "Three Gorges Dams",
-      buttonText: "Hydropower",
-      base: 22_500_000_000,
-      icon: "💧",
-      explanation: "Compared to the Three Gorges Dam, world's largest hydroelectric power station",
-      details: [
-        "Three Gorges Dam: 22.5 GW capacity",
-        "World's largest hydroelectric power station",
-        "Located in China's Yangtze River",
-        "Powers millions of households"
-      ]
     }
   };
 
@@ -172,12 +143,7 @@ const HashrateVisualizer: FC = () => {
     );
   }
 
-  const calculateEquivalent = (hashrate: number, base: number, scaleType: ScaleType): number => {
-    // Special handling for electricity scale - direct energy consumption comparison
-    if (scaleType === 'electricity') {
-      return base; // Return the actual number of nuclear reactors needed
-    }
-    // Normal hashrate-based calculation for other scales
+  const calculateEquivalent = (hashrate: number, base: number): number => {
     return (hashrate * 1_000_000_000_000) / base;
   };
 
