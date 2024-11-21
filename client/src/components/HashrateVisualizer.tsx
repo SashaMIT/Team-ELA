@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 interface Scale {
   unit: string;
+  buttonText?: string;
   base: number;
   icon: string;
   explanation: string;
@@ -35,6 +36,7 @@ const HashrateVisualizer: FC = () => {
   const scales: Scales = {
     smartphones: {
       unit: "iPhone calculations",
+      buttonText: "iPhone calculations per second",
       base: 15_000_000,
       icon: "📱",
       explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
@@ -212,7 +214,7 @@ const HashrateVisualizer: FC = () => {
                   )}
                 >
                   <span>{icon}</span>
-                  <span className="text-sm">{unit}</span>
+                  <span className="text-sm">{scales[key].buttonText || unit}</span>
                 </Button>
               ))}
             </div>
