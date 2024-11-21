@@ -180,20 +180,10 @@ const HashrateVisualizer: FC = () => {
         <div className="space-y-6">
           <div className="space-y-4">
             <div>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <h3 className="font-bold mb-2 flex items-center gap-2 text-lg group cursor-help">
-                      <Calculator className="w-5 h-5 text-blue-500" />
-                      What is Hashrate?
-                      <InfoIcon className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </h3>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-[250px]">
-                    <p className="text-sm">Click to learn more about hashrate and its importance in cryptocurrency networks.</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <h3 className="font-bold mb-2 flex items-center gap-2 text-lg">
+                <Calculator className="w-5 h-5 text-blue-500" />
+                What is Hashrate?
+              </h3>
               <div className="text-muted-foreground space-y-2">
                 <p>
                   Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
@@ -313,7 +303,7 @@ const HashrateVisualizer: FC = () => {
                             <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(5)} EH/s</div>
                           </div>
                         </TooltipTrigger>
-                        <TooltipContent side="right" className="max-w-[250px]">
+                        <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
                           <p className="text-sm">Bitcoin's network hashrate represents the total computing power securing the blockchain. Higher hashrate means better security.</p>
                         </TooltipContent>
                       </Tooltip>
@@ -346,7 +336,7 @@ const HashrateVisualizer: FC = () => {
                             <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(5)} EH/s</div>
                           </div>
                         </TooltipTrigger>
-                        <TooltipContent side="right" className="max-w-[250px]">
+                        <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
                           <p className="text-sm">Elastos leverages merge mining with Bitcoin, sharing about 48% of Bitcoin's hashrate for enhanced security without additional energy consumption.</p>
                         </TooltipContent>
                       </Tooltip>
