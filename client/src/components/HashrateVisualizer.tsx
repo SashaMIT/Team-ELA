@@ -19,6 +19,9 @@ interface Scales {
   smartphones: Scale;
   computers: Scale;
   datacenters: Scale;
+  supercomputers: Scale;
+  cloud: Scale;
+  electricity: Scale;
 }
 
 interface DropdownSectionProps {
@@ -37,7 +40,7 @@ const HashrateVisualizer: FC = () => {
   const scales: Scales = {
     smartphones: {
       unit: "iPhone calculations",
-      buttonText: "iPhone calculations per second",
+      buttonText: "iPhones",
       base: 15_000_000,
       icon: "📱",
       explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
@@ -49,6 +52,7 @@ const HashrateVisualizer: FC = () => {
     },
     computers: {
       unit: "High-end gaming PCs",
+      buttonText: "Gaming PCs",
       base: 160_000_000,
       icon: "💻",
       explanation: "Based on RTX 4090 (~140 MH/s) + CPU (~20 MH/s) for SHA-256",
@@ -60,6 +64,7 @@ const HashrateVisualizer: FC = () => {
     },
     datacenters: {
       unit: "Large data centers",
+      buttonText: "Data Centers",
       base: 500_000_000_000,
       icon: "🏢",
       explanation: "Based on data center with 1000 servers with multiple GPUs",
@@ -67,6 +72,42 @@ const HashrateVisualizer: FC = () => {
         "1 EH/s = 1,000,000,000,000 MH/s",
         "Data center hashrate: ~500 GH/s",
         "Based on enterprise-scale operation with 1000+ servers"
+      ]
+    },
+    supercomputers: {
+      unit: "Frontier Supercomputers",
+      buttonText: "Supercomputers",
+      base: 1_500_000_000_000,
+      icon: "🖥️",
+      explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
+      details: [
+        "Frontier: 1.5 EH/s theoretical peak performance",
+        "World's first exascale computing system",
+        "Located at Oak Ridge National Laboratory"
+      ]
+    },
+    cloud: {
+      unit: "AWS data centers",
+      buttonText: "AWS Centers",
+      base: 2_000_000_000_000,
+      icon: "☁️",
+      explanation: "Compared to estimated AWS global infrastructure performance",
+      details: [
+        "Based on estimated AWS global infrastructure",
+        "Includes all AWS regions combined",
+        "Theoretical peak performance across all services"
+      ]
+    },
+    electricity: {
+      unit: "Nuclear reactors",
+      buttonText: "Nuclear Plants",
+      base: 3_600_000_000_000,
+      icon: "⚡",
+      explanation: "Equivalent to modern nuclear power plants (1GW average output)",
+      details: [
+        "Based on 1GW nuclear reactor power output",
+        "Shows energy consumption perspective",
+        "Helps visualize the massive power requirements"
       ]
     }
   };
