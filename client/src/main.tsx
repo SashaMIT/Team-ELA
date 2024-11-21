@@ -5,14 +5,19 @@ import "./index.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
+import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
+import SecurityPage from "./pages/SecurityPage";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={HomePage} />
-      <Route>404 Page Not Found</Route>
-    </Switch>
+    <Layout>
+      <Switch>
+        <Route path="/" component={HomePage} />
+        <Route path="/security" component={SecurityPage} />
+        <Route>404 Page Not Found</Route>
+      </Switch>
+    </Layout>
   );
 }
 
