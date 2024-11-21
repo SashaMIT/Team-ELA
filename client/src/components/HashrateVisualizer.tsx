@@ -258,19 +258,19 @@ const HashrateVisualizer: FC = () => {
               Compare to everyday devices:
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-2 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
               {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit }]) => (
                 <Button
                   key={key}
                   variant={selectedScale === key ? "default" : "outline"}
                   onClick={() => setSelectedScale(key)}
                   className={cn(
-                    "flex-1 gap-2",
+                    "w-full gap-2 min-h-[2.5rem] px-2 py-1",
                     selectedScale === key && "shadow-lg"
                   )}
                 >
                   <span>{icon}</span>
-                  <span className="text-sm">{scales[key].buttonText || unit}</span>
+                  <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
                 </Button>
               ))}
             </div>
@@ -293,7 +293,7 @@ const HashrateVisualizer: FC = () => {
                     <div className="text-sm sm:text-base break-words pr-2">
                       {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                     </div>
-                    <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate} EH/s</div>
+                    <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(2)} EH/s</div>
                   </div>
                 </motion.div>
               </motion.div>
@@ -315,7 +315,7 @@ const HashrateVisualizer: FC = () => {
                     <div className="text-sm sm:text-base break-words pr-2">
                       {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                     </div>
-                    <div className="text-xs sm:text-sm mt-1">{elastosHashrate} EH/s</div>
+                    <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(2)} EH/s</div>
                   </div>
                 </motion.div>
               </motion.div>
