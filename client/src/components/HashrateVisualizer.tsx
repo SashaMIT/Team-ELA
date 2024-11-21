@@ -21,7 +21,7 @@ interface Scales {
   datacenters: Scale;
   supercomputers: Scale;
   electricity: Scale;
-  global: Scale;
+  country: Scale;
 }
 
 interface DropdownSectionProps {
@@ -99,16 +99,16 @@ const HashrateVisualizer: FC = () => {
         "Helps visualize the massive power requirements"
       ]
     },
-    global: {
-      unit: "Global power grid",
-      buttonText: "Global Grid",
-      base: 15_000_000_000_000,
-      icon: "🌍",
-      explanation: "Compared to the entire world's electrical grid capacity",
+    country: {
+      unit: "US power grid",
+      buttonText: "US Grid",
+      base: 4_000_000_000_000,
+      icon: "🇺🇸",
+      explanation: "Compared to the entire United States power grid capacity",
       details: [
-        "Based on global annual electricity consumption",
-        "Puts network power in perspective of humanity's total power generation",
-        "Shows scale of cryptocurrency mining versus world energy usage"
+        "Based on US annual electricity consumption",
+        "Represents power usage of world's largest economy",
+        "Shows scale relative to a major nation's infrastructure"
       ]
     }
   };
