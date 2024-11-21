@@ -5,6 +5,8 @@ interface HashrateData {
   elastosHashrate: number;
   bitcoinPrice: number;
   elaPrice: number;
+  bitcoinPriceChange24h: number;
+  elaPriceChange24h: number;
   isLoading: boolean;
   error: Error | null;
 }
@@ -20,22 +22,36 @@ const fetchHashrate = async (): Promise<number> => {
   return Number(formatted);
 };
 
-const fetchBitcoinPrice = async (): Promise<number> => {
-  const response = await fetch('https://blockchain.info/q/24hrprice');
-  if (!response.ok) {
-    throw new Error('Failed to fetch Bitcoin price');
+const fetchBitcoinPrice = async (): Promise<{ price: number; change24h: number }> => {
+  const [currentResponse, yesterdayResponse] = await Promise.all([
+    fetch('https://blockchain.info/q/24hrprice'),
+    fetch('https://blockchain.info/q/24hrago')
+  ]);
+  
+  if (!currentResponse.ok || !yesterdayResponse.ok) {
+    throw new Error('Failed to fetch Bitcoin price data');
   }
-  const price = await response.json();
-  return Number(price);
+  
+  const currentPrice = await currentResponse.json();
+  const yesterdayPrice = await yesterdayResponse.json();
+  const priceChange = ((Number(currentPrice) - Number(yesterdayPrice)) / Number(yesterdayPrice)) * 100;
+  
+  return {
+    price: Number(currentPrice),
+    change24h: Number(priceChange.toFixed(2))
+  };
 };
 
-const fetchELAPrice = async (): Promise<number> => {
-  const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd');
+const fetchELAPrice = async (): Promise<{ price: number; change24h: number }> => {
+  const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd&include_24hr_change=true');
   if (!response.ok) {
     throw new Error('Failed to fetch ELA price');
   }
   const data = await response.json();
-  return data.elastos.usd;
+  return {
+    price: data.elastos.usd,
+    change24h: Number(data.elastos.usd_24h_change.toFixed(2))
+  };
 };
 
 export const useHashrateData = () => {
@@ -43,7 +59,7 @@ export const useHashrateData = () => {
     queryKey: ['hashrate-and-price'],
     queryFn: async () => {
       try {
-        const [bitcoinHashrate, bitcoinPrice, elaPrice] = await Promise.all([
+        const [bitcoinHashrate, bitcoinPriceData, elaPriceData] = await Promise.all([
           fetchHashrate(),
           fetchBitcoinPrice(),
           fetchELAPrice()
@@ -52,9 +68,11 @@ export const useHashrateData = () => {
         
         return {
           bitcoinHashrate,
-          elastosHashrate,
-          bitcoinPrice,
-          elaPrice,
+          elastosHashrate: bitcoinHashrate * 0.48,
+          bitcoinPrice: bitcoinPriceData.price,
+          elaPrice: elaPriceData.price,
+          bitcoinPriceChange24h: bitcoinPriceData.change24h,
+          elaPriceChange24h: elaPriceData.change24h,
           isLoading: false,
           error: null
         };

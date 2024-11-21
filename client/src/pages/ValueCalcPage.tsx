@@ -13,6 +13,8 @@ const ValueCalcPage = () => {
   const elastosHashrate = hashrateData?.elastosHashrate ?? 48.52;
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const marketPrice = hashrateData?.elaPrice ?? 1.78;
+  const bitcoinPriceChange = hashrateData?.bitcoinPriceChange24h ?? 0;
+  const marketPriceChange = hashrateData?.elaPriceChange24h ?? 0;
 
   const elaSupply = 26.22; // ELA supply in millions
 
@@ -70,11 +72,23 @@ const ValueCalcPage = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Bitcoin Price:</label>
-                  <span>${bitcoinPrice.toLocaleString()}</span>
+                  <div className="flex items-center gap-2">
+                    <span>${bitcoinPrice.toLocaleString()}</span>
+                    <span className={`flex items-center text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      {Math.abs(bitcoinPriceChange)}%
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Current Market Price:</label>
-                  <span>${marketPrice.toFixed(2)}</span>
+                  <div className="flex items-center gap-2">
+                    <span>${marketPrice.toFixed(2)}</span>
+                    <span className={`flex items-center text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {marketPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      {Math.abs(marketPriceChange)}%
+                    </span>
+                  </div>
                 </div>
               </div>
 
