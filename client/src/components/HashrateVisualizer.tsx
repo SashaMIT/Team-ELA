@@ -97,7 +97,7 @@ const HashrateVisualizer: FC = () => {
   );
 
   const bitcoinHashrate = 671.05;
-  const elastosHashrate = 325.63;
+  const elastosHashrate = 341.94;
 
   const calculateEquivalent = (hashrate, base) => {
     return (hashrate * 1_000_000_000_000) / base;
