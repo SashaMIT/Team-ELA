@@ -21,7 +21,7 @@ interface Scales {
   datacenters: Scale;
   supercomputers: Scale;
   electricity: Scale;
-  country: Scale;
+  hydropower: Scale;
 }
 
 interface DropdownSectionProps {
@@ -99,16 +99,17 @@ const HashrateVisualizer: FC = () => {
         "Helps visualize the massive power requirements"
       ]
     },
-    country: {
-      unit: "US power grid",
-      buttonText: "US Grid",
-      base: 400_000_000_000,
-      icon: "🇺🇸",
-      explanation: "Compared to the entire United States power grid capacity",
+    hydropower: {
+      unit: "Three Gorges Dams",
+      buttonText: "Hydropower",
+      base: 22_500_000_000,
+      icon: "💧",
+      explanation: "Compared to the Three Gorges Dam, world's largest hydroelectric power station",
       details: [
-        "Based on US annual electricity consumption of ~4,000 TWh",
-        "Represents total power usage of United States",
-        "Shows scale relative to a major nation's infrastructure"
+        "Three Gorges Dam: 22.5 GW capacity",
+        "World's largest hydroelectric power station",
+        "Located in China's Yangtze River",
+        "Powers millions of households"
       ]
     }
   };
