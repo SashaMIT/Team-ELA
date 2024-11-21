@@ -1,6 +1,12 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ChevronDown, ChevronUp, Zap, Calculator, Cpu, Network, Server } from 'lucide-react';
+import { ChevronDown, ChevronUp, Zap, Calculator, Cpu, Network, Server, InfoIcon } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -174,10 +180,20 @@ const HashrateVisualizer: FC = () => {
         <div className="space-y-6">
           <div className="space-y-4">
             <div>
-              <h3 className="font-bold mb-2 flex items-center gap-2 text-lg">
-                <Calculator className="w-5 h-5 text-blue-500" />
-                What is Hashrate?
-              </h3>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <h3 className="font-bold mb-2 flex items-center gap-2 text-lg group cursor-help">
+                      <Calculator className="w-5 h-5 text-blue-500" />
+                      What is Hashrate?
+                      <InfoIcon className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </h3>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-[250px]">
+                    <p className="text-sm">Click to learn more about hashrate and its importance in cryptocurrency networks.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               <div className="text-muted-foreground space-y-2">
                 <p>
                   Hashrate is the speed at which a computer can make calculations. In cryptocurrency networks, these calculations are called "hashes" - think of them like extremely complex math puzzles that computers solve to secure the network.
@@ -245,19 +261,27 @@ const HashrateVisualizer: FC = () => {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
-              {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit }]) => (
-                <Button
-                  key={key}
-                  variant={selectedScale === key ? "default" : "outline"}
-                  onClick={() => setSelectedScale(key)}
-                  className={cn(
-                    "w-full gap-2 min-h-[2.5rem] px-2 py-1",
-                    selectedScale === key && "shadow-lg"
-                  )}
-                >
-                  <span>{icon}</span>
-                  <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
-                </Button>
+              {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
+                <TooltipProvider key={key}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant={selectedScale === key ? "default" : "outline"}
+                        onClick={() => setSelectedScale(key)}
+                        className={cn(
+                          "w-full gap-2 min-h-[2.5rem] px-2 py-1",
+                          selectedScale === key && "shadow-lg"
+                        )}
+                      >
+                        <span>{icon}</span>
+                        <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-[200px] text-sm">
+                      {explanation}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ))}
             </div>
 
@@ -275,11 +299,22 @@ const HashrateVisualizer: FC = () => {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="p-4 text-black font-medium">
-                    <div className="font-bold text-lg mb-1">Bitcoin Network</div>
-                    <div className="text-sm sm:text-base break-words pr-2">
-                      {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base, selectedScale))} {scales[selectedScale].unit}
-                    </div>
-                    <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(5)} EH/s</div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div>
+                            <div className="font-bold text-lg mb-1">Bitcoin Network</div>
+                            <div className="text-sm sm:text-base break-words pr-2">
+                              {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
+                            </div>
+                            <div className="text-xs sm:text-sm mt-1">{bitcoinHashrate.toFixed(5)} EH/s</div>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-[250px]">
+                          <p className="text-sm">Bitcoin's network hashrate represents the total computing power securing the blockchain. Higher hashrate means better security.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </motion.div>
               </motion.div>
@@ -297,11 +332,22 @@ const HashrateVisualizer: FC = () => {
                   transition={{ duration: 0.5, delay: 0.2 }}
                 >
                   <div className="p-4 text-black font-medium">
-                    <div className="font-bold text-lg mb-1">Elastos Network</div>
-                    <div className="text-sm sm:text-base break-words pr-2">
-                      {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base, selectedScale))} {scales[selectedScale].unit}
-                    </div>
-                    <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(5)} EH/s</div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div>
+                            <div className="font-bold text-lg mb-1">Elastos Network</div>
+                            <div className="text-sm sm:text-base break-words pr-2">
+                              {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
+                            </div>
+                            <div className="text-xs sm:text-sm mt-1">{elastosHashrate.toFixed(5)} EH/s</div>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-[250px]">
+                          <p className="text-sm">Elastos leverages merge mining with Bitcoin, sharing about 48% of Bitcoin's hashrate for enhanced security without additional energy consumption.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </motion.div>
               </motion.div>
