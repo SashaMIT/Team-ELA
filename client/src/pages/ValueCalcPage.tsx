@@ -9,16 +9,8 @@ const ValueCalcPage = () => {
   const [marketPrice, setMarketPrice] = useState(1.78);
   const [estimatedValue, setEstimatedValue] = useState(0);
   const [potentialUpside, setPotentialUpside] = useState(0);
-  const [bitcoinPrice, setBitcoinPrice] = useState(0);
-
   const { data: hashrateData, isLoading, error } = useHashrateData();
-
-  // Initialize bitcoinPrice when data is loaded
-  useEffect(() => {
-    if (hashrateData?.bitcoinPrice) {
-      setBitcoinPrice(hashrateData.bitcoinPrice);
-    }
-  }, [hashrateData?.bitcoinPrice]);
+  const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 671.05;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 48.52;
 
@@ -67,18 +59,19 @@ const ValueCalcPage = () => {
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="block mb-2 font-medium">
-                  Bitcoin Price (USD): ${bitcoinPrice.toLocaleString()}
-                </label>
-                <input
-                  type="range"
-                  min="10000"
-                  max="100000"
-                  value={bitcoinPrice}
-                  onChange={(e) => setBitcoinPrice(Number(e.target.value))}
-                  className="w-full h-2 bg-accent/20 rounded-lg appearance-none cursor-pointer"
-                />
+              <div className="bg-blue-50 p-4 rounded-lg space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="font-medium">Bitcoin Hashrate:</label>
+                  <span>{bitcoinHashrate.toFixed(2)} EH/s</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <label className="font-medium">Elastos Hashrate:</label>
+                  <span>{elastosHashrate.toFixed(2)} EH/s</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <label className="font-medium">Bitcoin Price:</label>
+                  <span>${bitcoinPrice.toLocaleString()}</span>
+                </div>
               </div>
 
               <div className="bg-accent/10 p-4 rounded-lg">
