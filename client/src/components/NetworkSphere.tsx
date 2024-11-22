@@ -10,13 +10,27 @@ const NetworkSphere: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size based on container
+    // Set canvas size based on container while maintaining aspect ratio
     const resizeCanvas = () => {
       const container = canvas.parentElement;
       if (!container) return;
       
-      canvas.width = Math.min(400, container.offsetWidth);
-      canvas.height = Math.min(400, container.offsetWidth);
+      const size = Math.min(400, container.offsetWidth);
+      canvas.width = size;
+      canvas.height = size;
+      
+      // Ensure proper DPI scaling
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      
+      if (ctx) {
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, size, size);
+      }
+      
+      canvas.style.width = `${size}px`;
+      canvas.style.height = `${size}px`;
     };
 
     resizeCanvas();
@@ -220,11 +234,17 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[400px] aspect-square">
+    <div className="w-full aspect-square">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ maxWidth: '100%', maxHeight: '100%' }}
+        style={{ 
+          width: '100%',
+          height: '100%',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          display: 'block'
+        }}
       />
     </div>
   );
