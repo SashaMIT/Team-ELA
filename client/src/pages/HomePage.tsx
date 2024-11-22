@@ -1,13 +1,7 @@
 import React from 'react';
 import NetworkSphere from '../components/NetworkSphere';
 import { useHashrateData } from '../hooks/useHashrateData';
-import { ChevronUp, ChevronDown, ChevronRight } from 'lucide-react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ChevronUp, ChevronDown } from 'lucide-react';
 
 const HomePage = () => {
   const { data: hashrateData } = useHashrateData();
@@ -55,7 +49,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="max-w-[800px] w-full flex flex-col items-center space-y-8 px-4">
         <div className="max-w-[250px] w-full">
           <NetworkSphere />
@@ -69,90 +63,34 @@ const HomePage = () => {
           </p>
         </div>
         
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="stats" className="border rounded-lg shadow-sm overflow-hidden">
-            <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
-              <span className="flex items-center gap-2">
-                <ChevronRight className="w-5 h-5" />
-                Network Statistics
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="px-4 py-3">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Bitcoin Stats */}
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Bitcoin Price</span>
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">${bitcoinPrice.toLocaleString()}</span>
-                        {typeof bitcoinPriceChange === 'number' && (
-                          <span className={`flex items-center text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                            {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                            {Math.abs(bitcoinPriceChange)}%
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">Supply</span>
-                        <span className="font-semibold">21 Million</span>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <span className="text-sm text-muted-foreground">Hashrate</span>
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm font-semibold">{bitcoinHashrate.toFixed(2)} EH/s</span>
-                        <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
-                          <div className="h-full w-full bg-green-500 rounded-full" />
-                        </div>
-                        <span className="text-sm">100%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Elastos Stats */}
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Elastos Price</span>
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">${elaPrice.toFixed(2)}</span>
-                        {typeof elaPriceChange === 'number' && (
-                          <span className={`flex items-center text-sm ${elaPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                            {elaPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                            {Math.abs(elaPriceChange)}%
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">Supply</span>
-                        <span className="font-semibold">28.22 Million</span>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <span className="text-sm text-muted-foreground">Hashrate</span>
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm font-semibold">{elastosHashrate.toFixed(2)} EH/s</span>
-                        <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-green-500 rounded-full transition-all duration-500"
-                            style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                          />
-                        </div>
-                        <span className="text-sm">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+          {stats.map((stat, index) => (
+            <div 
+              key={index}
+              className="bg-accent/10 p-4 rounded-lg space-y-2"
+            >
+              <div className="text-sm text-muted-foreground">
+                {stat.label}
               </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+              <div className="flex items-center justify-between">
+                <div className="font-semibold text-lg">
+                  {stat.value}
+                </div>
+                {stat.showChange && (
+                  <span className={`flex items-center text-sm ${stat.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {stat.change >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    {Math.abs(stat.change)}%
+                  </span>
+                )}
+                {stat.subValue && (
+                  <span className="text-sm text-muted-foreground">
+                    {stat.subValue}
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
