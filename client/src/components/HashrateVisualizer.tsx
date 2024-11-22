@@ -184,23 +184,27 @@ const HashrateVisualizer = () => {
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
           <div className="space-y-4">
-            <div>
-              <h3 className="font-bold mb-2 flex items-center gap-2 text-lg">
-                <Calculator className="w-5 h-5 text-blue-500" />
-                What is Hashrate?
-              </h3>
-              <div className="text-muted-foreground space-y-2">
-                <p>
-                  Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
-                </p>
-                <p>
-                  A higher hashrate means more computational power, making the network stronger and more secure against attacks, such as a 51% attack, where an entity could potentially control the network. This immense computational effort creates trust and ensures the network remains decentralized and tamper-proof.
-                </p>
-                <p>
-                  Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
-                </p>
-              </div>
-            </div>
+            <AccordionItem value="hashrate" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50 [&[data-state=open]>svg]:rotate-180">
+                  <span className="flex items-center gap-2">
+                    <Calculator className="w-5 h-5 text-blue-500" />
+                    What is Hashrate?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="text-muted-foreground space-y-2">
+                    <p>
+                      Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
+                    </p>
+                    <p>
+                      A higher hashrate means more computational power, making the network stronger and more secure against attacks, such as a 51% attack, where an entity could potentially control the network. This immense computational effort creates trust and ensures the network remains decentralized and tamper-proof.
+                    </p>
+                    <p>
+                      Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
             
             <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="ehs" className="border rounded-lg shadow-sm overflow-hidden bg-card">
