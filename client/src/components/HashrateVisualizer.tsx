@@ -11,10 +11,11 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 import { useHashrateData } from '../hooks/useHashrateData';
 interface Scale {
@@ -150,18 +151,15 @@ const HashrateVisualizer = () => {
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
           <div className="space-y-4">
-            <div className="space-y-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="w-full flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <Calculator className="w-5 h-5 text-blue-500" />
-                      What is Hashrate?
-                    </span>
-                    <ChevronDown className="w-4 h-4 ml-2" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-full max-w-[600px] p-4">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="hashrate" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Calculator className="w-5 h-5 text-blue-500" />
+                    What is Hashrate?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
                   <div className="text-muted-foreground space-y-2">
                     <p>
                       Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
@@ -173,20 +171,17 @@ const HashrateVisualizer = () => {
                       Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
                     </p>
                   </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </AccordionContent>
+              </AccordionItem>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="w-full flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <Cpu className="w-5 h-5 text-purple-500" />
-                      What is EH/s?
-                    </span>
-                    <ChevronDown className="w-4 h-4 ml-2" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-full max-w-[600px] p-4">
+              <AccordionItem value="ehs" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Cpu className="w-5 h-5 text-purple-500" />
+                    What is EH/s?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
                   <div className="text-muted-foreground">
                     <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
                     <ul className="list-disc ml-6 mt-2 space-y-1">
@@ -201,20 +196,17 @@ const HashrateVisualizer = () => {
                       So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
                     </p>
                   </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </AccordionContent>
+              </AccordionItem>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="w-full flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <Network className="w-5 h-5 text-green-500" />
-                      What is Merge Mining?
-                    </span>
-                    <ChevronDown className="w-4 h-4 ml-2" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-full max-w-[600px] p-4">
+              <AccordionItem value="merge" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Network className="w-5 h-5 text-green-500" />
+                    What is Merge Mining?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
                   <div className="text-muted-foreground">
                     <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
                     <ul className="list-disc ml-6 mt-2 space-y-1">
@@ -226,9 +218,9 @@ const HashrateVisualizer = () => {
                       This is why Elastos's hashrate is so high - it's effectively borrowing roughly 48% of Bitcoin's massive mining power through merge mining!
                     </p>
                   </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
 
           <div className="space-y-4">
