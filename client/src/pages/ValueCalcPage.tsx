@@ -127,38 +127,35 @@ const ValueCalcPage = () => {
                 </div>
               </div>
 
-              <button
-                onClick={() => setShowMethodology(!showMethodology)}
-                className="w-full p-4 bg-accent/10 rounded-lg flex items-center justify-between hover:bg-accent/20 transition-colors"
-              >
-                <span className="flex items-center gap-2">
-                  <BarChart2 className="w-5 h-5" />
-                  Calculation Methodology
-                </span>
-                {showMethodology ? <ChevronUp /> : <ChevronDown />}
-              </button>
-
-              {showMethodology && (
-                <div className="bg-accent/10 p-4 rounded-lg">
-                  <h3 className="font-bold mb-2">🧮 How it's calculated:</h3>
-                  <ol className="list-decimal pl-6 space-y-2 text-muted-foreground">
-                    <li>
-                      <strong>Bitcoin Mining Rewards:</strong> 3.125 BTC per block,
-                      52,560 blocks per year = 164,250 BTC/year
-                    </li>
-                    <li>
-                      <strong>Annual Value:</strong> 164,250 BTC × Current Bitcoin Price
-                    </li>
-                    <li>
-                      <strong>Elastos Share:</strong> Annual Value × (Elastos Hashrate / Bitcoin Hashrate)
-                    </li>
-                    <li>
-                      <strong>Per Token Value:</strong> Elastos Share ÷ Total
-                      Supply (26.22M)
-                    </li>
-                  </ol>
-                </div>
-              )}
+              <AccordionItem value="methodology" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <BarChart2 className="w-5 h-5" />
+                    Calculation Methodology
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="text-muted-foreground space-y-4">
+                    <h3 className="font-bold text-foreground">🧮 How it's calculated:</h3>
+                    <ol className="list-decimal pl-6 space-y-2">
+                      <li>
+                        <strong>Bitcoin Mining Rewards:</strong> 3.125 BTC per block,
+                        52,560 blocks per year = 164,250 BTC/year
+                      </li>
+                      <li>
+                        <strong>Annual Value:</strong> 164,250 BTC × Current Bitcoin Price
+                      </li>
+                      <li>
+                        <strong>Elastos Share:</strong> Annual Value × (Elastos Hashrate / Bitcoin Hashrate)
+                      </li>
+                      <li>
+                        <strong>Per Token Value:</strong> Elastos Share ÷ Total
+                        Supply (26.22M)
+                      </li>
+                    </ol>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
             </div>
           </div>
         </CardContent>
