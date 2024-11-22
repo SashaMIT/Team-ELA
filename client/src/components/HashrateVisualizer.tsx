@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ChevronDown, ChevronUp, Zap, Calculator, Cpu, Network, Server, InfoIcon } from 'lucide-react';
+import { Zap, Calculator, Cpu, Network, Server, ChevronUp, ChevronDown } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -10,6 +10,19 @@ import {
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+
+interface DropdownSectionProps {
+  title: React.ReactNode;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  children: React.ReactNode;
+}
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 import { useHashrateData } from '../hooks/useHashrateData';
 interface Scale {
@@ -28,18 +41,10 @@ interface Scales {
   supercomputers: Scale;
 }
 
-interface DropdownSectionProps {
-  title: React.ReactNode;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  children: React.ReactNode;
-}
-
 type ScaleType = keyof Scales;
-const HashrateVisualizer: FC = () => {
+
+const HashrateVisualizer = () => {
   const [selectedScale, setSelectedScale] = useState<ScaleType>('smartphones');
-  const [showEHS, setShowEHS] = useState(false);
-  const [showMerge, setShowMerge] = useState(false);
   
   const scales: Scales = {
     smartphones: {
@@ -197,54 +202,54 @@ const HashrateVisualizer: FC = () => {
               </div>
             </div>
             
-            <DropdownSection 
-              title={
-                <span className="flex items-center gap-2">
-                  <Cpu className="w-5 h-5 text-purple-500" />
-                  What is EH/s?
-                </span>
-              }
-              isOpen={showEHS}
-              setIsOpen={setShowEHS}
-            >
-              <div className="text-muted-foreground">
-                <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
-                <ul className="list-disc ml-6 mt-2 space-y-1">
-                  <li>1 Hash = 1 calculation</li>
-                  <li>1 MegaHash (MH) = 1 million hashes</li>
-                  <li>1 GigaHash (GH) = 1 billion hashes</li>
-                  <li>1 TeraHash (TH) = 1 trillion hashes</li>
-                  <li>1 PetaHash (PH) = 1,000 trillion hashes</li>
-                  <li>1 ExaHash (EH) = 1,000,000 trillion hashes</li>
-                </ul>
-                <p className="mt-2">
-                  So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
-                </p>
-              </div>
-            </DropdownSection>
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="ehs" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50 [&[data-state=open]>svg]:rotate-180">
+                  <span className="flex items-center gap-2">
+                    <Cpu className="w-5 h-5 text-purple-500" />
+                    What is EH/s?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="text-muted-foreground">
+                    <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
+                    <ul className="list-disc ml-6 mt-2 space-y-1">
+                      <li>1 Hash = 1 calculation</li>
+                      <li>1 MegaHash (MH) = 1 million hashes</li>
+                      <li>1 GigaHash (GH) = 1 billion hashes</li>
+                      <li>1 TeraHash (TH) = 1 trillion hashes</li>
+                      <li>1 PetaHash (PH) = 1,000 trillion hashes</li>
+                      <li>1 ExaHash (EH) = 1,000,000 trillion hashes</li>
+                    </ul>
+                    <p className="mt-2">
+                      So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
 
-            <DropdownSection
-              title={
-                <span className="flex items-center gap-2">
-                  <Network className="w-5 h-5 text-green-500" />
-                  What is Merge Mining?
-                </span>
-              }
-              isOpen={showMerge}
-              setIsOpen={setShowMerge}
-            >
-              <div className="text-muted-foreground">
-                <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
-                <ul className="list-disc ml-6 mt-2 space-y-1">
-                  <li>When a miner solves a block for Bitcoin, they can reuse that same work to mine Elastos blocks</li>
-                  <li>This means Elastos gets Bitcoin's security without requiring extra energy</li>
-                  <li>It's like getting two rewards for doing one job</li>
-                </ul>
-                <p className="mt-2">
-                  This is why Elastos's hashrate is so high - it's effectively borrowing roughly 48% of Bitcoin's massive mining power through merge mining!
-                </p>
-              </div>
-            </DropdownSection>
+              <AccordionItem value="merge" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50 [&[data-state=open]>svg]:rotate-180">
+                  <span className="flex items-center gap-2">
+                    <Network className="w-5 h-5 text-green-500" />
+                    What is Merge Mining?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="text-muted-foreground">
+                    <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
+                    <ul className="list-disc ml-6 mt-2 space-y-1">
+                      <li>When a miner solves a block for Bitcoin, they can reuse that same work to mine Elastos blocks</li>
+                      <li>This means Elastos gets Bitcoin's security without requiring extra energy</li>
+                      <li>It's like getting two rewards for doing one job</li>
+                    </ul>
+                    <p className="mt-2">
+                      This is why Elastos's hashrate is so high - it's effectively borrowing roughly 48% of Bitcoin's massive mining power through merge mining!
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
 
           <div className="space-y-4">
