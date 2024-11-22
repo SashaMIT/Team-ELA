@@ -101,11 +101,26 @@ const ValueCalcPage = () => {
               <div className="bg-blue-50 p-4 rounded-lg space-y-4">
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Bitcoin Hashrate:</label>
-                  <span>{bitcoinHashrate.toFixed(2)} EH/s</span>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm">{bitcoinHashrate.toFixed(2)} EH/s</span>
+                    <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                      <div className="h-full w-full bg-green-500 rounded-full" />
+                    </div>
+                    <span className="text-sm">100%</span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Elastos Hashrate:</label>
-                  <span>{elastosHashrate.toFixed(2)} EH/s</span>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm">{elastosHashrate.toFixed(2)} EH/s</span>
+                    <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-green-500 rounded-full transition-all duration-500"
+                        style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
+                      />
+                    </div>
+                    <span className="text-sm">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Bitcoin Price:</label>
