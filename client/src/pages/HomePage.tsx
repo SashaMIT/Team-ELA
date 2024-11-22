@@ -59,9 +59,9 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-      <div className="max-w-[900px] w-full flex flex-col items-center space-y-8 px-12">
-        <div className="max-w-[900px] w-full">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-2 sm:p-4">
+      <div className="max-w-[900px] w-full flex flex-col items-center space-y-4 px-4">
+        <div className="w-full">
           <NetworkSphere />
         </div>
         <div className="text-center space-y-4">

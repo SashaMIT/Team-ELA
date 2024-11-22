@@ -241,7 +241,7 @@ const NetworkSphere: React.FC = () => {
       canvas.height = Math.min(600, container.offsetWidth * 0.6);
 
       // Re-initialize spheres with new dimensions
-      const centerX = canvas.width * 0.25;
+      const centerX = canvas.width * 0.45;
       const centerX2 = canvas.width * 0.65;
       orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.12, 2400);
       blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.096, 2000);
