@@ -237,22 +237,22 @@ const NetworkSphere: React.FC = () => {
       const container = canvas.parentElement;
       if (!container) return;
       
-      canvas.width = Math.min(1200, container.offsetWidth);
-      canvas.height = Math.min(600, container.offsetWidth * 0.6);
+      canvas.width = Math.min(800, container.offsetWidth);
+      canvas.height = 400;
 
-      // Re-initialize spheres with new dimensions
-      const centerX = canvas.width * 0.45;
+      // Adjust sphere positions and sizes
+      const centerX = canvas.width * 0.35;
       const centerX2 = canvas.width * 0.65;
-      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.12, 2400);
-      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.096, 2000);
+      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.15, 2400);
+      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.12, 2000);
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
     // Initialize spheres
-    orangeSphereRef.current = new NetworkSphereClass(180, 'rgba(204, 85, 0, 1)', 192, 2400);
-    blackSphereRef.current = new NetworkSphereClass(520, 'rgba(0, 0, 0, 1)', 77, 2000);
+    orangeSphereRef.current = new NetworkSphereClass(280, 'rgba(204, 85, 0, 1)', 120, 2400);
+    blackSphereRef.current = new NetworkSphereClass(520, 'rgba(0, 0, 0, 1)', 96, 2000);
 
     let time = 0;
     let globalBreathing = 0;
@@ -297,11 +297,11 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full overflow-visible">
+    <div className="w-full h-[400px] flex items-center justify-center">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ maxWidth: '100%', maxHeight: '100%' }}
+        style={{ maxWidth: '800px' }}
       />
     </div>
   );
