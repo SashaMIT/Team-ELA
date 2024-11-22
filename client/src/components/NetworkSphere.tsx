@@ -237,8 +237,8 @@ const NetworkSphere: React.FC = () => {
       const container = canvas.parentElement;
       if (!container) return;
       
-      canvas.width = Math.min(800, container.offsetWidth);
-      canvas.height = Math.min(400, container.offsetWidth * 0.5);
+      canvas.width = Math.min(1200, container.offsetWidth);
+      canvas.height = Math.min(600, container.offsetWidth * 0.6);
 
       // Re-initialize spheres with new dimensions
       const centerX = canvas.width * 0.35;
@@ -297,7 +297,7 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full aspect-[2/1]">
+    <div className="w-full overflow-visible">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
