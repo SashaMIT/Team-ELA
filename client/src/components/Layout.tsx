@@ -28,11 +28,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="flex min-h-screen">
         <Sidebar>
           <SidebarHeader className="flex flex-col items-center justify-center gap-4">
-            <img 
-              src="./Elastos New Logo_Kit-03.png" 
-              alt="Elastos Logo" 
-              className="w-12 h-12 my-2"
-            />
             <span className="text-lg font-semibold">
               Team ELA
             </span>
