@@ -8,7 +8,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 
 interface LayoutProps {
@@ -28,11 +27,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <SidebarProvider defaultOpen>
       <div className="flex min-h-screen">
         <Sidebar>
-          <SidebarHeader className="flex items-center justify-between">
-            <span className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
+          <SidebarHeader className="flex flex-col items-center justify-center gap-4">
+            <img 
+              src="/Elastos New Logo_Kit-03.png" 
+              alt="Elastos Logo" 
+              className="w-16 h-16"
+            />
+            <span className="text-lg font-semibold">
               Team ELA
             </span>
-            <SidebarTrigger />
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
