@@ -11,12 +11,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface DropdownSectionProps {
-  title: React.ReactNode;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  children: React.ReactNode;
-}
 import {
   Accordion,
   AccordionContent,
@@ -97,33 +91,7 @@ const HashrateVisualizer = () => {
     }
   };
 
-  const DropdownSection: FC<DropdownSectionProps> = ({ title, isOpen, setIsOpen, children }) => (
-    <div className="border rounded-lg shadow-sm overflow-hidden">
-      <Button
-        variant="ghost"
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-4 flex justify-between items-center hover:bg-accent/50 transition-colors"
-      >
-        {title}
-        {isOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-      </Button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="border-t bg-accent/10"
-          >
-            <div className="p-4">
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+  
 
   const { data: hashrateData, isLoading, error } = useHashrateData();
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
