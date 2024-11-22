@@ -238,7 +238,13 @@ const NetworkSphere: React.FC = () => {
       if (!container) return;
       
       canvas.width = Math.min(800, container.offsetWidth);
-      canvas.height = Math.min(400, container.offsetWidth / 2);
+      canvas.height = Math.min(400, container.offsetWidth * 0.5);
+
+      // Re-initialize spheres with new dimensions
+      const centerX = canvas.width * 0.35;
+      const centerX2 = canvas.width * 0.65;
+      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.15, 2400);
+      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.12, 2000);
     };
 
     resizeCanvas();
@@ -252,9 +258,14 @@ const NetworkSphere: React.FC = () => {
     let globalBreathing = 0;
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!ctx || !canvas) return;
+      
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       ctx.save();
-      ctx.translate(0, canvas.height / 2);
+      ctx.translate(0, canvasHeight / 2);
       
       globalBreathing += 0.004;
       
@@ -286,7 +297,7 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-[800px]">
+    <div className="w-full aspect-[2/1]">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
