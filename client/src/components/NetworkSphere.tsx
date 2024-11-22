@@ -240,19 +240,22 @@ const NetworkSphere: React.FC = () => {
       canvas.width = Math.min(800, container.offsetWidth);
       canvas.height = 300;
 
-      // Adjust sphere positions and sizes
+      // Adjust sphere positions and sizes for better spacing
       const centerX = canvas.width * 0.35;
-      const centerX2 = canvas.width * 0.65;
-      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.15, 2400);
-      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.12, 2000);
+      const centerX2 = canvas.width * 0.70;
+      const baseRadius = Math.min(canvas.width * 0.13, 100);
+      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 0.9)', baseRadius, 2400);
+      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 0.8)', baseRadius * 0.8, 2000);
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Initialize spheres
-    orangeSphereRef.current = new NetworkSphereClass(280, 'rgba(204, 85, 0, 1)', 120, 2400);
-    blackSphereRef.current = new NetworkSphereClass(520, 'rgba(0, 0, 0, 1)', 96, 2000);
+    // Initialize spheres with dynamic sizing
+    const initialWidth = Math.min(800, window.innerWidth);
+    const baseRadius = Math.min(initialWidth * 0.13, 100);
+    orangeSphereRef.current = new NetworkSphereClass(initialWidth * 0.35, 'rgba(204, 85, 0, 0.9)', baseRadius, 2400);
+    blackSphereRef.current = new NetworkSphereClass(initialWidth * 0.70, 'rgba(0, 0, 0, 0.8)', baseRadius * 0.8, 2000);
 
     let time = 0;
     let globalBreathing = 0;
