@@ -184,7 +184,8 @@ const HashrateVisualizer = () => {
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
           <div className="space-y-4">
-            <AccordionItem value="hashrate" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="hashrate" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50 [&[data-state=open]>svg]:rotate-180">
                   <span className="flex items-center gap-2">
                     <Calculator className="w-5 h-5 text-blue-500" />
@@ -205,8 +206,6 @@ const HashrateVisualizer = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-            
-            <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="ehs" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50 [&[data-state=open]>svg]:rotate-180">
                   <span className="flex items-center gap-2">
