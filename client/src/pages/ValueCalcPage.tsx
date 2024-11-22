@@ -41,15 +41,15 @@ const ValueCalcPage = () => {
 
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
-      <Card className="max-w-3xl mx-auto">
+      <Card className="max-w-3xl mx-auto min-h-[600px]">
         <CardContent>
-          <div className="space-y-6">
+          <div className="space-y-6 py-4">
             <Accordion type="single" collapsible>
               <AccordionItem value="about" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
                     <Calculator className="w-6 h-6 text-blue-500" />
-                    <span className="text-xl font-semibold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                    <span className="text-xl font-semibold">
                       Elastos Value Calculator
                     </span>
                   </span>
