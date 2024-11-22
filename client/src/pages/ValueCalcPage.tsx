@@ -41,9 +41,9 @@ const ValueCalcPage = () => {
 
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
-      <Card className="max-w-3xl mx-auto min-h-[600px]">
-        <CardContent>
-          <div className="space-y-6 py-4">
+      <Card className="w-full max-w-3xl mx-auto">
+        <CardContent className="p-6">
+          <div className="w-full space-y-6">
             <Accordion type="single" collapsible>
               <AccordionItem value="about" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
@@ -54,7 +54,7 @@ const ValueCalcPage = () => {
                     </span>
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3 w-full">
                   <div className="text-muted-foreground space-y-4">
                     <p>
                       The Elastos Value Calculator helps estimate ELA's intrinsic value based on the security it inherits from Bitcoin through merge mining. By analyzing Bitcoin's mining rewards and Elastos' share of the total network hashrate, we can derive a fundamental value proposition for ELA.
@@ -85,7 +85,7 @@ const ValueCalcPage = () => {
             </Accordion>
             
 
-            <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
+            <div className="w-full bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2 mb-2">
                 <DollarSign className="w-6 h-6 text-green-500" />
                 <span>{estimatedValue.toFixed(2)}</span>
@@ -95,8 +95,8 @@ const ValueCalcPage = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="bg-blue-50 p-4 rounded-lg space-y-4">
+            <div className="w-full space-y-4">
+              <div className="w-full bg-blue-50 p-6 rounded-lg space-y-4">
                 <div className="flex items-center justify-between">
                   <label className="font-medium">Bitcoin Hashrate:</label>
                   <span>{bitcoinHashrate.toFixed(2)} EH/s</span>
