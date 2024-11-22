@@ -42,8 +42,8 @@ const ValueCalcPage = () => {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
       <Card className="max-w-3xl mx-auto">
-        <CardContent>
-          <div className="space-y-6">
+        <CardContent className="pt-6">
+          <div className="space-y-8">
             <Accordion type="single" collapsible>
               <AccordionItem value="about" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
@@ -84,7 +84,7 @@ const ValueCalcPage = () => {
               </AccordionItem>
             </Accordion>
             <p className="text-muted-foreground">
-              Calculate ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
+              ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
             </p>
 
             <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
