@@ -81,7 +81,7 @@ const ValueCalcPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="font-medium">Current Market Price:</label>
+                  <label className="font-medium">ELA Price:</label>
                   <div className="flex items-center gap-2">
                     <span>${marketPrice.toFixed(2)}</span>
                     <span className={`flex items-center text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
