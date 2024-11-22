@@ -243,16 +243,16 @@ const NetworkSphere: React.FC = () => {
       // Re-initialize spheres with new dimensions
       const centerX = canvas.width * 0.35;
       const centerX2 = canvas.width * 0.65;
-      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.15, 2400);
-      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.12, 2000);
+      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.25, 2400);
+      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.20, 2000);
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
     // Initialize spheres
-    orangeSphereRef.current = new NetworkSphereClass(280, 'rgba(204, 85, 0, 1)', 150, 2400);
-    blackSphereRef.current = new NetworkSphereClass(520, 'rgba(0, 0, 0, 1)', 120, 2000);
+    orangeSphereRef.current = new NetworkSphereClass(280, 'rgba(204, 85, 0, 1)', 200, 2400);
+    blackSphereRef.current = new NetworkSphereClass(520, 'rgba(0, 0, 0, 1)', 160, 2000);
 
     let time = 0;
     let globalBreathing = 0;
