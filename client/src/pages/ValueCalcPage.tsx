@@ -49,7 +49,7 @@ const ValueCalcPage = () => {
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
                     <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
-                    <span className="leading-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent text-xl sm:text-2xl">
+                    <span className="leading-tight text-xl sm:text-2xl">
                       Elastos Value Calculator
                     </span>
                   </span>
