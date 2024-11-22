@@ -44,7 +44,7 @@ const ValueCalcPage = () => {
       <Card className="w-full max-w-3xl mx-auto">
         <CardContent className="p-6">
           <div className="w-full space-y-6">
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible className="space-y-4">
               <AccordionItem value="about" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
@@ -82,51 +82,6 @@ const ValueCalcPage = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-            
-
-            <div className="w-full bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
-              <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="w-6 h-6 text-green-500" />
-                <span>{estimatedValue.toFixed(2)}</span>
-              </div>
-              <div className="text-lg text-green-600">
-                Potential Upside: {potentialUpside.toFixed(2)}%
-              </div>
-            </div>
-
-            <div className="w-full space-y-4">
-              <div className="w-full bg-blue-50 p-6 rounded-lg space-y-4">
-                <div className="flex items-center justify-between">
-                  <label className="font-medium">Bitcoin Hashrate:</label>
-                  <span>{bitcoinHashrate.toFixed(2)} EH/s</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <label className="font-medium">Elastos Hashrate:</label>
-                  <span>{elastosHashrate.toFixed(2)} EH/s</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <label className="font-medium">Bitcoin Price:</label>
-                  <div className="flex items-center gap-2">
-                    <span>${bitcoinPrice.toLocaleString()}</span>
-                    <span className={`flex items-center text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      {Math.abs(bitcoinPriceChange)}%
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <label className="font-medium">ELA Price:</label>
-                  <div className="flex items-center gap-2">
-                    <span>${marketPrice.toFixed(2)}</span>
-                    <span className={`flex items-center text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {marketPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      {Math.abs(marketPriceChange)}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-
               <AccordionItem value="methodology" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
@@ -153,6 +108,60 @@ const ValueCalcPage = () => {
                         Supply (26.22M)
                       </li>
                     </ol>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            
+
+            <div className="w-full bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
+              <div className="flex items-center gap-2 mb-2">
+                <DollarSign className="w-6 h-6 text-green-500" />
+                <span>{estimatedValue.toFixed(2)}</span>
+              </div>
+              <div className="text-lg text-green-600">
+                Potential Upside: {potentialUpside.toFixed(2)}%
+              </div>
+            </div>
+
+            <div className="w-full space-y-4">
+              <AccordionItem value="network-stats" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Info className="w-5 h-5 text-blue-500" />
+                    Network Statistics
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <label className="font-medium">Bitcoin Hashrate:</label>
+                      <span>{bitcoinHashrate.toFixed(2)} EH/s</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="font-medium">Elastos Hashrate:</label>
+                      <span>{elastosHashrate.toFixed(2)} EH/s</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="font-medium">Bitcoin Price:</label>
+                      <div className="flex items-center gap-2">
+                        <span>${bitcoinPrice.toLocaleString()}</span>
+                        <span className={`flex items-center text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                          {Math.abs(bitcoinPriceChange)}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="font-medium">ELA Price:</label>
+                      <div className="flex items-center gap-2">
+                        <span>${marketPrice.toFixed(2)}</span>
+                        <span className={`flex items-center text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {marketPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                          {Math.abs(marketPriceChange)}%
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </AccordionContent>
               </AccordionItem>
