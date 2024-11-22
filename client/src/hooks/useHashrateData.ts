@@ -22,6 +22,26 @@ const fetchHashrate = async (): Promise<number> => {
   return Number(formatted);
 };
 
+const fetchElastosHashrate = async (): Promise<number> => {
+  const response = await fetch('https://api.elastos.io/ela', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      method: 'getmininginfo',
+      params: []
+    })
+  });
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch Elastos hashrate');
+  }
+  
+  const data = await response.json();
+  return Number(data.result.networkhashps) / 1e18; // Convert to EH/s
+};
+
 const fetchBitcoinPrice = async (): Promise<{ price: number; change24h: number }> => {
   try {
     const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
@@ -67,16 +87,16 @@ export const useHashrateData = () => {
     queryKey: ['hashrate-and-price'],
     queryFn: async () => {
       try {
-        const [bitcoinHashrate, bitcoinPriceData, elaPriceData] = await Promise.all([
+        const [bitcoinHashrate, bitcoinPriceData, elaPriceData, elastosHashrate] = await Promise.all([
           fetchHashrate(),
           fetchBitcoinPrice(),
-          fetchELAPrice()
+          fetchELAPrice(),
+          fetchElastosHashrate()
         ]);
-        const elastosHashrate = bitcoinHashrate * 0.48;
         
         return {
           bitcoinHashrate,
-          elastosHashrate: bitcoinHashrate * 0.48,
+          elastosHashrate,
           bitcoinPrice: bitcoinPriceData.price,
           elaPrice: elaPriceData.price,
           bitcoinPriceChange24h: bitcoinPriceData.change24h,
