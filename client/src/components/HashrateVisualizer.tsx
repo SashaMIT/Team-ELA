@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Zap, Calculator, Cpu, Network, Server, ChevronUp, ChevronDown } from 'lucide-react';
+import { Zap, Calculator, Cpu, Network, Server, ChevronUp, ChevronDown, Info } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -224,12 +224,16 @@ const HashrateVisualizer = () => {
           </div>
 
           <div className="space-y-4">
-            <div className="font-medium flex items-center gap-2">
-              <Server className="w-5 h-5 text-blue-500" />
-              Compare to everyday devices:
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="devices" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Server className="w-5 h-5 text-blue-500" />
+                    Compare to everyday devices
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 px-1">
               {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
                 <TooltipProvider key={key}>
                   <Tooltip>
@@ -253,9 +257,19 @@ const HashrateVisualizer = () => {
                 </TooltipProvider>
               ))}
             </div>
+                </AccordionContent>
+              </AccordionItem>
 
-            <div className="space-y-4">
-              <motion.div 
+              <AccordionItem value="networks" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Network className="w-5 h-5 text-purple-500" />
+                    Network Comparisons
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="space-y-4">
+                    <motion.div 
                 className="relative h-28 bg-accent/10 rounded-lg overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -325,16 +339,29 @@ const HashrateVisualizer = () => {
                   </div>
                 </div>
               </motion.div>
-            </div>
-          </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
 
-          <div className="bg-accent/10 p-4 rounded-lg">
+              <AccordionItem value="details" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Info className="w-5 h-5 text-orange-500" />
+                    Detailed Explanation
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="space-y-2">
             <div className="font-medium mb-2">{scales[selectedScale].explanation}</div>
             <ul className="list-disc ml-6 text-sm text-muted-foreground space-y-1">
               {scales[selectedScale].details.map((detail, index) => (
                 <li key={index}>{detail}</li>
               ))}
             </ul>
+          </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </CardContent>
