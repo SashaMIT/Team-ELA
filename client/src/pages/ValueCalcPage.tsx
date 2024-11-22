@@ -82,6 +82,7 @@ const ValueCalcPage = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+
               <AccordionItem value="methodology" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
@@ -111,20 +112,7 @@ const ValueCalcPage = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-            </Accordion>
-            
 
-            <div className="w-full bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
-              <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="w-6 h-6 text-green-500" />
-                <span>{estimatedValue.toFixed(2)}</span>
-              </div>
-              <div className="text-lg text-green-600">
-                Potential Upside: {potentialUpside.toFixed(2)}%
-              </div>
-            </div>
-
-            <div className="w-full space-y-4">
               <AccordionItem value="network-stats" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
@@ -165,6 +153,16 @@ const ValueCalcPage = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+            </Accordion>
+
+            <div className="w-full bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
+              <div className="flex items-center gap-2 mb-2">
+                <DollarSign className="w-6 h-6 text-green-500" />
+                <span>${estimatedValue.toFixed(2)}</span>
+              </div>
+              <div className="text-lg text-green-600">
+                Potential Upside: {potentialUpside.toFixed(2)}%
+              </div>
             </div>
           </div>
         </CardContent>
