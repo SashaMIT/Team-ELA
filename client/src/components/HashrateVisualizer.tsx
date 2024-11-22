@@ -261,22 +261,23 @@ const HashrateVisualizer = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <motion.div 
-                  className="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 to-yellow-400 rounded-lg"
-                  initial={{ width: 0 }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="h-full flex flex-col justify-center p-3 text-black font-medium space-y-0.5">
+                <div className="h-full flex items-center justify-between p-3">
+                  <div className="flex-1">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="space-y-0.5">
+                          <div className="space-y-1">
                             <div className="font-bold text-lg">Bitcoin Network</div>
-                            <div className="text-sm sm:text-base break-words pr-2">
+                            <div className="text-sm sm:text-base">
                               {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
-                            <div className="text-xs sm:text-sm">{bitcoinHashrate.toFixed(5)} EH/s</div>
+                            <div className="flex items-center gap-4">
+                              <span className="text-sm">{bitcoinHashrate.toFixed(2)} EH/s</span>
+                              <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                                <div className="h-full w-full bg-green-500 rounded-full" />
+                              </div>
+                              <span className="text-sm">100%</span>
+                            </div>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
@@ -285,7 +286,7 @@ const HashrateVisualizer = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
 
               <motion.div 
@@ -294,22 +295,26 @@ const HashrateVisualizer = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
               >
-                <motion.div 
-                  className="absolute left-0 top-0 h-full bg-gradient-to-r from-yellow-300 to-yellow-500 rounded-lg"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <div className="h-full flex flex-col justify-center p-3 text-black font-medium space-y-0.5">
+                <div className="h-full flex items-center justify-between p-3">
+                  <div className="flex-1">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="space-y-0.5">
+                          <div className="space-y-1">
                             <div className="font-bold text-lg">Elastos Network</div>
-                            <div className="text-sm sm:text-base break-words pr-2">
+                            <div className="text-sm sm:text-base">
                               {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
-                            <div className="text-xs sm:text-sm">{elastosHashrate.toFixed(5)} EH/s</div>
+                            <div className="flex items-center gap-4">
+                              <span className="text-sm">{elastosHashrate.toFixed(2)} EH/s</span>
+                              <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-green-500 rounded-full transition-all duration-500"
+                                  style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
+                                />
+                              </div>
+                              <span className="text-sm">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
+                            </div>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
@@ -318,7 +323,7 @@ const HashrateVisualizer = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             </div>
           </div>
