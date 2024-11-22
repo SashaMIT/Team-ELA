@@ -42,22 +42,16 @@ const ValueCalcPage = () => {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
       <Card className="max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl sm:text-2xl">
-            <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
-            <span className="leading-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Elastos Value Calculator
-            </span>
-          </CardTitle>
-        </CardHeader>
         <CardContent>
           <div className="space-y-6">
             <Accordion type="single" collapsible>
               <AccordionItem value="about" className="border rounded-lg shadow-sm overflow-hidden bg-card">
                 <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
                   <span className="flex items-center gap-2">
-                    <Info className="w-5 h-5 text-blue-500" />
-                    About the Value Calculator
+                    <Calculator className="w-6 h-6 text-blue-500" />
+                    <span className="text-xl font-semibold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                      Elastos Value Calculator
+                    </span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="border-t bg-accent/10 px-4 py-3">
@@ -89,9 +83,7 @@ const ValueCalcPage = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <p className="text-muted-foreground">
-              Calculate ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
-            </p>
+            
 
             <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2 mb-2">
