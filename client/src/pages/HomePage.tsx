@@ -35,7 +35,7 @@ const HomePage = () => {
       showChange: false
     },
     {
-      label: "Bitcoin Hashrate",
+      label: "Bitcoin Hashrate (EH/s)",
       value: `${bitcoinHashrate.toFixed(2)} EH/s`,
       showChange: false
     },
@@ -51,7 +51,7 @@ const HomePage = () => {
       showChange: false
     },
     {
-      label: "Elastos Hashrate",
+      label: "Elastos Hashrate (EH/s)",
       value: `${elastosHashrate.toFixed(2)} EH/s`,
       subValue: `${((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%`,
       showChange: false
@@ -60,15 +60,15 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-      <div className="max-w-[800px] w-full flex flex-col items-center space-y-8 px-4">
-        <div className="max-w-[200px] w-full">
+      <div className="max-w-[900px] w-full flex flex-col items-center space-y-8 px-12">
+        <div className="max-w-[400px] w-[200px]">
           <NetworkSphere />
         </div>
         <div className="text-center space-y-4">
           <h1 className="text-2xl font-bold text-foreground">
             Welcome to the Elastos SmartWeb
           </h1>
-          <p className="text-lg text-muted-foreground max-w-[700px]">
+          <p className="text-lg text-muted-foreground max-w-[900px]">
             Elastos (ELA) leverages Bitcoin's hash rate and decentralized architecture to build a secure, user-owned internet, empowering data control and fulfilling Satoshi Nakamoto's vision of innovation anchored to Bitcoin's security. Congratulations. You're early.
           </p>
         </div>
