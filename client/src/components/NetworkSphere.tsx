@@ -310,10 +310,7 @@ const NetworkSphere: React.FC = () => {
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ 
-        maxWidth: '1200px',
-        backgroundColor: 'white'
-      }}
+        style={{ maxWidth: '1200px' }}
       />
     </div>
   );
