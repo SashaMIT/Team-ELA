@@ -116,7 +116,7 @@ const MergeMiningAnimation = () => {
 
   return (
     <div className="w-full max-w-4xl p-0 sm:p-4 md:p-0 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl">
-      <div className="relative h-[300px] sm:h-[400px]">
+      <div className="relative h-[00px] sm:h-[400px]">
         {/* Animated Particles and Labels Container */}
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
           {/* Flow Labels */}
