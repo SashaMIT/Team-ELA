@@ -7,121 +7,115 @@ interface Particle {
 }
 
 const MergeMiningAnimation = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(0); // Tracks the active tab
   const [securityParticles, setSecurityParticles] = useState<Particle[]>([]);
   const [rewardParticles, setRewardParticles] = useState<Particle[]>([]);
-  
-  // Auto-advance steps
+
+  // Auto-advance tabs (step state)
   useEffect(() => {
     const timer = setInterval(() => {
-      setStep((prev) => (prev + 1) % 3);
-    }, 4000);
+      setStep((prev) => (prev + 1) % 3); // Cycle through 0, 1, 2
+    }, 4000); // 4-second interval
     return () => clearInterval(timer);
   }, []);
 
-  // Generate particles with longer interval
+  // Generate particles for security flow
   useEffect(() => {
     const timer = setInterval(() => {
-      setSecurityParticles(prev => [
-        ...prev.filter(p => p.progress < 100),
-        { id: Date.now(), progress: 0 }
+      setSecurityParticles((prev) => [
+        ...prev.filter((p) => p.progress < 100),
+        { id: Date.now(), progress: 0 },
       ]);
-    }, 400);
+    }, 400); // Generate every 400ms
     return () => clearInterval(timer);
   }, []);
 
+  // Generate particles for rewards flow
   useEffect(() => {
     const timer = setInterval(() => {
-      setRewardParticles(prev => [
-        ...prev.filter(p => p.progress < 100),
-        { id: Date.now(), progress: 0 }
+      setRewardParticles((prev) => [
+        ...prev.filter((p) => p.progress < 100),
+        { id: Date.now(), progress: 0 },
       ]);
-    }, 400);
+    }, 400); // Generate every 400ms
     return () => clearInterval(timer);
   }, []);
 
-  // Much slower particle animation
+  // Animate particles for both flows
   useEffect(() => {
     const animationFrame = requestAnimationFrame(() => {
-      setSecurityParticles(prev => 
-        prev.map(p => ({
-          ...p,
-          progress: p.progress + 0.1
-        })).filter(p => p.progress < 100)
+      setSecurityParticles((prev) =>
+        prev
+          .map((p) => ({
+            ...p,
+            progress: p.progress + 0.1,
+          }))
+          .filter((p) => p.progress < 100)
       );
-      
-      setRewardParticles(prev => 
-        prev.map(p => ({
-          ...p,
-          progress: p.progress + 0.1
-        })).filter(p => p.progress < 100)
+
+      setRewardParticles((prev) =>
+        prev
+          .map((p) => ({
+            ...p,
+            progress: p.progress + 0.1,
+          }))
+          .filter((p) => p.progress < 100)
       );
     });
     return () => cancelAnimationFrame(animationFrame);
   });
 
-  const StepContent = () => {
-    const contents = [
-      {
-        title: "Mine Two Chains at Once",
-        description: "Bitcoin miners can secure both networks simultaneously"
-      },
-      {
-        title: "Earn More Rewards",
-        description: "Get both BTC and ELA rewards for the same work"
-      },
-      {
-        title: "No Extra Energy",
-        description: "100% efficient - no additional power needed"
-      }
-    ];
-
-    return (
-      <div className="absolute top-2 sm:top-4 left-1/2 transform -translate-x-1/2 
-                     bg-white/90 p-3 sm:p-4 rounded-xl shadow-lg text-center w-[90%] sm:w-3/4 z-20">
-        <h3 className="font-bold text-lg sm:text-xl mb-2 text-gray-800">{contents[step].title}</h3>
-        <p className="text-sm sm:text-base text-gray-600">{contents[step].description}</p>
-      </div>
-    );
-  };
-
   const Benefits = () => {
     const benefits = [
-      { 
-        icon: <Shield className="w-5 h-5" />, 
+      {
+        icon: <Shield className="w-5 h-5" />,
         text: "Bitcoin-Level Security",
         activeColor: "bg-orange-100",
         textColor: "text-orange-600",
-        iconColor: "text-orange-500"
+        iconColor: "text-orange-500",
       },
-      { 
-        icon: <Coins className="w-5 h-5" />, 
+      {
+        icon: <Coins className="w-5 h-5" />,
         text: "Double Mining Rewards",
         activeColor: "bg-blue-100",
         textColor: "text-blue-600",
-        iconColor: "text-blue-500"
+        iconColor: "text-blue-500",
       },
-      { 
-        icon: <Zap className="w-5 h-5" />, 
+      {
+        icon: <Zap className="w-5 h-5" />,
         text: "Same Energy Usage",
         activeColor: "bg-green-100",
         textColor: "text-green-600",
-        iconColor: "text-green-500"
-      }
+        iconColor: "text-green-500",
+      },
     ];
 
     return (
-      <div className={`absolute bottom-16 sm:bottom-4 left-1/2 transform -translate-x-1/2 
+      <div
+        className={`absolute bottom-1 sm:bottom-4 left-1/2 transform -translate-x-1/2 
                     bg-white/90 p-2 sm:p-4 rounded-xl shadow-lg w-[90%] sm:w-3/4
-                    flex flex-col sm:flex-row justify-around gap-3 sm:gap-4 z-20`}>
+                    flex flex-col sm:flex-row justify-around gap-1 sm:gap-4 z-1`}
+      >
         {benefits.map((benefit, i) => (
-          <div key={i} 
-               className={`flex items-center gap-2 p-2 mb-2 sm:mb-0 rounded-lg transition-all duration-500
-                          ${step === i ? benefit.activeColor + ' scale-110' : 'scale-100'}`}>
-            <div className={step === i ? benefit.iconColor : 'text-gray-400'}>
+          <div
+            key={i}
+            className={`flex items-center gap-2 p-1 mb-1 sm:mb-0 rounded-lg transition-all duration-500
+                        ${
+                          step === i
+                            ? benefit.activeColor + " scale-110"
+                            : "scale-100"
+                        }`}
+          >
+            <div
+              className={step === i ? benefit.iconColor : "text-gray-400"}
+            >
               {benefit.icon}
             </div>
-            <span className={`text-xs sm:text-sm font-medium ${step === i ? benefit.textColor : 'text-gray-500'}`}>
+            <span
+              className={`text-xs sm:text-sm font-medium ${
+                step === i ? benefit.textColor : "text-gray-500"
+              }`}
+            >
               {benefit.text}
             </span>
           </div>
@@ -131,33 +125,51 @@ const MergeMiningAnimation = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl p-2 sm:p-4 md:p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl">
-      <div className="relative h-[400px] sm:h-[500px]">
+    <div className="w-full max-w-4xl p-1 sm:p-2 md:p-0 bg-gradient-to-br from-slate-0 to-slate-00 rounded-xl">
+      {/* Heading */}
+      <h1 className="text-center text-2xl font-bold mt-0 mb-0">
+        Welcome to the Elastos SmartWeb
+      </h1>
+
+      {/* Descriptive Text */}
+      <p className="text-center text-sm sm:text-base mt-[10px] mb-0">
+        Elastos (ELA) leverages Bitcoin's hash rate and decentralized
+        architecture to build a secure, user-owned internet, empowering data
+        control and fulfilling Satoshi Nakamoto's vision of innovation anchored
+        to Bitcoin's security. 
+      </p>
+
+      {/* Animation Container */}
+      <div className="relative h-[400px] sm:h-[400px] mt-[-90px]">
         {/* Animated Particles and Labels Container */}
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
           {/* Flow Labels */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 
-                         font-bold text-lg text-orange-600/90 px-4"
-               style={{ top: '40%' }}>
+          <div
+            className="absolute left-1/2 transform -translate-x-1/2 
+                       font-bold text-[15px] text-orange-600/90 px-4"
+            style={{ top: "42%" }}
+          >
             SECURITY
           </div>
-          
-          <div className="absolute left-1/2 transform -translate-x-1/2 
-                         font-bold text-lg text-blue-600/90 px-4"
-               style={{ top: '60%' }}>
+
+          <div
+            className="absolute left-1/2 transform -translate-x-1/2 
+            font-bold text-[15px] text-blue-600/90 px-4"
+            style={{ top: "62%" }}
+          >
             REWARDS
           </div>
 
           <svg className="absolute inset-0 w-full h-full">
             {/* Security Flow */}
-            {securityParticles.map(particle => {
-              const x = 25 + (particle.progress * 0.5);
+            {securityParticles.map((particle) => {
+              const x = 25 + particle.progress * 0.5;
               return (
                 <g key={`security-${particle.id}`} className="opacity-80">
-                  <circle 
-                    cx={`${x}%`} 
-                    cy="40%" 
-                    r="3" 
+                  <circle
+                    cx={`${x}%`}
+                    cy="40%"
+                    r="3"
                     className="fill-orange-400"
                   >
                     <animate
@@ -170,16 +182,16 @@ const MergeMiningAnimation = () => {
                 </g>
               );
             })}
-            
+
             {/* Rewards Flow */}
-            {rewardParticles.map(particle => {
-              const x = 75 - (particle.progress * 0.5);
+            {rewardParticles.map((particle) => {
+              const x = 75 - particle.progress * 0.5;
               return (
                 <g key={`reward-${particle.id}`} className="opacity-80">
-                  <circle 
-                    cx={`${x}%`} 
-                    cy="60%" 
-                    r="3" 
+                  <circle
+                    cx={`${x}%`}
+                    cy="60%"
+                    r="3"
                     className="fill-blue-400"
                   >
                     <animate
@@ -201,13 +213,16 @@ const MergeMiningAnimation = () => {
             <div className="flex items-center gap-1 sm:gap-3 mb-1 sm:mb-4">
               <Server className="text-orange-600 w-4 h-4 sm:w-8 sm:h-8" />
               <div>
-                <span className="font-bold text-sm sm:text-xl block">Bitcoin</span>
-                <span className="text-xs sm:text-sm text-orange-600">Miners</span>
+                <span className="font-bold text-sm sm:text-xl block">
+                  Bitcoin
+                </span>
+                <span className="text-xs sm:text-sm text-orange-600">
+                  Miners
+                </span>
               </div>
             </div>
-            
-            <div className={`flex items-center gap-2 text-sm mt-4 p-2 rounded-lg
-                          ${step === 1 ? 'bg-orange-200/50' : ''}`}>
+
+            <div className="flex items-center gap-2 text-sm mt-4 p-2 rounded-lg">
               <Coins className="w-5 h-5 text-orange-600" />
               <span>BTC Rewards</span>
             </div>
@@ -220,33 +235,24 @@ const MergeMiningAnimation = () => {
             <div className="flex items-center gap-1 sm:gap-3 mb-1 sm:mb-4">
               <Shield className="text-blue-600 w-4 h-4 sm:w-8 sm:h-8" />
               <div>
-                <span className="font-bold text-sm sm:text-xl block">Elastos</span>
-                <span className="text-xs sm:text-sm text-blue-600">Merge Mining</span>
+                <span className="font-bold text-sm sm:text-xl block">
+                  Elastos
+                </span>
+                <span className="text-xs sm:text-sm text-blue-600">
+                  Merge Mining
+                </span>
               </div>
             </div>
-            
-            <div className={`flex items-center gap-2 text-sm mt-4 p-2 rounded-lg
-                          ${step === 1 ? 'bg-blue-200/50' : ''}`}>
+
+            <div className="flex items-center gap-2 text-sm mt-4 p-2 rounded-lg">
               <Coins className="w-5 h-5 text-blue-600" />
               <span>ELA Rewards</span>
             </div>
           </div>
         </div>
 
-        {/* Content */}
-        <StepContent />
+        {/* Benefits */}
         <Benefits />
-      </div>
-
-      {/* Progress Indicators */}
-      <div className="mt-4 flex justify-center gap-3">
-        {[0,1,2].map(i => (
-          <div 
-            key={i}
-            className={`w-2 h-2 rounded-full transition-colors duration-300
-                      ${step === i ? 'bg-blue-500' : 'bg-gray-300'}`}
-          />
-        ))}
       </div>
     </div>
   );

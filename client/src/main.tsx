@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import SecurityPage from "./pages/SecurityPage";
 import ValueCalcPage from "./pages/ValueCalcPage";
 import SupplyPage from "./pages/SupplyPage";
+import ReservePage from "./pages/ReservePage";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
         <Route path="/security" component={SecurityPage} />
         <Route path="/value-calc" component={ValueCalcPage} />
         <Route path="/supply" component={SupplyPage} />
+        <Route path="/reserve" component={ReservePage} />
         <Route>404 Page Not Found</Route>
       </Switch>
     </Layout>

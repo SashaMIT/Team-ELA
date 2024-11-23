@@ -64,14 +64,7 @@ const HomePage = () => {
         <div className="w-full">
           <MergeMiningAnimation />
         </div>
-        <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold text-foreground">
-            Welcome to the Elastos SmartWeb
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-[900px]">
-            Elastos (ELA) leverages Bitcoin's hash rate and decentralized architecture to build a secure, user-owned internet, empowering data control and fulfilling Satoshi Nakamoto's vision of innovation anchored to Bitcoin's security. Congratulations. You're early.
-          </p>
-        </div>
+        
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
           {stats.map((stat, index) => (
