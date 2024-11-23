@@ -9,6 +9,7 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import SecurityPage from "./pages/SecurityPage";
 import ValueCalcPage from "./pages/ValueCalcPage";
+import SupplyPage from "./pages/SupplyPage";
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/" component={HomePage} />
         <Route path="/security" component={SecurityPage} />
         <Route path="/value-calc" component={ValueCalcPage} />
+        <Route path="/supply" component={SupplyPage} />
         <Route>404 Page Not Found</Route>
       </Switch>
     </Layout>

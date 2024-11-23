@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'wouter';
-import { Shield, Home, Calculator } from 'lucide-react';
+import { Shield, Home, Calculator, TrendingUp } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -21,6 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { icon: <Home className="w-5 h-5" />, label: 'Home', path: '/' },
     { icon: <Shield className="w-5 h-5" />, label: 'Security', path: '/security' },
     { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
+    { icon: <TrendingUp className="w-5 h-5" />, label: 'Supply', path: '/supply' },
   ];
 
   return (
