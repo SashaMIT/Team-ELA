@@ -35,13 +35,6 @@ interface RotatedPoint extends Point {
   screenZ: number;
 }
 
-interface NetworkSphereProps {
-  centerX: number;
-  color: string;
-  size: number;
-  numPoints: number;
-}
-
 class NetworkSphereClass {
   private points: Point[] = [];
   private centerX: number;
@@ -244,35 +237,31 @@ const NetworkSphere: React.FC = () => {
       const container = canvas.parentElement;
       if (!container) return;
       
-      // Use window width to ensure proper scaling on mobile
-      const width = Math.min(1200, window.innerWidth - 32); // -32 for padding
+      const width = Math.min(1200, container.offsetWidth);
       canvas.width = width;
-      canvas.height = width * 0.5; // Increased height ratio for better visibility
+      canvas.height = width * 0.4; // Maintain proper aspect ratio
 
-      // Adjust sphere positions and sizes based on canvas dimensions
-      const centerX1 = width * 0.35;
-      const centerX2 = width * 0.65;
-      const baseRadius = Math.min(width * 0.12, 150);
-      
-      // Create new spheres with adjusted sizes
-      orangeSphereRef.current = new NetworkSphereClass(
-        centerX1, 
-        'rgba(204, 85, 0, 1)', 
-        baseRadius * 1.2, // Slightly larger orange sphere
-        2400
-      );
-      
-      blackSphereRef.current = new NetworkSphereClass(
-        centerX2, 
-        'rgba(0, 0, 0, 1)', 
-        baseRadius, 
-        2000
-      );
+      // Adjust sphere positions and sizes
+      const centerX = canvas.width * 0.35;
+      const centerX2 = canvas.width * 0.65;
+      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.12, 2400);
+      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.12, 2000);
     };
 
-    // Initial setup and resize handler
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+
+    // Initialize spheres with container-relative positions and sizes
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    const centerX1 = canvas.width * 0.35;
+    const centerX2 = canvas.width * 0.65;
+    const radius1 = Math.min(canvas.width * 0.15, 120);
+    const radius2 = Math.min(canvas.width * 0.12, 96);
+    
+    orangeSphereRef.current = new NetworkSphereClass(centerX1, 'rgba(204, 85, 0, 1)', radius1, 2400);
+    blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', radius2, 2000);
 
     let time = 0;
     let globalBreathing = 0;
@@ -280,37 +269,34 @@ const NetworkSphere: React.FC = () => {
     function animate() {
       if (!ctx || !canvas) return;
       
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(0, canvas.height / 2);
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
       
-      // Slower breathing animation
-      globalBreathing += 0.003;
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      ctx.save();
+      ctx.translate(0, canvasHeight / 2);
+      
+      globalBreathing += 0.004;
       
       const orangeSphere = orangeSphereRef.current;
       const blackSphere = blackSphereRef.current;
 
       if (orangeSphere && blackSphere) {
-        // Update and draw spheres
         orangeSphere.update(time, globalBreathing);
         blackSphere.update(time, globalBreathing);
         
-        // Draw order affects overlapping - draw larger sphere first
         orangeSphere.draw(ctx);
         blackSphere.draw(ctx);
       }
       
       ctx.restore();
       
-      // Slower time progression for smoother animation
-      time += 0.4;
+      time += 0.5;
       animationFrameRef.current = requestAnimationFrame(animate);
     }
 
-    // Start animation
     animate();
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       if (animationFrameRef.current) {
@@ -320,14 +306,11 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-[400px] flex items-center justify-center p-4">
+    <div className="w-full h-[300px] flex items-center justify-center">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ 
-          maxWidth: '1200px',
-          filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))'
-        }}
+        style={{ maxWidth: '1200px' }}
       />
     </div>
   );
