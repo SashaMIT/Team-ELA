@@ -18,9 +18,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [location, setLocation] = useLocation();
 
   const menuItems = [
-    { icon: <Home className="w-4 h-4" />, label: 'Home', path: '/' },
-    { icon: <Shield className="w-4 h-4" />, label: 'Security', path: '/security' },
-    { icon: <Calculator className="w-4 h-4" />, label: 'Value Calc', path: '/value-calc' },
+    { icon: <Home className="w-5 h-5" />, label: 'Home', path: '/' },
+    { icon: <Shield className="w-5 h-5" />, label: 'Security', path: '/security' },
+    { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
   ];
 
   return (
@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <button
                     onClick={() => setLocation(item.path)}
                     data-active={location === item.path}
-                    className="flex w-full items-center gap-1.5 rounded-md px-1.5 py-2 text-xs hover:bg-accent"
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-3 text-sm hover:bg-accent"
                   >
                     {item.icon}
                     <span className="truncate">{item.label}</span>
