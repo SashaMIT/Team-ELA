@@ -111,7 +111,7 @@ const MergeMiningAnimation = () => {
     ];
 
     return (
-      <div className={`absolute bottom-8 sm:bottom-4 left-1/2 transform -translate-x-1/2 
+      <div className={`absolute bottom-16 sm:bottom-4 left-1/2 transform -translate-x-1/2 
                     bg-white/90 p-2 sm:p-4 rounded-xl shadow-lg w-[90%] sm:w-3/4
                     flex flex-col sm:flex-row justify-around gap-3 sm:gap-4 z-20`}>
         {benefits.map((benefit, i) => (
