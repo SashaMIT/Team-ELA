@@ -237,8 +237,8 @@ const NetworkSphere: React.FC = () => {
       const container = canvas.parentElement;
       if (!container) return;
       
-      canvas.width = Math.min(800, container.offsetWidth);
-      canvas.height = 300;
+      canvas.width = Math.min(1200, container.offsetWidth);
+      canvas.height = Math.min(600, container.offsetWidth * 0.5);
 
       // Adjust sphere positions and sizes
       const centerX = canvas.width * 0.35;
@@ -309,7 +309,7 @@ const NetworkSphere: React.FC = () => {
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ maxWidth: '800px' }}
+        style={{ maxWidth: '1200px' }}
       />
     </div>
   );
