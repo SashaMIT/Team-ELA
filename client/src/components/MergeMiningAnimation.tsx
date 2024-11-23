@@ -111,12 +111,12 @@ const MergeMiningAnimation = () => {
     ];
 
     return (
-      <div className={`absolute bottom-24 sm:bottom-4 left-1/2 transform -translate-x-1/2 
+      <div className={`absolute bottom-16 sm:bottom-4 left-1/2 transform -translate-x-1/2 
                     bg-white/90 p-2 sm:p-4 rounded-xl shadow-lg w-[90%] sm:w-3/4
-                    flex flex-col sm:flex-row justify-around gap-4 sm:gap-4 z-20`}>
+                    flex flex-col sm:flex-row justify-around gap-3 sm:gap-4 z-20`}>
         {benefits.map((benefit, i) => (
           <div key={i} 
-               className={`flex items-center gap-2 p-3 mb-3 sm:mb-0 rounded-lg transition-all duration-500
+               className={`flex items-center gap-2 p-2 mb-2 sm:mb-0 rounded-lg transition-all duration-500
                           ${step === i ? benefit.activeColor + ' scale-110' : 'scale-100'}`}>
             <div className={step === i ? benefit.iconColor : 'text-gray-400'}>
               {benefit.icon}
@@ -132,7 +132,7 @@ const MergeMiningAnimation = () => {
 
   return (
     <div className="w-full max-w-4xl p-2 sm:p-4 md:p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl">
-      <div className="relative h-[500px] sm:h-[400px]">
+      <div className="relative h-[400px] sm:h-[500px]">
         {/* Animated Particles and Labels Container */}
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
           {/* Flow Labels */}
