@@ -250,9 +250,17 @@ const NetworkSphere: React.FC = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Initialize spheres
-    orangeSphereRef.current = new NetworkSphereClass(280, 'rgba(204, 85, 0, 1)', 120, 2400);
-    blackSphereRef.current = new NetworkSphereClass(520, 'rgba(0, 0, 0, 1)', 96, 2000);
+    // Initialize spheres with container-relative positions and sizes
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    const centerX1 = canvas.width * 0.35;
+    const centerX2 = canvas.width * 0.65;
+    const radius1 = Math.min(canvas.width * 0.15, 120);
+    const radius2 = Math.min(canvas.width * 0.12, 96);
+    
+    orangeSphereRef.current = new NetworkSphereClass(centerX1, 'rgba(204, 85, 0, 1)', radius1, 2400);
+    blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', radius2, 2000);
 
     let time = 0;
     let globalBreathing = 0;
