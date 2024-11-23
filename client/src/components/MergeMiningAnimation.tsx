@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Server, Shield, Coins, Zap } from 'lucide-react';
 
+interface Particle {
+  id: number;
+  progress: number;
+}
+
 const MergeMiningAnimation = () => {
   const [step, setStep] = useState(0);
-  const [securityParticles, setSecurityParticles] = useState([]);
-  const [rewardParticles, setRewardParticles] = useState([]);
+  const [securityParticles, setSecurityParticles] = useState<Particle[]>([]);
+  const [rewardParticles, setRewardParticles] = useState<Particle[]>([]);
   
   // Auto-advance steps
   useEffect(() => {
@@ -74,8 +79,8 @@ const MergeMiningAnimation = () => {
     return (
       <div className="absolute top-4 left-1/2 transform -translate-x-1/2 
                      bg-white/90 p-4 rounded-xl shadow-lg text-center w-3/4 z-20">
-        <h3 className="font-bold text-xl mb-2 text-gray-800">{contents[step].title}</h3>
-        <p className="text-gray-600">{contents[step].description}</p>
+        <h3 className="font-bold text-lg sm:text-xl mb-2 text-gray-800">{contents[step].title}</h3>
+        <p className="text-sm sm:text-base text-gray-600">{contents[step].description}</p>
       </div>
     );
   };
@@ -126,8 +131,8 @@ const MergeMiningAnimation = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl">
-      <div className="relative h-96">
+    <div className="w-full max-w-4xl p-4 sm:p-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl">
+      <div className="relative h-[300px] sm:h-[400px]">
         {/* Animated Particles and Labels Container */}
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
           {/* Flow Labels */}
@@ -191,13 +196,13 @@ const MergeMiningAnimation = () => {
         </div>
 
         {/* Bitcoin Mining Side */}
-        <div className="absolute left-8 top-1/2 transform -translate-y-1/2 z-10">
-          <div className="p-6 bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl border-2 border-orange-400 shadow-lg">
-            <div className="flex items-center gap-3 mb-4">
-              <Server className="text-orange-600 w-8 h-8" />
+        <div className="absolute left-2 sm:left-8 top-1/2 transform -translate-y-1/2 z-10">
+          <div className="p-3 sm:p-6 bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl border-2 border-orange-400 shadow-lg">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-4">
+              <Server className="text-orange-600 w-6 h-6 sm:w-8 sm:h-8" />
               <div>
-                <span className="font-bold text-xl block">Bitcoin</span>
-                <span className="text-sm text-orange-600">Miners</span>
+                <span className="font-bold text-lg sm:text-xl block">Bitcoin</span>
+                <span className="text-xs sm:text-sm text-orange-600">Miners</span>
               </div>
             </div>
             
@@ -210,13 +215,13 @@ const MergeMiningAnimation = () => {
         </div>
 
         {/* Elastos Side */}
-        <div className="absolute right-8 top-1/2 transform -translate-y-1/2 z-10">
-          <div className="p-6 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl border-2 border-blue-400 shadow-lg">
-            <div className="flex items-center gap-3 mb-4">
-              <Shield className="text-blue-600 w-8 h-8" />
+        <div className="absolute right-2 sm:right-8 top-1/2 transform -translate-y-1/2 z-10">
+          <div className="p-3 sm:p-6 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl border-2 border-blue-400 shadow-lg">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-4">
+              <Shield className="text-blue-600 w-6 h-6 sm:w-8 sm:h-8" />
               <div>
-                <span className="font-bold text-xl block">Elastos</span>
-                <span className="text-sm text-blue-600">Merge Mining</span>
+                <span className="font-bold text-lg sm:text-xl block">Elastos</span>
+                <span className="text-xs sm:text-sm text-blue-600">Merge Mining</span>
               </div>
             </div>
             
