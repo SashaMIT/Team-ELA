@@ -1,0 +1,58 @@
+Issue in Mobile View
+Overlapping Elements:
+
+In mobile view, the text and cards are overlapping, which disrupts readability (e.g., the text "Mine Two Chains at Once" overlaps with the Bitcoin and Elastos cards).
+Improper Scaling:
+
+The size and placement of text, icons, and graphics aren't scaling proportionally for the smaller mobile viewport.
+The spacing between components (e.g., icons, cards, and connecting dotted lines) becomes compressed.
+Cluttered Layout:
+
+The mobile layout feels crowded, with insufficient spacing around key elements. This impacts usability and visual clarity.
+Solution for Fixing the Issues
+Text Placement and Hierarchy:
+
+Adjust the position of the heading "Mine Two Chains at Once" so it does not overlap with other elements.
+Use a flexbox or grid layout to ensure the heading dynamically adjusts its position.
+Add padding above and below the heading to prevent overlap.
+Responsive Scaling:
+
+Use media queries to define specific styles for mobile breakpoints (e.g., 320px to 768px width).
+Scale down the size of text, icons, and cards proportionally for smaller screens.
+Ensure consistent padding and margins between all elements to avoid a cramped feel.
+Card Layout Adjustment:
+
+Stack the Bitcoin and Elastos cards vertically in mobile view, rather than placing them side by side.
+This allows each card to have sufficient space without overlapping.
+Keep the connecting "Security" and "Rewards" dotted lines between them, but adjust their alignment for the vertical layout.
+Spacing and Padding:
+
+Increase the spacing between the cards and dotted lines in mobile view.
+Ensure that the text inside the cards doesn’t exceed their boundaries (add overflow: hidden; or similar CSS properties).
+Test Across Devices:
+
+Test the layout using tools like Google Chrome DevTools, BrowserStack, or real devices to ensure the design is responsive across various screen sizes and orientations.
+Sample CSS Media Query for Mobile Fix
+css
+Copy code
+@media (max-width: 768px) {
+  .heading {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    align-items: center;
+    gap: 20px; /* Add spacing between cards */
+  }
+
+  .card {
+    width: 90%; /* Scale cards down for mobile */
+  }
+
+  .dotted-lines {
+    margin: 10px auto; /* Ensure lines are centered */
+  }
+}
