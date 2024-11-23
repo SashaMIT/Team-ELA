@@ -111,12 +111,12 @@ const MergeMiningAnimation = () => {
     ];
 
     return (
-      <div className={`absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 
+      <div className={`absolute bottom-8 sm:bottom-4 left-1/2 transform -translate-x-1/2 
                     bg-white/90 p-2 sm:p-4 rounded-xl shadow-lg w-[90%] sm:w-3/4
-                    flex flex-col sm:flex-row justify-around gap-2 sm:gap-4 z-20`}>
+                    flex flex-col sm:flex-row justify-around gap-3 sm:gap-4 z-20`}>
         {benefits.map((benefit, i) => (
           <div key={i} 
-               className={`flex items-center gap-2 p-2 rounded-lg transition-all duration-500
+               className={`flex items-center gap-2 p-2 mb-2 sm:mb-0 rounded-lg transition-all duration-500
                           ${step === i ? benefit.activeColor + ' scale-110' : 'scale-100'}`}>
             <div className={step === i ? benefit.iconColor : 'text-gray-400'}>
               {benefit.icon}
