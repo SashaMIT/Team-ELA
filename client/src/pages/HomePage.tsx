@@ -1,5 +1,5 @@
 import React from 'react';
-import NetworkSphere from '../components/NetworkSphere';
+import MergeMiningAnimation from '../components/MergeMiningAnimation';
 import { useHashrateData } from '../hooks/useHashrateData';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
@@ -62,7 +62,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
       <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 px-2">
         <div className="w-full">
-          <NetworkSphere />
+          <MergeMiningAnimation />
         </div>
         <div className="text-center space-y-4">
           <h1 className="text-2xl font-bold text-foreground">
