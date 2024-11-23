@@ -59,8 +59,8 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
-      <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 px-2">
+    <div className="min-h-screen bg-background flex flex-col items-center p-0">
+      <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2">
         <div className="w-full">
           <MergeMiningAnimation />
         </div>
