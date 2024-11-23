@@ -1,0 +1,74 @@
+Identified Problems
+Opacity and Overlap:
+
+The overlapping semi-transparent box (for the "Elastos" card and related details) is visible behind the "No Extra Energy" label, causing a cluttered and distracting appearance.
+The transparency on the Elastos card makes the layout look inconsistent, and the content beneath it becomes harder to read.
+Label Priority:
+
+The "No Extra Energy" label dominates the layout visually but creates confusion due to the layering with other elements. It distracts from the focus on the two main cards (Bitcoin and Elastos).
+Spacing Issues:
+
+The dotted line and "Security" label feel disconnected from the content below, causing the layout to lose alignment and hierarchy.
+Card Readability:
+
+The Elastos card's opacity and positioning make it visually recessive, affecting its importance compared to the Bitcoin card.
+Fixes and Adjustments
+1. Remove or Reduce Opacity for Background Layers
+The Elastos card background and related elements should not have transparency if the text above overlaps.
+Either set the Elastos card to be fully opaque or apply a light blur effect behind the "No Extra Energy" text to improve legibility.
+Example:
+
+css
+Copy code
+.elastos-card {
+  background-color: rgba(255, 255, 255, 1); /* Fully opaque */
+}
+Alternatively:
+
+css
+Copy code
+.no-extra-energy-label {
+  backdrop-filter: blur(5px); /* Blurs the content behind it for better contrast */
+}
+2. Prioritize Layers for Better Readability
+Use z-index to ensure that the "No Extra Energy" label always appears clearly above all other elements (e.g., cards, dotted lines).
+Adjust the layering of the Elastos and Bitcoin cards to ensure no unintended overlaps or distractions.
+Example:
+
+css
+Copy code
+.no-extra-energy-label {
+  z-index: 10; /* Highest priority for clear visibility */
+  position: relative;
+}
+.cards {
+  z-index: 5; /* Lower priority than the label */
+}
+3. Adjust Content Alignment and Spacing
+Move the "No Extra Energy" text higher or position it in a way that does not intersect with the main cards. Ensure enough padding to create separation between the label and the cards below.
+Example:
+
+css
+Copy code
+.no-extra-energy-label {
+  margin-top: 15px; /* Add spacing to lift the label higher */
+  margin-bottom: 20px; /* Prevent it from overlapping cards */
+}
+4. Make Cards Distinct Without Overlap
+Clearly separate the Bitcoin and Elastos cards by adjusting their spacing or stacking them vertically in mobile view.
+Ensure there is no semi-transparency where one card's content distracts from another.
+Example:
+
+css
+Copy code
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column; /* Stack cards vertically */
+    gap: 20px; /* Add spacing between cards */
+  }
+}
+Expected Result
+The "No Extra Energy" label is visually distinct and no longer affected by transparency or overlap issues.
+The Elastos card appears clear and prominent without unnecessary transparency or layering conflicts.
+The overall layout is clean, with properly spaced and aligned content across all devices.
+Let me know if further refinements are needed!
