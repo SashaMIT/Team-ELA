@@ -162,14 +162,14 @@ const HashrateVisualizer = () => {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-5xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
+                  <DialogHeader className="text-center">
+                    <DialogTitle className="flex items-center justify-center gap-2">
                       <Calculator className="w-6 h-6 text-blue-500" />
                       Understanding Hashrate
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="flex flex-col lg:flex-row gap-6">
-                    <div className="text-muted-foreground space-y-2 lg:w-1/2">
+                  <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
+                    <div className="text-muted-foreground space-y-2 lg:w-1/2 text-center">
                       <p>
                         Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
                       </p>
@@ -180,8 +180,8 @@ const HashrateVisualizer = () => {
                         Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
                       </p>
                     </div>
-                    <div className="lg:w-1/2">
-                      <div className="max-w-sm mx-auto">
+                    <div className="lg:w-1/2 flex justify-center">
+                      <div className="max-w-sm">
                         <FriendlyHashrate />
                       </div>
                     </div>
@@ -197,13 +197,13 @@ const HashrateVisualizer = () => {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
+                  <DialogHeader className="text-center">
+                    <DialogTitle className="flex items-center justify-center gap-2">
                       <Cpu className="w-6 h-6 text-purple-500" />
                       Understanding EH/s (ExaHashes per second)
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="text-muted-foreground">
+                  <div className="text-muted-foreground text-center">
                     <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
                     <ul className="list-disc ml-6 mt-2 space-y-1">
                       <li>1 Hash = 1 calculation</li>
@@ -228,13 +228,13 @@ const HashrateVisualizer = () => {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
+                  <DialogHeader className="text-center">
+                    <DialogTitle className="flex items-center justify-center gap-2">
                       <Network className="w-6 h-6 text-green-500" />
                       Understanding Merge Mining
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="text-muted-foreground">
+                  <div className="text-muted-foreground text-center">
                     <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
                     <ul className="list-disc ml-6 mt-2 space-y-1">
                       <li>When a miner solves a block for Bitcoin, they can reuse that same work to mine Elastos blocks</li>
