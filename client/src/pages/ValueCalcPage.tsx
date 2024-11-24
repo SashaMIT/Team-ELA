@@ -3,14 +3,11 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ChevronDown, ChevronUp, Calculator, DollarSign, BarChart2, Info } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import ValueJustificationViz from '../components/ValueJustificationViz';
-import { Button } from '@/components/ui/button';
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const ValueCalcPage = () => {
   // Calculator state
@@ -47,22 +44,18 @@ const ValueCalcPage = () => {
       <Card className="max-w-3xl mx-auto">
         <CardContent className="pt-6">
           <div className="space-y-8">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-6 hover:bg-accent/50">
-                  <Calculator className="w-6 h-6 text-blue-500" />
-                  <span className="text-lg font-semibold">Learn More About Value Calculator</span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-5xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2 text-left">
-                    <Calculator className="w-6 h-6 text-blue-500" />
-                    Elastos Value Calculator
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="flex flex-col lg:flex-row gap-6 items-start">
-                  <div className="text-muted-foreground space-y-4 lg:w-1/2 text-left">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="about" className="border rounded-lg shadow-sm overflow-hidden bg-card">
+                <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
+                  <span className="flex items-center gap-2">
+                    <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
+                    <span className="leading-tight text-xl sm:text-2xl">
+                      Elastos Value Calculator
+                    </span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="border-t bg-accent/10 px-4 py-3">
+                  <div className="text-muted-foreground space-y-4">
                     <p>
                       The Elastos Value Calculator helps estimate ELA's intrinsic value based on the security it inherits from Bitcoin through merge mining. By analyzing Bitcoin's mining rewards and Elastos' share of the total network hashrate, we can derive a fundamental value proposition for ELA.
                     </p>
@@ -87,12 +80,9 @@ const ValueCalcPage = () => {
                       </ul>
                     </div>
                   </div>
-                  <div className="lg:w-1/2">
-                    <ValueJustificationViz />
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
             <p className="text-muted-foreground">
               ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
             </p>
