@@ -298,7 +298,11 @@ const NetworkSphere: React.FC = () => {
       
       ctx.restore();
       
-      time += 0.5;
+      // Synchronize animation timing between spheres
+      time += 0.4;
+      globalBreathing += 0.003;
+      
+      // Update animation frame
       animationFrameRef.current = requestAnimationFrame(animate);
     }
 
