@@ -7,6 +7,8 @@ const CompactCalcAnimation = () => {
   const [isAnimating, setIsAnimating] = useState(true);
   const { data: hashrateData } = useHashrateData();
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 63796;
+  const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
+  const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
   
   useEffect(() => {
     if (!isAnimating) return;
