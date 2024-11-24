@@ -183,7 +183,7 @@ const HashrateVisualizer = () => {
                       </p>
                     </div>
                     <div className="lg:w-1/2 flex justify-center">
-                      <div className="max-w-[14rem] lg:max-w-[15.4rem]">
+                      <div className="max-w-sm">
                         <FriendlyHashrate />
                       </div>
                     </div>
