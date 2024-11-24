@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import CompactCalcAnimation from '../components/CompactCalcAnimation';
+import ValueJustificationViz from '../components/ValueJustificationViz';
 
 const ValueCalcPage = () => {
   // Calculator state
@@ -61,35 +62,38 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
+                <DialogContent className="max-w-5xl">
                   <DialogHeader>
                     <DialogTitle>Understanding the Value Calculator</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-4">
-                    <p className="text-muted-foreground">
-                      The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-                    </p>
-                    
-                    <div>
-                      <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Features:</h4>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          Real-time blockchain.info API integration
-                        </li>
-                        <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          5-minute automatic data updates
-                        </li>
-                        <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          24-hour price movement tracking
-                        </li>
-                        <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                          Dynamic merge mining calculations
-                        </li>
-                      </ul>
+                  <div className="space-y-6">
+                    <ValueJustificationViz />
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground">
+                        The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                      </p>
+                      
+                      <div>
+                        <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Features:</h4>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            Real-time blockchain.info API integration
+                          </li>
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            5-minute automatic data updates
+                          </li>
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            24-hour price movement tracking
+                          </li>
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            Dynamic merge mining calculations
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </DialogContent>
