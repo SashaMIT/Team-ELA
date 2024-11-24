@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import FriendlyHashrate from './FriendlyHashrate';
 import HashScaleViz from './HashScaleViz';
+import MergeMiningViz from './MergeMiningViz';
 import { useHashrateData } from '../hooks/useHashrateData';
 interface Scale {
   unit: string;
@@ -223,23 +224,28 @@ const HashrateVisualizer = () => {
                     What is Merge Mining?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader className="text-center">
-                    <DialogTitle className="flex items-center justify-center gap-2">
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-left">
                       <Network className="w-6 h-6 text-green-500" />
                       Understanding Merge Mining
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="text-muted-foreground text-center">
-                    <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
-                    <ul className="list-disc ml-6 mt-2 space-y-1">
-                      <li>When a miner solves a block for Bitcoin, they can reuse that same work to mine Elastos blocks</li>
-                      <li>This means Elastos gets Bitcoin's security without requiring extra energy</li>
-                      <li>It's like getting two rewards for doing one job</li>
-                    </ul>
-                    <p className="mt-2">
-                      This is why Elastos's hashrate is so high - it's effectively borrowing roughly 48% of Bitcoin's massive mining power through merge mining!
-                    </p>
+                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                    <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
+                      <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
+                      <ul className="list-disc ml-6 mt-2 space-y-1">
+                        <li>When a miner solves a block for Bitcoin, they can reuse that same work to mine Elastos blocks</li>
+                        <li>This means Elastos gets Bitcoin's security without requiring extra energy</li>
+                        <li>It's like getting two rewards for doing one job</li>
+                      </ul>
+                      <p className="mt-2">
+                        This is why Elastos's hashrate is so high - it's effectively borrowing roughly {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}% of Bitcoin's massive mining power through merge mining!
+                      </p>
+                    </div>
+                    <div className="lg:w-1/2">
+                      <MergeMiningViz />
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
