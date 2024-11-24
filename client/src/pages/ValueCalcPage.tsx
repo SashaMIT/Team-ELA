@@ -53,16 +53,12 @@ const ValueCalcPage = () => {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-8">
-            <div className="flex flex-col gap-4 mb-6">
-              <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 -mx-6 -mt-6">
-                <h1 className="text-2xl font-bold text-white mb-2">Value Calculator</h1>
-                <p className="text-white/90">Calculate ELA's intrinsic value based on Bitcoin's security</p>
-              </div>
+            <div className="flex gap-2 mb-6">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                  <Button variant="outline" className="flex-1 flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
                     <Info className="w-5 h-5 text-blue-500" />
-                    Learn More About Value Calculation
+                    What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl">

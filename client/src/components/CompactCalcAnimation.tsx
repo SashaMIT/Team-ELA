@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Lock, ArrowRight } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
-import { cn } from '@/lib/utils';
 
 const CompactCalcAnimation = () => {
   const [step, setStep] = useState(0);
