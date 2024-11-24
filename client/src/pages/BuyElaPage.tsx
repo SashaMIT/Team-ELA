@@ -8,6 +8,7 @@ const BuyElaPage = () => {
       { name: 'Coinbase', url: 'https://www.coinbase.com/en-gb/advanced-trade/spot/ELA-USD' },
       { name: 'KuCoin', url: 'https://www.kucoin.com/trade/ELA-USDT?rcode=e21sNJ' },
       { name: 'Gate.io', url: 'https://www.gate.io/trade/ELA_USDT?ref=3018394' },
+      { name: 'Huobi', url: 'https://www.huobi.com/en-us/trade/ELA_USDT' },
       { name: 'Bitget', url: 'https://www.bitget.com/spot/ELAUSDT/?channelCode=42xn&vipCode=sq59&languageType=0' },
       { name: 'Crypto.com', url: 'https://crypto.com/exchange/trade/ELA_USD' }
     ],
