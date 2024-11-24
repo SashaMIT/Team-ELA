@@ -46,54 +46,55 @@ const ValueCalcPage = () => {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
       <Card className="max-w-3xl mx-auto">
-        <CardHeader className="p-4 sm:p-6 space-y-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-b">
-          <CardTitle className="flex flex-col gap-4">
-            <div className="flex items-center gap-2 text-lg sm:text-xl">
-              <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0" />
-              <span className="leading-tight">Elastos Value Calculator</span>
-            </div>
-            <div className="text-sm text-muted-foreground space-y-2">
-              <p>
-                The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. 
-                This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  Real-time blockchain.info API integration
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  5-minute automatic data updates
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  24-hour price movement tracking
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  Dynamic merge mining calculations
-                </div>
-              </div>
-            </div>
+        <CardHeader className="p-4 sm:p-6 space-y-2">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+            <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0 mt-1" />
+            <span className="leading-tight">Elastos Value Calculator</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-4 sm:p-6">
+        <CardContent className="pt-0">
           <div className="space-y-8">
             <div className="flex gap-2 mb-6">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
                     <Info className="w-5 h-5" />
-                    Detailed Value Analysis
+                    What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-5xl">
                   <DialogHeader>
-                    <DialogTitle>Understanding the Value Calculation</DialogTitle>
+                    <DialogTitle>Understanding the Value Calculator</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-6">
                     <ValueJustificationViz />
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground">
+                        The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                      </p>
+                      
+                      <div>
+                        <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Features:</h4>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            Real-time blockchain.info API integration
+                          </li>
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            5-minute automatic data updates
+                          </li>
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            24-hour price movement tracking
+                          </li>
+                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                            Dynamic merge mining calculations
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
