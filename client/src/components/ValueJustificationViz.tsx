@@ -155,7 +155,7 @@ const ValueJustificationViz = () => {
 
             <div className="text-sm text-gray-600">
               <h4 className="font-bold">Shared Security</h4>
-              <p>Elastos inherits 67.6% of Bitcoin's security through merge mining</p>
+              <p>Elastos inherits {securityPercentage}% of Bitcoin's security through merge mining</p>
             </div>
 
             <div className="text-sm text-gray-600">
