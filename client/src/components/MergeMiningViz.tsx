@@ -49,7 +49,7 @@ const MergeMiningViz = () => {
               speed: Math.random() * 4 + 3,
               rotation: Math.random() * 360,
               opacity: Math.random() * 0.4 + 0.6,
-              type: 'bitcoin' as const
+              type: 'bitcoin'
             },
             {
               id: Date.now() + Math.random() + 1,
@@ -59,7 +59,7 @@ const MergeMiningViz = () => {
               speed: Math.random() * 4 + 3,
               rotation: Math.random() * 360,
               opacity: Math.random() * 0.4 + 0.6,
-              type: 'elastos' as const
+              type: 'elastos'
             }
           ];
         }).flat();
