@@ -42,26 +42,25 @@ const MergeMiningViz = () => {
         const filtered = prev.filter(p => p.y < 400);
         const newLocks = [...Array(2)].map(() => {
           const x = Math.random() * (containerWidth - 100);
+          const baseLock = {
+            y: -20,
+            size: Math.random() * 12 + 8,
+            speed: Math.random() * 4 + 3,
+            rotation: Math.random() * 360,
+            opacity: Math.random() * 0.4 + 0.6,
+          };
           return [
             {
+              ...baseLock,
               id: Date.now() + Math.random(),
               x: x,
-              y: -20,
-              size: Math.random() * 12 + 8,
-              speed: Math.random() * 4 + 3,
-              rotation: Math.random() * 360,
-              opacity: Math.random() * 0.4 + 0.6,
-              type: 'bitcoin'
+              type: 'bitcoin' as const
             },
             {
+              ...baseLock,
               id: Date.now() + Math.random() + 1,
               x: x,
-              y: -20,
-              size: Math.random() * 12 + 8,
-              speed: Math.random() * 4 + 3,
-              rotation: Math.random() * 360,
-              opacity: Math.random() * 0.4 + 0.6,
-              type: 'elastos' as LockType
+              type: 'elastos' as const
             }
           ];
         }).flat();

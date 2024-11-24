@@ -17,7 +17,7 @@ const HashScaleViz = () => {
   ];
 
   const getCurrentScale = () => {
-    return scales.find(s => s.symbol === selectedScale);
+    return scales.find(s => s.symbol === selectedScale) || scales[0];
   };
 
   const renderLocks = () => {
