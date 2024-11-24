@@ -264,10 +264,11 @@ const NetworkSphere: React.FC = () => {
     
     const centerX1 = canvas.width * 0.35;
     const centerX2 = canvas.width * 0.65;
-    const radius = Math.min(canvas.width * 0.12, 100);
+    const radius1 = Math.min(canvas.width * 0.12, 100);
+    const radius2 = radius1 * (elastosHashrate/bitcoinHashrate); // Scale second sphere based on hashrate ratio
     
-    orangeSphereRef.current = new NetworkSphereClass(centerX1, 'rgba(204, 85, 0, 0.8)', radius, 2000);
-    blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 0.8)', radius, 2000);
+    orangeSphereRef.current = new NetworkSphereClass(centerX1, 'rgba(204, 85, 0, 0.8)', radius1, 2000);
+    blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(59, 130, 246, 0.8)', radius2, 1500);
 
     let time = 0;
     let globalBreathing = 0;
@@ -312,10 +313,16 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-[400px] flex flex-col items-center justify-center bg-gradient-to-b from-background to-background/50 rounded-lg">
-      <div className="absolute top-4 left-4 space-x-4 z-10">
-        <span className="text-orange-500 font-semibold">{bitcoinHashrate.toFixed(2)} EH/s</span>
-        <span className="text-blue-500 font-semibold">{elastosHashrate.toFixed(2)} EH/s ({securityPercentage}%)</span>
+    <div className="w-full h-[400px] flex flex-col items-center justify-center bg-gradient-to-b from-background to-background/50 rounded-lg relative overflow-hidden">
+      <div className="absolute top-4 left-4 space-y-2 z-10 bg-background/80 p-3 rounded-lg backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-orange-500 animate-pulse" />
+          <span className="text-orange-500 font-semibold">Bitcoin: {bitcoinHashrate.toFixed(2)} EH/s</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
+          <span className="text-blue-500 font-semibold">Elastos: {elastosHashrate.toFixed(2)} EH/s ({securityPercentage}%)</span>
+        </div>
       </div>
       <canvas
         ref={canvasRef}
