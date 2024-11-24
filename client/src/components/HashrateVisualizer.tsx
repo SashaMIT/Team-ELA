@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Zap, Calculator, Cpu, Network, Server } from 'lucide-react';
+import { Zap, Calculator, Cpu, Network, Server, X } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -163,14 +163,18 @@ const HashrateVisualizer = () => {
                     What is Hashrate?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-5xl">
-                  <DialogHeader>
+                <DialogContent className="max-w-5xl overflow-y-auto max-h-[90vh] sm:max-h-[85vh]">
+                  <DialogHeader className="relative">
                     <DialogTitle className="flex items-center gap-2 text-left">
                       <Calculator className="w-6 h-6 text-blue-500" />
                       Understanding Hashrate
                     </DialogTitle>
+                    <DialogClose className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Close</span>
+                    </DialogClose>
                   </DialogHeader>
-                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                  <div className="flex flex-col lg:flex-row gap-6">
                     <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
                       <p>
                         Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
@@ -198,12 +202,16 @@ const HashrateVisualizer = () => {
                     What is EH/s?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader className="text-center">
-                    <DialogTitle className="flex items-center justify-center gap-2">
+                <DialogContent className="max-w-2xl overflow-y-auto max-h-[90vh] sm:max-h-[85vh]">
+                  <DialogHeader className="relative">
+                    <DialogTitle className="flex items-center gap-2 text-left">
                       <Cpu className="w-6 h-6 text-purple-500" />
                       Understanding EH/s (ExaHashes per second)
                     </DialogTitle>
+                    <DialogClose className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Close</span>
+                    </DialogClose>
                   </DialogHeader>
                   <div className="space-y-4">
                     <div className="text-muted-foreground text-center">
@@ -224,14 +232,18 @@ const HashrateVisualizer = () => {
                     What is Merge Mining?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-5xl">
-                  <DialogHeader>
+                <DialogContent className="max-w-5xl overflow-y-auto max-h-[90vh] sm:max-h-[85vh]">
+                  <DialogHeader className="relative">
                     <DialogTitle className="flex items-center gap-2 text-left">
                       <Network className="w-6 h-6 text-green-500" />
                       Understanding Merge Mining
                     </DialogTitle>
+                    <DialogClose className="absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Close</span>
+                    </DialogClose>
                   </DialogHeader>
-                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                  <div className="flex flex-col lg:flex-row gap-6">
                     <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
                       <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
                       <ul className="list-disc ml-6 mt-2 space-y-1">
