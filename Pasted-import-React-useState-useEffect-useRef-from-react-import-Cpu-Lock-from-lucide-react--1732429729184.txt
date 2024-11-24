@@ -1,0 +1,99 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Cpu, Lock } from 'lucide-react';
+
+const FriendlyHashrate = () => {
+  const [locks, setLocks] = useState([]);
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.clientWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLocks(prev => {
+        const filtered = prev.filter(p => p.y < 400);
+        // Create multiple locks per interval
+        const newLocks = [...Array(3)].map(() => ({
+          id: Date.now() + Math.random(),
+          x: Math.random() * containerWidth,
+          y: -20, // Start above viewport
+          size: Math.random() * 12 + 8,
+          speed: Math.random() * 4 + 3,
+          rotation: Math.random() * 360,
+          opacity: Math.random() * 0.4 + 0.6
+        }));
+        return [...filtered, ...newLocks];
+      });
+    }, 50); // Increased frequency
+
+    return () => clearInterval(interval);
+  }, [containerWidth]);
+
+  useEffect(() => {
+    const moveInterval = setInterval(() => {
+      setLocks(prev => 
+        prev.map(lock => ({
+          ...lock,
+          y: lock.y + lock.speed,
+          rotation: lock.rotation + 1 // Gentle spin
+        }))
+      );
+    }, 16); // Smoother animation
+
+    return () => clearInterval(moveInterval);
+  }, []);
+
+  return (
+    <div className="w-full max-w-2xl mx-auto p-4 bg-gradient-to-b from-blue-50 to-white rounded-xl shadow-lg">
+      <div className="text-center mb-4">
+        <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-500">
+          Bitcoin's Network Security
+        </h2>
+        <p className="text-gray-600 mt-2">
+          672.30 EH/s = 672,300,000,000,000,000,000 hashes per second 🔒
+        </p>
+      </div>
+
+      <div 
+        ref={containerRef}
+        className="relative h-96 bg-gradient-to-b from-blue-100/50 to-orange-100/30 rounded-xl overflow-hidden border border-blue-200"
+      >
+        <div className="absolute bottom-4 w-full flex justify-around">
+          {[...Array(5)].map((_, i) => (
+            <Cpu key={i} size={32} className="text-orange-400 animate-pulse" style={{
+              animationDelay: `${i * 200}ms`
+            }} />
+          ))}
+        </div>
+
+        {locks.map(lock => (
+          <div
+            key={lock.id}
+            className="absolute transition-all duration-100"
+            style={{
+              transform: `translate(${lock.x}px, ${lock.y}px) rotate(${lock.rotation}deg)`,
+              opacity: lock.opacity
+            }}
+          >
+            <Lock 
+              size={lock.size} 
+              className="text-yellow-500"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FriendlyHashrate;
