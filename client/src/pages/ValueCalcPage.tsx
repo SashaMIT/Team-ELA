@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import ValueJustificationViz from '../components/ValueJustificationViz';
+import CompactCalcAnimation from '../components/CompactCalcAnimation';
 
 const ValueCalcPage = () => {
   // Calculator state
@@ -61,31 +61,27 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl">
+                <DialogContent className="max-w-2xl">
                   <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                       <Calculator className="w-6 h-6 text-blue-500" />
                       Understanding the Value Calculator
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-6">
-                    <div className="w-full">
-                      <ValueJustificationViz />
-                    </div>
-                    <div className="text-muted-foreground space-y-2">
-                      <p>
-                        Calculate ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-                      </p>
-                      
-                      <div className="space-y-2">
-                        <h4 className="font-semibold">Features:</h4>
-                        <ul className="list-disc pl-6 space-y-1">
-                          <li>Real-time data from blockchain.info API</li>
-                          <li>Automatic updates every 5 minutes</li>
-                          <li>Price movement indicators with 24h changes</li>
-                          <li>Visual comparisons of current vs. estimated value</li>
-                        </ul>
-                      </div>
+                  <div className="text-muted-foreground space-y-4">
+                    <p>
+                      The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                    </p>
+                    
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">Key Features:</h4>
+                      <ul className="list-disc pl-6 space-y-1">
+                        <li>Real-time data integration with blockchain.info API</li>
+                        <li>Automatic updates every 5 minutes for fresh market data</li>
+                        <li>24-hour price movement indicators for market context</li>
+                        <li>Side-by-side comparison of current market price vs. estimated value</li>
+                        <li>Dynamic calculation based on Bitcoin's hashrate and merge mining participation</li>
+                      </ul>
                     </div>
                   </div>
                 </DialogContent>
@@ -98,14 +94,15 @@ const ValueCalcPage = () => {
                     Calculation Methodology
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-w-3xl">
                   <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                       <BarChart2 className="w-6 h-6 text-purple-500" />
                       Value Calculation Methodology
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="text-muted-foreground">
+                  <CompactCalcAnimation />
+                  <div className="mt-6 text-muted-foreground">
                     <h3 className="font-bold mb-2">🧮 How it's calculated:</h3>
                     <ol className="list-decimal pl-6 space-y-2">
                       <li>

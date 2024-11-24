@@ -1,0 +1,120 @@
+import React, { useState, useEffect } from 'react';
+import { Lock, ArrowRight } from 'lucide-react';
+
+const CompactCalcAnimation = () => {
+  const [step, setStep] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(true);
+  
+  useEffect(() => {
+    if (!isAnimating) return;
+    const timer = setInterval(() => {
+      setStep(prev => (prev + 1) % 5);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isAnimating]);
+
+  const calculations = {
+    blockReward: 3.125,
+    blocksPerYear: 52560,
+    annualBTC: 164250,
+    btcPrice: 63796,
+    annualUSD: 10.48e9,
+    elastosShare: 0.45,
+    elastosValue: 4.716e9,
+    elaSupply: 26220000,
+    elaValue: 179.86
+  };
+
+  const steps = [
+    {
+      label: "Annual BTC Rewards",
+      formula: "3.125 × 52,560",
+      result: "164,250 BTC",
+      color: "orange"
+    },
+    {
+      label: "USD Value",
+      formula: "164,250 × $63,796",
+      result: "$10.48B",
+      color: "green"
+    },
+    {
+      label: "Elastos Share (45%)",
+      formula: "$10.48B × 45%",
+      result: "$4.72B",
+      color: "blue"
+    },
+    {
+      label: "Per Token Value",
+      formula: "$4.72B ÷ 26.22M",
+      result: "$179.86",
+      color: "purple"
+    }
+  ];
+
+  return (
+    <div className="w-full max-w-2xl mx-auto p-4 bg-white rounded-xl shadow-lg">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-bold text-gray-800">ELA Security Value</h2>
+        <button
+          onClick={() => setIsAnimating(!isAnimating)}
+          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          {isAnimating ? '⏸' : '▶️'}
+        </button>
+      </div>
+
+      <div className="flex items-center justify-between gap-2 mb-2">
+        {steps.map((s, i) => (
+          <React.Fragment key={i}>
+            <div 
+              className={`transform transition-all duration-500 ${
+                step >= i ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              }`}
+            >
+              <div className={`bg-${s.color}-50 p-3 rounded-lg w-[120px]`}>
+                <div className={`text-${s.color}-600 text-xs mb-1`}>{s.label}</div>
+                <div className="font-mono text-sm mb-1">{s.formula}</div>
+                <div className={`text-${s.color}-700 font-bold`}>{s.result}</div>
+              </div>
+            </div>
+            {i < steps.length - 1 && (
+              <ArrowRight className={`text-gray-400 flex-shrink-0 transform transition-all duration-500 ${
+                step > i ? 'opacity-100' : 'opacity-0'
+              }`} size={16} />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Animated lock particles showing security flow */}
+      <div className="relative h-16 bg-gradient-to-r from-orange-50 via-blue-50 to-purple-50 rounded-lg overflow-hidden">
+        {step >= 1 && Array.from({ length: 5 }).map((_, i) => (
+          <Lock
+            key={i}
+            size={16}
+            className={`absolute top-1/2 transform -translate-y-1/2 transition-all duration-1000 
+              ${step >= 3 ? 'text-purple-500' : step >= 2 ? 'text-blue-500' : 'text-orange-500'}
+            `}
+            style={{
+              left: `${(step * 25) - (i * 20)}%`,
+              opacity: 0.8,
+              animationDelay: `${i * 200}ms`
+            }}
+          />
+        ))}
+        <div className="absolute bottom-1 right-2 text-xs text-gray-500">
+          Security Flow
+        </div>
+      </div>
+
+      {step === 4 && (
+        <div className="mt-2 text-center text-xs text-gray-500">
+          Value derived from Bitcoin's mining security and 45% merge mining share
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CompactCalcAnimation;
