@@ -225,6 +225,11 @@ const NetworkSphere: React.FC = () => {
   const animationFrameRef = useRef<number>();
   const orangeSphereRef = useRef<NetworkSphereClass | null>(null);
   const blackSphereRef = useRef<NetworkSphereClass | null>(null);
+  
+  const { data: hashrateData } = useHashrateData();
+  const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
+  const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
+  const securityPercentage = ((elastosHashrate/bitcoinHashrate) * 100).toFixed(1);
 
   useEffect(() => {
     const canvas = canvasRef.current;
