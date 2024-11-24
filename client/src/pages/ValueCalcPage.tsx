@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ChevronDown, ChevronUp, Calculator, DollarSign, BarChart2, Info } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Accordion,
   AccordionContent,
@@ -42,44 +50,57 @@ const ValueCalcPage = () => {
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
       <Card className="max-w-3xl mx-auto">
-        <CardContent className="pt-6">
+        <CardHeader className="p-4 sm:p-6 space-y-2">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+            <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0 mt-1" />
+            <span className="leading-tight">Elastos Value Calculator</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-0">
           <div className="space-y-8">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg shadow-lg mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Calculator className="w-8 h-8 sm:w-10 sm:h-10" />
-                <h1 className="text-2xl sm:text-3xl font-bold">
-                  Elastos Value Calculator
-                </h1>
-              </div>
-              
-              <div className="space-y-4 text-blue-50">
-                <p className="text-lg">
-                  Calculate ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-white">Methodology:</h4>
-                    <ul className="list-disc pl-6 space-y-1 text-sm">
-                      <li>Calculate annual Bitcoin mining rewards (BTC)</li>
-                      <li>Convert rewards to USD using current Bitcoin price</li>
-                      <li>Determine Elastos' share based on merge mining percentage</li>
-                      <li>Divide by total ELA supply for per-token value</li>
-                    </ul>
-                  </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50 mb-6">
+                  <Info className="w-5 h-5 text-blue-500" />
+                  What is the Value Calculator?
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl">
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2">
+                    <Calculator className="w-6 h-6 text-blue-500" />
+                    Understanding the Value Calculator
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <p>
+                    Calculate ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                  </p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">Methodology:</h4>
+                      <ul className="list-disc pl-6 space-y-1">
+                        <li>Calculate annual Bitcoin mining rewards (BTC)</li>
+                        <li>Convert rewards to USD using current Bitcoin price</li>
+                        <li>Determine Elastos' share based on merge mining percentage</li>
+                        <li>Divide by total ELA supply for per-token value</li>
+                      </ul>
+                    </div>
 
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-white">Features:</h4>
-                    <ul className="list-disc pl-6 space-y-1 text-sm">
-                      <li>Real-time data from blockchain.info API</li>
-                      <li>Automatic updates every 5 minutes</li>
-                      <li>Price movement indicators with 24h changes</li>
-                      <li>Visual comparisons of current vs. estimated value</li>
-                    </ul>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">Features:</h4>
+                      <ul className="list-disc pl-6 space-y-1">
+                        <li>Real-time data from blockchain.info API</li>
+                        <li>Automatic updates every 5 minutes</li>
+                        <li>Price movement indicators with 24h changes</li>
+                        <li>Visual comparisons of current vs. estimated value</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </DialogContent>
+            </Dialog>
             <p className="text-muted-foreground">
               ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
             </p>
