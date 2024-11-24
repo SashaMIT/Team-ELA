@@ -29,16 +29,16 @@ const ValueJustificationViz = () => {
         const filtered = prev.filter(p => p.y < 600 && p.opacity > 0);
         return [...filtered, {
           id: Date.now(),
-          x: 150 + Math.random() * 100,
+          x: 150 + Math.random() * 50,
           y: -20,
           speed: 2 + Math.random() * 2,
-          size: 12 + Math.random() * 8,
-          opacity: 0.8,
+          size: 8 + Math.random() * 6,
+          opacity: 0.6,
           phase: 'mining',
           value: Math.random() * 100
         }];
       });
-    }, 200);
+    }, 150);
 
     return () => clearInterval(interval);
   }, []);
@@ -51,7 +51,7 @@ const ValueJustificationViz = () => {
         return [...filtered, {
           id: Date.now(),
           x: -20,
-          y: 450 + Math.random() * 100,
+          y: 200 + Math.random() * 50,
           speed: 1 + Math.random() * 1,
           size: 16,
           opacity: 0.8
@@ -107,25 +107,22 @@ const ValueJustificationViz = () => {
 
   return (
     <div className="w-full bg-gradient-to-b from-background to-background/50 rounded-xl">
-      <div className="relative h-[600px] bg-gradient-to-b from-accent/20 to-accent/5 rounded-xl overflow-hidden">
-        {/* Stats Panel */}
-        <div className="absolute left-4 top-4 space-y-4 z-10">
-          <div className="bg-orange-100/90 p-4 rounded-lg shadow-sm">
-            <h3 className="text-orange-800 font-bold">Bitcoin Mining</h3>
-            <div className="text-orange-600 font-mono">{bitcoinHashrate.toFixed(2)} EH/s</div>
-            <div className="text-orange-600 text-sm">Network Power</div>
+      <div className="relative h-[300px] bg-gradient-to-b from-accent/20 to-accent/5 rounded-xl overflow-hidden">
+        {/* Integrated Stats */}
+        <div className="absolute inset-x-0 top-0 px-4 py-2 bg-black/5 backdrop-blur-sm flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div>
+              <div className="text-orange-600 font-mono text-sm">{bitcoinHashrate.toFixed(2)} EH/s</div>
+              <div className="text-orange-800 text-xs">Bitcoin Mining</div>
+            </div>
+            <div>
+              <div className="text-blue-600 font-mono text-sm">{elastosHashrate.toFixed(2)} EH/s</div>
+              <div className="text-blue-800 text-xs">{securityPercentage}% Security</div>
+            </div>
           </div>
-          
-          <div className="bg-blue-100/90 p-4 rounded-lg shadow-sm">
-            <h3 className="text-blue-800 font-bold">Elastos Share</h3>
-            <div className="text-blue-600 font-mono">{elastosHashrate.toFixed(2)} EH/s</div>
-            <div className="text-blue-600 text-sm">{securityPercentage}% Security</div>
-          </div>
-
-          <div className="bg-purple-100/90 p-4 rounded-lg shadow-sm">
-            <h3 className="text-purple-800 font-bold">ELA Value</h3>
-            <div className="text-purple-600 font-mono">${elaPrice.toFixed(2)}</div>
-            <div className="text-purple-600 text-sm">Market Price</div>
+          <div>
+            <div className="text-purple-600 font-mono text-sm">${elaPrice.toFixed(2)}</div>
+            <div className="text-purple-800 text-xs">ELA Price</div>
           </div>
         </div>
 
