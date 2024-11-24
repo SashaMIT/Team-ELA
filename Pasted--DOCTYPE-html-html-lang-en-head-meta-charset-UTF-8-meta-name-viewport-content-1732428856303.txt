@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELA Value Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        #estimated-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a4a4a;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .info-box {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        details {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::before {
+            content: '▶';
+            margin-right: 8px;
+        }
+        details[open] summary::before {
+            content: '▼';
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .input-group input[type="number"] {
+            width: 100px;
+            padding: 5px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .verify-link {
+            font-size: 0.9em;
+        }
+        .exchange-link {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+        }
+        .exchange-link:hover {
+            background-color: #e0e0e0;
+        }
+        .icon {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ELA Value Calculator</h1>
+    <p>
+        This calculator evaluates ELA's investment value based on the security worth of Bitcoin miners and their allocation to ELA. 
+        Elastos, merged-mined with Bitcoin, lets Proof-of-Work miners secure both networks simultaneously, earning rewards without extra computational effort.
+    </p>
+    <div id="estimated-value">Estimated ELA Value: $0.00</div>
+    <div>
+        <label for="bitcoin-price">Bitcoin Price (USD): <span id="bitcoin-price-value">63796</span></label>
+        <input type="range" id="bitcoin-price" min="10000" max="100000" value="63796">
+    </div>
+    <div class="info-box">
+        <div class="input-group">
+            <strong>Bitcoin Hashrate (EH/s):</strong>
+            <input type="number" id="bitcoin-hashrate" value="583.73" step="0.01" min="0">
+            <span class="verify-link">
+                <a href="https://www.coinwarz.com/mining/bitcoin/hashrate-chart" target="_blank">(Verify)</a>
+            </span>
+        </div>
+        <div class="input-group">
+            <strong>Elastos Hashrate (% of Bitcoin's):</strong>
+            <input type="number" id="elastos-hashrate" value="45" step="1" min="0" max="100">
+            <span class="verify-link">
+                <a href="https://ela.elastos.io/" target="_blank">(Verify)</a>
+            </span>
+        </div>
+    </div>
+    <div class="input-group">
+        <strong>Current Market Price:</strong>
+        <input type="number" id="market-price" value="2.34" step="0.01" min="0">
+        <span class="verify-link">
+            <a href="https://www.coingecko.com/en/coins/elastos" target="_blank">(Verify)</a>
+        </span>
+    </div>
+    <div>
+        <strong>Potential Upside:</strong> <span id="potential-upside">0.00</span>%
+    </div>
+    
+    <details>
+        <summary><span class="icon">🛒</span> Buy ELA</summary>
+        <div class="exchange-category">
+            <h4>Centralized Exchanges (CEX)</h4>
+            <div class="exchange-list">
+                <a href="https://www.coinbase.com/en-gb/advanced-trade/spot/ELA-USD" target="_blank" class="exchange-link"><span class="icon">💱</span>Coinbase</a>
+                <a href="https://www.kucoin.com/trade/ELA-USDT?rcode=e21sNJ" target="_blank" class="exchange-link"><span class="icon">💱</span>KuCoin</a>
+                <a href="https://www.gate.io/trade/ELA_USDT?ref=3018394" target="_blank" class="exchange-link"><span class="icon">💱</span>Gate.io</a>
+                <a href="https://www.bitget.com/spot/ELAUSDT/?channelCode=42xn&vipCode=sq59&languageType=0" target="_blank" class="exchange-link"><span class="icon">💱</span>Bitget</a>
+                <a href="https://crypto.com/exchange/trade/ELA_USD" target="_blank" class="exchange-link"><span class="icon">💱</span>Crypto.com</a>
+            </div>
+        </div>
+        <div class="exchange-category">
+            <h4>Decentralized Exchanges (DEX)</h4>
+            <div class="exchange-list">
+                <a href="https://app.uniswap.org/#/swap?inputCurrency=0xe6fd75ff38adca4b97fbcd938c86b98772431867&outputCurrency=ETH" target="_blank" class="exchange-link"><span class="icon">🦄</span>Uniswap</a>
+                <a href="https://dapp.chainge.finance/?fromChain=ETH&toChain=ELA&fromToken=USDC&toToken=ELA" target="_blank" class="exchange-link"><span class="icon">🔗</span>Chainge Finance</a>
+            </div>
+        </div>
+    </details>
+
+    <details>
+        <summary><span class="icon">📊</span> Calculation Methodology</summary>
+        <h2>Detailed Calculation Explanation</h2>
+        <p>This calculation is based on the value of Bitcoin's mining security and Elastos' share of that security through merged mining. Here's a step-by-step breakdown:</p>
+        <ol>
+            <li><strong>Bitcoin Mining Rewards:</strong>
+                <ul>
+                    <li>Block Reward: 3.125 BTC (every 10 minutes)</li>
+                    <li>Blocks per Year: 52,560 (6 blocks per hour * 24 hours * 365 days)</li>
+                    <li>Annual Mining Rewards (BTC): 164,250 BTC/year (3.125 * 52,560)</li>
+                </ul>
+            </li>
+            <li><strong>Annual Value of Bitcoin's Hashpower:</strong>
+                <ul>
+                    <li>Annual Mining Rewards (USD) = Annual Mining Rewards (BTC) * Bitcoin Price</li>
+                    <li>Example: 164,250 BTC * $63,796 = $10.48 billion/year</li>
+                </ul>
+            </li>
+            <li><strong>Elastos' Hashpower Share:</strong>
+                <ul>
+                    <li>Elastos' Share of Hashrate: 45%</li>
+                    <li>Annual Value of Elastos' Hashpower = Annual Value of Bitcoin's Hashpower * 45%</li>
+                    <li>Example: $10.48 billion * 45% = $4.716 billion</li>
+                </ul>
+            </li>
+            <li><strong>ELA Token Value Calculation:</strong>
+                <ul>
+                    <li>Total Supply of ELA: 26,220,000 tokens</li>
+                    <li>Per ELA Token Value = Annual Value of Elastos' Hashpower / Total Supply of ELA</li>
+                    <li>Example: $4.716 billion / 26,220,000 = $179.86 per ELA token</li>
+                </ul>
+            </li>
+        </ol>
+        <p>This calculation assumes that the value of ELA is directly proportional to its share of Bitcoin's mining rewards, based on its 45% hashrate contribution through merged mining. It's important to note that this is a simplified model focusing solely on the security aspect and does not account for other factors that could influence ELA's value.</p>
+        <p><strong>Note:</strong> This calculation is for educational purposes and should not be considered financial advice. The actual market value of ELA may differ due to various factors beyond just mining security.</p>
+    </details>
+
+    <script>
+        const bitcoinPriceSlider = document.getElementById('bitcoin-price');
+        const bitcoinPriceValue = document.getElementById('bitcoin-price-value');
+        const bitcoinHashrateInput = document.getElementById('bitcoin-hashrate');
+        const elastosHashrateInput = document.getElementById('elastos-hashrate');
+        const marketPriceInput = document.getElementById('market-price');
+        const estimatedValueDiv = document.getElementById('estimated-value');
+        const potentialUpsideSpan = document.getElementById('potential-upside');
+
+        const elaSupply = 26.22; // Updated ELA supply in millions
+
+        function calculateELAValue() {
+            const bitcoinPrice = parseFloat(bitcoinPriceSlider.value);
+            const elastosHashrate = parseFloat(elastosHashrateInput.value);
+            const btcBlockReward = 3.125;
+            const blocksPerYear = 52560;
+            const annualBTCRewards = btcBlockReward * blocksPerYear;
+            const annualUSDRewards = annualBTCRewards * bitcoinPrice;
+            const elastosHashpowerValue = (annualUSDRewards * elastosHashrate) / 100;
+            return elastosHashpowerValue / (elaSupply * 1000000);
+        }
+
+        function updateCalculation() {
+            const bitcoinPrice = parseFloat(bitcoinPriceSlider.value);
+            bitcoinPriceValue.textContent = bitcoinPrice;
+
+            const elaValue = calculateELAValue();
+            estimatedValueDiv.textContent = `Estimated ELA Value: $${elaValue.toFixed(2)}`;
+
+            const currentMarketPrice = parseFloat(marketPriceInput.value);
+            const potentialUpside = ((elaValue / currentMarketPrice - 1) * 100).toFixed(2);
+            potentialUpsideSpan.textContent = potentialUpside;
+        }
+
+        bitcoinPriceSlider.addEventListener('input', updateCalculation);
+        bitcoinHashrateInput.addEventListener('input', updateCalculation);
+        elastosHashrateInput.addEventListener('input', updateCalculation);
+        marketPriceInput.addEventListener('input', updateCalculation);
+
+        updateCalculation(); // Initial calculation
+    </script>
+</body>
+</html>
