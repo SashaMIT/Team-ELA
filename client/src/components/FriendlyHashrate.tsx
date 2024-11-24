@@ -76,7 +76,7 @@ const FriendlyHashrate = () => {
 
       <div 
         ref={containerRef}
-        className="relative h-96 bg-gradient-to-b from-blue-100/50 to-orange-100/30 rounded-xl overflow-hidden border border-blue-200"
+        className="relative h-64 bg-gradient-to-b from-blue-100/50 to-orange-100/30 rounded-xl overflow-hidden border border-blue-200"
       >
         <div className="absolute bottom-4 w-full flex justify-around">
           {[...Array(5)].map((_, i) => (
