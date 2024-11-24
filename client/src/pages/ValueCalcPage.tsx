@@ -68,26 +68,24 @@ const ValueCalcPage = () => {
                       Understanding the Value Calculator
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="flex flex-col lg:flex-row gap-6 items-center">
-                    <div className="text-muted-foreground space-y-2 lg:w-1/2">
+                  <div className="space-y-6">
+                    <div className="w-full">
+                      <ValueJustificationViz />
+                    </div>
+                    <div className="text-muted-foreground space-y-2">
                       <p>
                         Calculate ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
                       </p>
                       
-                      <div className="grid grid-cols-1 gap-6">
-                        <div className="space-y-2">
-                          <h4 className="font-semibold">Features:</h4>
-                          <ul className="list-disc pl-6 space-y-1">
-                            <li>Real-time data from blockchain.info API</li>
-                            <li>Automatic updates every 5 minutes</li>
-                            <li>Price movement indicators with 24h changes</li>
-                            <li>Visual comparisons of current vs. estimated value</li>
-                          </ul>
-                        </div>
+                      <div className="space-y-2">
+                        <h4 className="font-semibold">Features:</h4>
+                        <ul className="list-disc pl-6 space-y-1">
+                          <li>Real-time data from blockchain.info API</li>
+                          <li>Automatic updates every 5 minutes</li>
+                          <li>Price movement indicators with 24h changes</li>
+                          <li>Visual comparisons of current vs. estimated value</li>
+                        </ul>
                       </div>
-                    </div>
-                    <div className="lg:w-1/2">
-                      <ValueJustificationViz />
                     </div>
                   </div>
                 </DialogContent>
