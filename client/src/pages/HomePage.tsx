@@ -22,10 +22,11 @@ const HomePage = () => {
   const bitcoinPriceChange = hashrateData?.bitcoinPriceChange24h ?? 0;
   const elaPriceChange = hashrateData?.elaPriceChange24h ?? 0;
 
-  const formatMarketCap = (value: number) => {
-  if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
-  return `$${(value / 1e9).toFixed(2)}B`;
-};
+  const formatMarketCap = (value: number, isElastos = false) => {
+    if (isElastos) return `$${(value / 1e6).toFixed(2)}M`;
+    if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
+    return `$${(value / 1e9).toFixed(2)}B`;
+  };
 
 const bitcoinMarketCap = bitcoinPrice * 21000000;
 const elastosMarketCap = elaPrice * 26220000;
@@ -65,7 +66,7 @@ const stats: StatItem[] = [
     },
     {
       label: "Elastos Market Cap",
-      value: formatMarketCap(elastosMarketCap),
+      value: formatMarketCap(elastosMarketCap, true),
       showChange: false
     },
     {
@@ -79,7 +80,7 @@ const stats: StatItem[] = [
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
       <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 px-2">
-        <div className="w-full">
+        <div className="w-full flex justify-center items-center">
           <MergeMiningAnimation />
         </div>
         
@@ -88,7 +89,7 @@ const stats: StatItem[] = [
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-4 rounded-lg space-y-2"
+              className="bg-accent/10 p-4 rounded-lg space-y-2 text-center mx-auto"
             >
               <div className="text-sm text-muted-foreground">
                 {stat.label}
