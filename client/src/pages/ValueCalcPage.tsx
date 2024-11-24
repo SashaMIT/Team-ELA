@@ -53,76 +53,81 @@ const ValueCalcPage = () => {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-8">
-            <div className="flex gap-2 mb-6">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="flex-1 flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
-                    <Info className="w-5 h-5 text-blue-500" />
-                    What is the Value Calculator?
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
-                      <Calculator className="w-6 h-6 text-blue-500" />
-                      Understanding the Value Calculator
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="text-muted-foreground space-y-4">
-                    <p>
-                      The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-                    </p>
-                    
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Key Features:</h4>
-                      <ul className="list-disc pl-6 space-y-1">
-                        <li>Real-time data integration with blockchain.info API</li>
-                        <li>Automatic updates every 5 minutes for fresh market data</li>
-                        <li>24-hour price movement indicators for market context</li>
-                        <li>Side-by-side comparison of current market price vs. estimated value</li>
-                        <li>Dynamic calculation based on Bitcoin's hashrate and merge mining participation</li>
-                      </ul>
-                    </div>
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 rounded-lg">
+                <div className="max-w-2xl">
+                  <h3 className="text-lg font-semibold mb-2">What is the Value Calculator?</h3>
+                  <p className="text-muted-foreground">
+                    The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                  </p>
+                  
+                  <div className="mt-4">
+                    <h4 className="font-semibold text-sm text-muted-foreground">Key Features:</h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                        Real-time blockchain.info API integration
+                      </li>
+                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                        5-minute automatic data updates
+                      </li>
+                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                        24-hour price movement tracking
+                      </li>
+                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                        Dynamic merge mining calculations
+                      </li>
+                    </ul>
                   </div>
-                </DialogContent>
-              </Dialog>
+                </div>
+              </div>
 
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
-                    <BarChart2 className="w-5 h-5 text-purple-500" />
-                    Calculation Methodology
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-3xl">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-2">
-                      <BarChart2 className="w-6 h-6 text-purple-500" />
-                      Value Calculation Methodology
-                    </DialogTitle>
-                  </DialogHeader>
+              <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-6 rounded-lg">
+                <div className="max-w-3xl">
+                  <h3 className="text-lg font-semibold mb-4">Value Calculation Methodology</h3>
                   <CompactCalcAnimation />
                   <div className="mt-6 text-muted-foreground">
-                    <h3 className="font-bold mb-2">🧮 How it's calculated:</h3>
-                    <ol className="list-decimal pl-6 space-y-2">
-                      <li>
-                        <strong>Bitcoin Mining Rewards:</strong> 3.125 BTC per block,
-                        52,560 blocks per year = 164,250 BTC/year
-                      </li>
-                      <li>
-                        <strong>Annual Value:</strong> 164,250 BTC × Current Bitcoin Price
-                      </li>
-                      <li>
-                        <strong>Elastos Share:</strong> Annual Value × (Elastos Hashrate / Bitcoin Hashrate)
-                      </li>
-                      <li>
-                        <strong>Per Token Value:</strong> Elastos Share ÷ Total
-                        Supply (26.22M)
-                      </li>
-                    </ol>
+                    <h4 className="font-semibold mb-2">🧮 How it's calculated:</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <div className="w-2 h-2 rounded-full bg-orange-500 mt-2"></div>
+                          <div>
+                            <strong>Bitcoin Mining Rewards:</strong>
+                            <div className="text-sm">3.125 BTC × 52,560 blocks = 164,250 BTC/year</div>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="w-2 h-2 rounded-full bg-green-500 mt-2"></div>
+                          <div>
+                            <strong>Annual Value:</strong>
+                            <div className="text-sm">164,250 BTC × Current Bitcoin Price</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <div className="w-2 h-2 rounded-full bg-blue-500 mt-2"></div>
+                          <div>
+                            <strong>Elastos Share:</strong>
+                            <div className="text-sm">Annual Value × (Elastos Hashrate / Bitcoin Hashrate)</div>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="w-2 h-2 rounded-full bg-purple-500 mt-2"></div>
+                          <div>
+                            <strong>Per Token Value:</strong>
+                            <div className="text-sm">Elastos Share ÷ Total Supply (26.22M)</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </DialogContent>
-              </Dialog>
+                </div>
+              </div>
             </div>
             
             <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
