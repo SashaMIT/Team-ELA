@@ -37,21 +37,22 @@ const ValueJustificationViz = () => {
     const interval = setInterval(() => {
       setParticles(prev => {
         const filtered = prev.filter(p => p.y < 600 && p.opacity > 0);
+        const securityRatio = elastosHashrate / bitcoinHashrate;
         return [...filtered, {
           id: Date.now(),
           x: 150 + Math.random() * 100,
           y: -20,
-          speed: 2 + Math.random() * 2,
-          size: 12 + Math.random() * 8,
-          opacity: 0.8,
+          speed: 2 + Math.random() * 2 * securityRatio,
+          size: (12 + Math.random() * 8) * (securityRatio * 0.8 + 0.2),
+          opacity: 0.8 * (securityRatio * 0.5 + 0.5),
           phase: 'mining',
           value: Math.random() * 100
         }];
       });
-    }, 200);
+    }, Math.max(100, 200 * (1 - elastosHashrate / bitcoinHashrate)));
 
     return () => clearInterval(interval);
-  }, []);
+  }, [elastosHashrate, bitcoinHashrate]);
 
   // Generate value indicator particles
   useEffect(() => {
@@ -127,19 +128,19 @@ const ValueJustificationViz = () => {
         <div className="w-1/4 space-y-4">
           <div className="bg-orange-100 p-4 rounded-lg">
             <h3 className="text-orange-800 font-bold">Bitcoin Mining</h3>
-            <div className="text-orange-600 font-mono">640.69 EH/s</div>
+            <div className="text-orange-600 font-mono">{bitcoinHashrate.toFixed(2)} EH/s</div>
             <div className="text-orange-600 text-sm">Network Power</div>
           </div>
 
           <div className="bg-blue-100 p-4 rounded-lg">
             <h3 className="text-blue-800 font-bold">Elastos Share</h3>
-            <div className="text-blue-600 font-mono">433.19 EH/s</div>
-            <div className="text-blue-600 text-sm">67.6% Security</div>
+            <div className="text-blue-600 font-mono">{elastosHashrate.toFixed(2)} EH/s</div>
+            <div className="text-blue-600 text-sm">{securityPercentage}% Security</div>
           </div>
 
           <div className="bg-purple-100 p-4 rounded-lg">
             <h3 className="text-purple-800 font-bold">ELA Value</h3>
-            <div className="text-purple-600 font-mono">$5.23</div>
+            <div className="text-purple-600 font-mono">${elaPrice.toFixed(2)}</div>
             <div className="text-purple-600 text-sm">Market Price</div>
           </div>
         </div>
