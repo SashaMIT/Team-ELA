@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useHashrateData } from '../hooks/useHashrateData';
 
 interface Point {
   x: number;
@@ -306,7 +307,11 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-[400px] flex items-center justify-center bg-gradient-to-b from-background to-background/50 rounded-lg">
+    <div className="w-full h-[400px] flex flex-col items-center justify-center bg-gradient-to-b from-background to-background/50 rounded-lg">
+      <div className="absolute top-4 left-4 space-x-4 z-10">
+        <span className="text-orange-500 font-semibold">{bitcoinHashrate.toFixed(2)} EH/s</span>
+        <span className="text-blue-500 font-semibold">{elastosHashrate.toFixed(2)} EH/s ({securityPercentage}%)</span>
+      </div>
       <canvas
         ref={canvasRef}
         className="w-full h-full"

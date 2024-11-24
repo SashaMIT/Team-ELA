@@ -26,7 +26,7 @@ interface Scale {
   unit: string;
   buttonText?: string;
   base: number;
-  icon: string;
+  icon: React.ReactNode;
   explanation: string;
   details: string[];
 }

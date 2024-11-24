@@ -13,6 +13,8 @@ interface Lock {
   type: 'bitcoin' | 'elastos';
 }
 
+type LockType = 'bitcoin' | 'elastos';
+
 const MergeMiningViz = () => {
   const [locks, setLocks] = useState<Lock[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,7 +61,7 @@ const MergeMiningViz = () => {
               speed: Math.random() * 4 + 3,
               rotation: Math.random() * 360,
               opacity: Math.random() * 0.4 + 0.6,
-              type: 'elastos'
+              type: 'elastos' as LockType
             }
           ];
         }).flat();
