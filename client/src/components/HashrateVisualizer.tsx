@@ -168,8 +168,11 @@ const HashrateVisualizer = () => {
                       Understanding Hashrate
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="flex flex-col lg:flex-row gap-6">
-                    <div className="flex-1 text-muted-foreground space-y-2">
+                  <div className="flex flex-col gap-6">
+                    <div className="lg:hidden">
+                      <FriendlyHashrate />
+                    </div>
+                    <div className="text-muted-foreground space-y-2">
                       <p>
                         Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
                       </p>
@@ -180,8 +183,10 @@ const HashrateVisualizer = () => {
                         Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
                       </p>
                     </div>
-                    <div className="flex-1">
-                      <FriendlyHashrate />
+                    <div className="hidden lg:block">
+                      <div className="max-w-md mx-auto">
+                        <FriendlyHashrate />
+                      </div>
                     </div>
                   </div>
                 </DialogContent>
