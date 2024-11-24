@@ -150,7 +150,7 @@ class NetworkSphereClass {
       }
     });
 
-    this.rotation += 0.0006;
+    this.rotation += 0.001;
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
@@ -241,11 +241,12 @@ const NetworkSphere: React.FC = () => {
       canvas.width = width;
       canvas.height = width * 0.4; // Maintain proper aspect ratio
 
-      // Adjust sphere positions and sizes
+      // Adjust sphere positions and sizes for optimal spacing
       const centerX = canvas.width * 0.35;
       const centerX2 = canvas.width * 0.65;
-      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 1)', canvas.width * 0.12, 2400);
-      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', canvas.width * 0.12, 2000);
+      const radius = Math.min(canvas.width * 0.12, 100); // Consistent size for both spheres
+      orangeSphereRef.current = new NetworkSphereClass(centerX, 'rgba(204, 85, 0, 0.8)', radius, 2000);
+      blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 0.8)', radius, 2000);
     };
 
     resizeCanvas();
@@ -257,11 +258,10 @@ const NetworkSphere: React.FC = () => {
     
     const centerX1 = canvas.width * 0.35;
     const centerX2 = canvas.width * 0.65;
-    const radius1 = Math.min(canvas.width * 0.15, 120);
-    const radius2 = Math.min(canvas.width * 0.12, 96);
+    const radius = Math.min(canvas.width * 0.12, 100);
     
-    orangeSphereRef.current = new NetworkSphereClass(centerX1, 'rgba(204, 85, 0, 1)', radius1, 2400);
-    blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 1)', radius2, 2000);
+    orangeSphereRef.current = new NetworkSphereClass(centerX1, 'rgba(204, 85, 0, 0.8)', radius, 2000);
+    blackSphereRef.current = new NetworkSphereClass(centerX2, 'rgba(0, 0, 0, 0.8)', radius, 2000);
 
     let time = 0;
     let globalBreathing = 0;
@@ -306,7 +306,7 @@ const NetworkSphere: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-[300px] flex items-center justify-center">
+    <div className="w-full h-[400px] flex items-center justify-center bg-gradient-to-b from-background to-background/50 rounded-lg">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
