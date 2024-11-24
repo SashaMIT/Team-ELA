@@ -50,7 +50,7 @@ const stats: StatItem[] = [
     },
     {
       label: "Bitcoin Hashrate (EH/s)",
-      value: `${bitcoinHashrate.toFixed(2)} EH/s`,
+      value: bitcoinHashrate.toFixed(2),
       showChange: false
     },
     {
@@ -71,7 +71,7 @@ const stats: StatItem[] = [
     },
     {
       label: "Elastos Hashrate (EH/s)",
-      value: `${elastosHashrate.toFixed(2)} EH/s`,
+      value: elastosHashrate.toFixed(2),
       subValue: `${((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%`,
       showChange: false
     }
