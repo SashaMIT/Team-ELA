@@ -22,7 +22,15 @@ const HomePage = () => {
   const bitcoinPriceChange = hashrateData?.bitcoinPriceChange24h ?? 0;
   const elaPriceChange = hashrateData?.elaPriceChange24h ?? 0;
 
-  const stats: StatItem[] = [
+  const formatMarketCap = (value: number) => {
+  if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
+  return `$${(value / 1e9).toFixed(2)}B`;
+};
+
+const bitcoinMarketCap = bitcoinPrice * 21000000;
+const elastosMarketCap = elaPrice * 26220000;
+
+const stats: StatItem[] = [
     {
       label: "Bitcoin Price",
       value: `$${bitcoinPrice.toLocaleString()}`,
@@ -32,6 +40,11 @@ const HomePage = () => {
     {
       label: "Bitcoin Supply",
       value: "21 Million",
+      showChange: false
+    },
+    {
+      label: "Bitcoin Market Cap",
+      value: formatMarketCap(bitcoinMarketCap),
       showChange: false
     },
     {
@@ -51,6 +64,11 @@ const HomePage = () => {
       showChange: false
     },
     {
+      label: "Elastos Market Cap",
+      value: formatMarketCap(elastosMarketCap),
+      showChange: false
+    },
+    {
       label: "Elastos Hashrate (EH/s)",
       value: `${elastosHashrate.toFixed(2)} EH/s`,
       subValue: `${((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%`,
@@ -66,7 +84,7 @@ const HomePage = () => {
         </div>
         
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           {stats.map((stat, index) => (
             <div 
               key={index}
