@@ -184,24 +184,7 @@ const ELASupplyModelDashboard = () => {
             </Card>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-4">
-            <Button 
-              variant="outline"
-              onClick={() => setIsZoomed(!isZoomed)}
-              className="bg-white hover:bg-blue-50 text-blue-600 border-blue-200 flex items-center gap-2"
-            >
-              {isZoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
-              {isZoomed ? 'View Full Journey' : 'Focus on Future'}
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={() => setShowData(!showData)}
-              className="bg-white hover:bg-teal-50 text-teal-600 border-teal-200 flex items-center gap-2"
-            >
-              <Table size={18} />
-              {showData ? 'Hide Details' : 'Show Details'}
-            </Button>
-          </div>
+        
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <TooltipProvider>
@@ -256,31 +239,23 @@ const ELASupplyModelDashboard = () => {
             </TooltipProvider>
           </div>
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-500" />
-              Market Position
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {marketCapComparisons.map((coin) => (
-                <Card key={coin.symbol} className="bg-white">
-                  <CardContent className="pt-6">
-                    <div className="text-center">
-                      <h4 className="font-semibold">{coin.name}</h4>
-                      <p className="text-2xl font-bold">
-                        ${(coin.cap / 1e9).toFixed(2)}B
-                      </p>
-                      {coin.symbol === 'ELA' && (
-                        <div className="text-sm text-green-600 mt-2">
-                          <ChevronUp className="inline w-4 h-4" />
-                          Potential Growth: 100x
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <Button 
+              variant="outline"
+              onClick={() => setIsZoomed(!isZoomed)}
+              className="bg-white hover:bg-blue-50 text-blue-600 border-blue-200 flex items-center gap-2"
+            >
+              {isZoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
+              {isZoomed ? 'View Full Journey' : 'Focus on Future'}
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => setShowData(!showData)}
+              className="bg-white hover:bg-teal-50 text-teal-600 border-teal-200 flex items-center gap-2"
+            >
+              <Table size={18} />
+              {showData ? 'Hide Details' : 'Show Details'}
+            </Button>
           </div>
 
           <div className="h-[500px] bg-white rounded-lg p-4 shadow-inner">
