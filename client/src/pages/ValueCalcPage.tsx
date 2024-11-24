@@ -10,12 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import ValueJustificationViz from '../components/ValueJustificationViz';
 
 const ValueCalcPage = () => {
   // Calculator state
@@ -58,53 +53,83 @@ const ValueCalcPage = () => {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-8">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50 mb-6">
-                  <Info className="w-5 h-5 text-blue-500" />
-                  What is the Value Calculator?
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-3xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2">
-                    <Calculator className="w-6 h-6 text-blue-500" />
-                    Understanding the Value Calculator
-                  </DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <p>
-                    Calculate ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Methodology:</h4>
-                      <ul className="list-disc pl-6 space-y-1">
-                        <li>Calculate annual Bitcoin mining rewards (BTC)</li>
-                        <li>Convert rewards to USD using current Bitcoin price</li>
-                        <li>Determine Elastos' share based on merge mining percentage</li>
-                        <li>Divide by total ELA supply for per-token value</li>
-                      </ul>
+            <div className="flex gap-2 mb-6">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="flex-1 flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Info className="w-5 h-5 text-blue-500" />
+                    What is the Value Calculator?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <Calculator className="w-6 h-6 text-blue-500" />
+                      Understanding the Value Calculator
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                    <div className="text-muted-foreground space-y-2 lg:w-1/2">
+                      <p>
+                        Calculate ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                      </p>
+                      
+                      <div className="grid grid-cols-1 gap-6">
+                        <div className="space-y-2">
+                          <h4 className="font-semibold">Features:</h4>
+                          <ul className="list-disc pl-6 space-y-1">
+                            <li>Real-time data from blockchain.info API</li>
+                            <li>Automatic updates every 5 minutes</li>
+                            <li>Price movement indicators with 24h changes</li>
+                            <li>Visual comparisons of current vs. estimated value</li>
+                          </ul>
+                        </div>
+                      </div>
                     </div>
-
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Features:</h4>
-                      <ul className="list-disc pl-6 space-y-1">
-                        <li>Real-time data from blockchain.info API</li>
-                        <li>Automatic updates every 5 minutes</li>
-                        <li>Price movement indicators with 24h changes</li>
-                        <li>Visual comparisons of current vs. estimated value</li>
-                      </ul>
+                    <div className="lg:w-1/2">
+                      <ValueJustificationViz />
                     </div>
                   </div>
-                </div>
-              </DialogContent>
-            </Dialog>
-            <p className="text-muted-foreground">
-              ELA's value based on Bitcoin's mining security and Elastos' share through merged mining.
-            </p>
+                </DialogContent>
+              </Dialog>
 
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <BarChart2 className="w-5 h-5 text-purple-500" />
+                    Calculation Methodology
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <BarChart2 className="w-6 h-6 text-purple-500" />
+                      Value Calculation Methodology
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="text-muted-foreground">
+                    <h3 className="font-bold mb-2">🧮 How it's calculated:</h3>
+                    <ol className="list-decimal pl-6 space-y-2">
+                      <li>
+                        <strong>Bitcoin Mining Rewards:</strong> 3.125 BTC per block,
+                        52,560 blocks per year = 164,250 BTC/year
+                      </li>
+                      <li>
+                        <strong>Annual Value:</strong> 164,250 BTC × Current Bitcoin Price
+                      </li>
+                      <li>
+                        <strong>Elastos Share:</strong> Annual Value × (Elastos Hashrate / Bitcoin Hashrate)
+                      </li>
+                      <li>
+                        <strong>Per Token Value:</strong> Elastos Share ÷ Total
+                        Supply (26.22M)
+                      </li>
+                    </ol>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+            
             <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2 mb-2">
                 <DollarSign className="w-6 h-6 text-green-500" />
@@ -161,38 +186,6 @@ const ValueCalcPage = () => {
                   </div>
                 </div>
               </div>
-
-              <Accordion type="single" collapsible>
-                <AccordionItem value="methodology" className="border rounded-lg shadow-sm overflow-hidden bg-card">
-                  <AccordionTrigger className="px-4 py-3 hover:bg-accent/50">
-                    <span className="flex items-center gap-2">
-                      <BarChart2 className="w-5 h-5" />
-                      Calculation Methodology
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent className="border-t bg-accent/10 px-4 py-3">
-                    <div className="text-muted-foreground">
-                      <h3 className="font-bold mb-2">🧮 How it's calculated:</h3>
-                      <ol className="list-decimal pl-6 space-y-2">
-                        <li>
-                          <strong>Bitcoin Mining Rewards:</strong> 3.125 BTC per block,
-                          52,560 blocks per year = 164,250 BTC/year
-                        </li>
-                        <li>
-                          <strong>Annual Value:</strong> 164,250 BTC × Current Bitcoin Price
-                        </li>
-                        <li>
-                          <strong>Elastos Share:</strong> Annual Value × (Elastos Hashrate / Bitcoin Hashrate)
-                        </li>
-                        <li>
-                          <strong>Per Token Value:</strong> Elastos Share ÷ Total
-                          Supply (26.22M)
-                        </li>
-                      </ol>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
             </div>
           </div>
         </CardContent>
