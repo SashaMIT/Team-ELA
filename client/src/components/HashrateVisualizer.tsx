@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import FriendlyHashrate from './FriendlyHashrate';
+import HashScaleViz from './HashScaleViz';
 import { useHashrateData } from '../hooks/useHashrateData';
 interface Scale {
   unit: string;
@@ -203,19 +204,14 @@ const HashrateVisualizer = () => {
                       Understanding EH/s (ExaHashes per second)
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="text-muted-foreground text-center">
-                    <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
-                    <ul className="list-disc ml-6 mt-2 space-y-1">
-                      <li>1 Hash = 1 calculation</li>
-                      <li>1 MegaHash (MH) = 1 million hashes</li>
-                      <li>1 GigaHash (GH) = 1 billion hashes</li>
-                      <li>1 TeraHash (TH) = 1 trillion hashes</li>
-                      <li>1 PetaHash (PH) = 1,000 trillion hashes</li>
-                      <li>1 ExaHash (EH) = 1,000,000 trillion hashes</li>
-                    </ul>
-                    <p className="mt-2">
-                      So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
-                    </p>
+                  <div className="space-y-4">
+                    <div className="text-muted-foreground text-center">
+                      <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
+                      <HashScaleViz />
+                      <p className="mt-4">
+                        So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
+                      </p>
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
