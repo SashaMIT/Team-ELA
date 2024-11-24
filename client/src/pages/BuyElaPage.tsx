@@ -5,9 +5,11 @@ import { ExternalLink, ShoppingCart, Building2, Wallet } from 'lucide-react';
 const BuyElaPage = () => {
   const exchanges = {
     cex: [
-      { name: 'Huobi', url: 'https://www.huobi.com/en-us/exchange/ela_usdt' },
-      { name: 'Gate.io', url: 'https://www.gate.io/trade/ELA_USDT' },
-      { name: 'KuCoin', url: 'https://www.kucoin.com/trade/ELA-USDT' }
+      { name: 'Coinbase', url: 'https://www.coinbase.com/en-gb/advanced-trade/spot/ELA-USD' },
+      { name: 'KuCoin', url: 'https://www.kucoin.com/trade/ELA-USDT?rcode=e21sNJ' },
+      { name: 'Gate.io', url: 'https://www.gate.io/trade/ELA_USDT?ref=3018394' },
+      { name: 'Bitget', url: 'https://www.bitget.com/spot/ELAUSDT/?channelCode=42xn&vipCode=sq59&languageType=0' },
+      { name: 'Crypto.com', url: 'https://crypto.com/exchange/trade/ELA_USD' }
     ],
     dex: [
       { 
