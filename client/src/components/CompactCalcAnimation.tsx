@@ -22,34 +22,40 @@ const CompactCalcAnimation = () => {
     annualBTC: 164250,
     btcPrice: bitcoinPrice,
     annualUSD: bitcoinPrice * 164250,
-    elastosShare: 0.45,
-    elastosValue: bitcoinPrice * 164250 * 0.45,
+    elastosShare: elastosHashrate / bitcoinHashrate,
+    elastosValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)),
     elaSupply: 26220000,
-    elaValue: (bitcoinPrice * 164250 * 0.45) / 26220000
+    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / 26220000
+  };
+
+  const formatCurrency = (value: number) => {
+    if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
+    if (value >= 1e6) return `$${(value / 1e6).toFixed(2)}M`;
+    return `$${value.toLocaleString()}`;
   };
 
   const steps = [
     {
       label: "Annual BTC Rewards",
       formula: "3.125 × 52,560",
-      result: "164,250 BTC",
+      result: `${calculations.annualBTC.toLocaleString()} BTC`,
       color: "orange"
     },
     {
       label: "USD Value",
-      formula: `164,250 × $${bitcoinPrice.toLocaleString()}`,
-      result: `$${(calculations.annualUSD / 1e9).toFixed(2)}B`,
+      formula: `${calculations.annualBTC.toLocaleString()} × $${bitcoinPrice.toLocaleString()}`,
+      result: formatCurrency(calculations.annualUSD),
       color: "green"
     },
     {
-      label: "Elastos Share (45%)",
-      formula: `$${(calculations.annualUSD / 1e9).toFixed(2)}B × 45%`,
-      result: `$${(calculations.elastosValue / 1e9).toFixed(2)}B`,
+      label: `Elastos Share (${(calculations.elastosShare * 100).toFixed(1)}%)`,
+      formula: `${formatCurrency(calculations.annualUSD)} × ${(calculations.elastosShare * 100).toFixed(1)}%`,
+      result: formatCurrency(calculations.elastosValue),
       color: "blue"
     },
     {
       label: "Per Token Value",
-      formula: `$${(calculations.elastosValue / 1e9).toFixed(2)}B ÷ 26.22M`,
+      formula: `${formatCurrency(calculations.elastosValue)} ÷ ${(calculations.elaSupply / 1e6).toFixed(2)}M`,
       result: `$${calculations.elaValue.toFixed(2)}`,
       color: "purple"
     }
@@ -100,8 +106,8 @@ const CompactCalcAnimation = () => {
               ${step >= 3 ? 'text-purple-500' : step >= 2 ? 'text-blue-500' : 'text-orange-500'}
             `}
             style={{
-              left: `${(step * 25) - (i * 20)}%`,
-              opacity: 0.8,
+              left: `${(step * 25 * calculations.elastosShare) - (i * 20)}%`,
+              opacity: calculations.elastosShare * 0.8,
               animationDelay: `${i * 200}ms`
             }}
           />
