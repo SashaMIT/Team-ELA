@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'wouter';
-import { Shield, Home, Calculator, TrendingUp, Database } from 'lucide-react';
+import { Shield, Home, Calculator, TrendingUp, Database, ShoppingCart } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -23,6 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
     { icon: <TrendingUp className="w-5 h-5" />, label: 'Supply', path: '/supply' },
     { icon: <Database className="w-5 h-5" />, label: 'Reserve', path: '/reserve' },
+    { icon: <ShoppingCart className="w-5 h-5" />, label: 'Buy ELA', path: '/buy-ela' },
   ];
 
   return (

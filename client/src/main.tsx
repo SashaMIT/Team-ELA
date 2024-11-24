@@ -11,6 +11,7 @@ import SecurityPage from "./pages/SecurityPage";
 import ValueCalcPage from "./pages/ValueCalcPage";
 import SupplyPage from "./pages/SupplyPage";
 import ReservePage from "./pages/ReservePage";
+import BuyElaPage from "./pages/BuyElaPage";
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
         <Route path="/value-calc" component={ValueCalcPage} />
         <Route path="/supply" component={SupplyPage} />
         <Route path="/reserve" component={ReservePage} />
+        <Route path="/buy-ela" component={BuyElaPage} />
         <Route>404 Page Not Found</Route>
       </Switch>
     </Layout>
