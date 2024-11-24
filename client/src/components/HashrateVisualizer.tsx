@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Zap, Calculator, Cpu, Network, Server } from 'lucide-react';
+import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -48,7 +48,7 @@ const HashrateVisualizer = () => {
       unit: "iPhone calculations",
       buttonText: "iPhones",
       base: 15_000_000,
-      icon: "📱",
+      icon: <Smartphone className="w-5 h-5 text-blue-500" />,
       explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
@@ -60,7 +60,7 @@ const HashrateVisualizer = () => {
       unit: "High-end gaming PCs",
       buttonText: "Gaming PCs",
       base: 160_000_000,
-      icon: "💻",
+      icon: <Laptop className="w-5 h-5 text-purple-500" />,
       explanation: "Based on RTX 4090 (~140 MH/s) + CPU (~20 MH/s) for SHA-256",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
@@ -72,7 +72,7 @@ const HashrateVisualizer = () => {
       unit: "Large data centers",
       buttonText: "Data Centers",
       base: 500_000_000_000,
-      icon: "🏢",
+      icon: <Building2 className="w-5 h-5 text-green-500" />,
       explanation: "Based on data center with 1000 servers with multiple GPUs",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
@@ -84,7 +84,7 @@ const HashrateVisualizer = () => {
       unit: "Frontier Supercomputers",
       buttonText: "Supercomputers",
       base: 1_500_000_000_000,
-      icon: "🖥️",
+      icon: <Monitor className="w-5 h-5 text-orange-500" />,
       explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
       details: [
         "Frontier: 1.5 EH/s theoretical peak performance",
@@ -271,7 +271,7 @@ const HashrateVisualizer = () => {
                           selectedScale === key && "shadow-lg"
                         )}
                       >
-                        <span>{icon}</span>
+                        <span>{scales[key].icon}</span>
                         <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
                       </Button>
                     </TooltipTrigger>
@@ -297,7 +297,7 @@ const HashrateVisualizer = () => {
                         <TooltipTrigger asChild>
                           <div className="space-y-1">
                             <div className="font-bold text-lg">Bitcoin Network</div>
-                            <div className="text-sm sm:text-base">
+                            <div className="text-xl sm:text-2xl font-bold text-primary">
                               {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
                             <div className="flex items-center gap-4">
@@ -331,7 +331,7 @@ const HashrateVisualizer = () => {
                         <TooltipTrigger asChild>
                           <div className="space-y-1">
                             <div className="font-bold text-lg">Elastos Network</div>
-                            <div className="text-sm sm:text-base">
+                            <div className="text-xl sm:text-2xl font-bold text-primary">
                               {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
                             <div className="flex items-center gap-4">
