@@ -61,7 +61,7 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-5xl">
+                <DialogContent className="max-w-3xl">
                   <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                       <Calculator className="w-6 h-6 text-blue-500" />
