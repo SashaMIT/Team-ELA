@@ -14,6 +14,41 @@ interface StatItem {
   percentage?: number;
 }
 
+// StatCard component for consistent styling
+const StatCard = ({ stat }: { stat: StatItem }) => (
+  <div className="bg-accent/10 p-2 sm:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto">
+    <div className="text-xs sm:text-sm text-muted-foreground">
+      {stat.label}
+    </div>
+    <div className="flex items-center justify-between">
+      {stat.label.includes("Hashrate") ? (
+        <div className="flex items-center gap-4 w-full">
+          <span>{stat.value}</span>
+          <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-green-500 rounded-full transition-all duration-500"
+              style={{ 
+                width: stat.label.includes("Bitcoin") ? '100%' : `${(stat.percentage || 0)}%`
+              }}
+            />
+          </div>
+          <span className="text-sm">{stat.label.includes("Bitcoin") ? "100%" : stat.subValue}</span>
+        </div>
+      ) : (
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-sm sm:text-lg">{stat.value}</span>
+          {stat.showChange && typeof stat.change === 'number' && (
+            <span className={`flex items-center text-sm ${stat.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {stat.change >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              {Math.abs(stat.change)}%
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+);
+
 const HomePage = () => {
   const { data: hashrateData } = useHashrateData();
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
@@ -29,9 +64,9 @@ const HomePage = () => {
     return `$${(value / 1e9).toFixed(2)}B`;
   };
 
-const { data: marketCapData } = useMarketCapData();
-const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
-const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
+  const { data: marketCapData } = useMarketCapData();
+  const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
+  const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
 
 const stats: StatItem[] = [
     {
@@ -88,44 +123,19 @@ const stats: StatItem[] = [
         
         
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full px-2">
-          {stats.map((stat, index) => (
-            <div 
-              key={index}
-              className="bg-accent/10 p-2 sm:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto"
-            >
-              <div className="text-xs sm:text-sm text-muted-foreground">
-                {stat.label}
-              </div>
-              <div className="flex items-center justify-between">
-                {stat.label.includes("Hashrate") ? (
-                  <div className="flex items-center gap-4 w-full">
-                    <span>{stat.value}</span>
-                    <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-green-500 rounded-full transition-all duration-500"
-                        style={{ 
-                          width: stat.label.includes("Bitcoin") ? '100%' : `${(elastosHashrate/bitcoinHashrate) * 100}%`
-                        }}
-                      />
-                    </div>
-                    <span className="text-sm">
-                      {stat.label.includes("Bitcoin") ? "100%" : stat.subValue}
-                    </span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-sm sm:text-lg">{stat.value}</span>
-                    {stat.showChange && typeof stat.change === 'number' && (
-                      <span className={`flex items-center text-sm ${stat.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {stat.change >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                        {Math.abs(stat.change)}%
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+          {/* Bitcoin Stats */}
+          <div className="contents lg:col-span-2">
+            {stats.slice(0, 4).map((stat, index) => (
+              <StatCard key={`bitcoin-${index}`} stat={stat} />
+            ))}
+          </div>
+          
+          {/* Elastos Stats */}
+          <div className="contents lg:col-span-2">
+            {stats.slice(4).map((stat, index) => (
+              <StatCard key={`elastos-${index}`} stat={stat} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
