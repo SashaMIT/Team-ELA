@@ -46,28 +46,16 @@ const HashrateVisualizer = () => {
   const [selectedScale, setSelectedScale] = useState<ScaleType>('supercomputers');
   
   const scales: Scales = {
-    supercomputers: {
-      unit: "Frontier Supercomputers",
-      buttonText: "Supercomputers",
-      base: 1_500_000_000_000,
-      icon: <Monitor className="w-5 h-5 text-orange-500" />,
-      explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
-      details: [
-        "Frontier: 1.5 EH/s theoretical peak performance",
-        "World's first exascale computing system",
-        "Located at Oak Ridge National Laboratory"
-      ]
-    },
-    datacenters: {
-      unit: "Large data centers",
-      buttonText: "Data Centers",
-      base: 500_000_000_000,
-      icon: <Building2 className="w-5 h-5 text-green-500" />,
-      explanation: "Based on data center with 1000 servers with multiple GPUs",
+    smartphones: {
+      unit: "iPhone calculations",
+      buttonText: "iPhones",
+      base: 15_000_000,
+      icon: <Smartphone className="w-5 h-5 text-blue-500" />,
+      explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
-        "Data center hashrate: ~500 GH/s",
-        "Based on enterprise-scale operation with 1000+ servers"
+        "iPhone hashrate: ~15 MH/s per device",
+        "Shows equivalent number of iPhones needed to match network power"
       ]
     },
     computers: {
@@ -82,16 +70,28 @@ const HashrateVisualizer = () => {
         "Equivalent to high-end PC with RTX 4090"
       ]
     },
-    smartphones: {
-      unit: "iPhone calculations",
-      buttonText: "iPhones",
-      base: 15_000_000,
-      icon: <Smartphone className="w-5 h-5 text-blue-500" />,
-      explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
+    datacenters: {
+      unit: "Large data centers",
+      buttonText: "Data Centers",
+      base: 500_000_000_000,
+      icon: <Building2 className="w-5 h-5 text-green-500" />,
+      explanation: "Based on data center with 1000 servers with multiple GPUs",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
-        "iPhone hashrate: ~15 MH/s per device",
-        "Shows equivalent number of iPhones needed to match network power"
+        "Data center hashrate: ~500 GH/s",
+        "Based on enterprise-scale operation with 1000+ servers"
+      ]
+    },
+    supercomputers: {
+      unit: "Frontier Supercomputers",
+      buttonText: "Supercomputers",
+      base: 1_500_000_000_000,
+      icon: <Monitor className="w-5 h-5 text-orange-500" />,
+      explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
+      details: [
+        "Frontier: 1.5 EH/s theoretical peak performance",
+        "World's first exascale computing system",
+        "Located at Oak Ridge National Laboratory"
       ]
     }
   };
@@ -318,8 +318,9 @@ const HashrateVisualizer = () => {
             </div>
 
             <div className="space-y-4">
+              {/* Bitcoin Card */}
               <motion.div 
-                className="relative h-28 bg-gradient-to-r from-orange-100/50 to-orange-50/50 rounded-lg overflow-hidden shadow-md border border-orange-200/50"
+                className="relative h-32 bg-gradient-to-br from-orange-100 to-orange-50/50 rounded-lg overflow-hidden shadow-lg border border-orange-200"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
@@ -362,6 +363,55 @@ const HashrateVisualizer = () => {
                     </TooltipProvider>
                   </div>
                 </div>
+              {/* Elastos Card */}
+              <motion.div 
+                className="relative h-32 bg-gradient-to-br from-blue-100 to-blue-50/50 rounded-lg overflow-hidden shadow-lg border border-blue-200"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+              >
+                <div className="h-full flex items-center justify-between p-3">
+                  <div className="flex-1">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="space-y-1">
+                            <div className="font-bold text-lg flex items-center gap-2">
+                              Elastos Network
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-muted-foreground" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p className="text-sm">Calculated from blockchain.info API</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </div>
+                            <div className="text-xl sm:text-2xl font-bold text-blue-600">
+                              {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <span className="text-sm">{elastosHashrate.toFixed(2)} EH/s</span>
+                              <div className="w-24 h-2 bg-blue-200 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-blue-500 rounded-full" 
+                                  style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
+                                />
+                              </div>
+                              <span className="text-sm">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
+                            </div>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
+                          <p className="text-sm">Elastos leverages Bitcoin's security through merge mining, achieving a significant portion of Bitcoin's hashrate.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </div>
+              </motion.div>
               </motion.div>
 
               <motion.div 

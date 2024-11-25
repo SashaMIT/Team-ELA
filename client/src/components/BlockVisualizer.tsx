@@ -33,17 +33,19 @@ const BlockVisualizer = () => {
     setTimeout(() => setShowCopied(false), 2000);
   };
 
-  useEffect(() => {
-    const updateTime = () => {
-      const seconds = Math.floor(Date.now() / 1000 - currentBlock.time);
-      if (seconds < 60) setTimeAgo(`${seconds}s ago`);
-      else if (seconds < 3600) setTimeAgo(`${Math.floor(seconds / 60)}m ago`);
-      else setTimeAgo(`${Math.floor(seconds / 3600)}h ago`);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, [currentBlock.time]);
+  if (currentBlock) {
+    useEffect(() => {
+      const updateTime = () => {
+        const seconds = Math.floor(Date.now() / 1000 - currentBlock.time);
+        if (seconds < 60) setTimeAgo(`${seconds}s ago`);
+        else if (seconds < 3600) setTimeAgo(`${Math.floor(seconds / 60)}m ago`);
+        else setTimeAgo(`${Math.floor(seconds / 3600)}h ago`);
+      };
+      updateTime();
+      const interval = setInterval(updateTime, 1000);
+      return () => clearInterval(interval);
+    }, [currentBlock.time]);
+  }
 
   const handleNewBlock = (newBlock: BlockData) => {
     setIsTransitioning(true);
@@ -165,7 +167,7 @@ const BlockVisualizer = () => {
                     <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </a>
                   <button
-                    onClick={() => copyToClipboard(currentBlock.previousblockhash)}
+                    onClick={() => currentBlock?.previousblockhash && copyToClipboard(currentBlock.previousblockhash)}
                     className="opacity-0 group-hover:opacity-70 hover:opacity-100 transition-opacity shrink-0"
                     title="Copy hash"
                   >
