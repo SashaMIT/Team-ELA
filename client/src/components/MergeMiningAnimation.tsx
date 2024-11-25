@@ -143,7 +143,7 @@ const MergeMiningAnimation = () => {
       <p className="text-center text-sm sm:text-base mt-[10px] mb-0">
         By leveraging Bitcoin's unmatched hash rate, Elastos' ELA fulfills{' '}
         <Dialog>
-          <DialogTrigger asChild>
+          <DialogTrigger>
             <button className="text-blue-500 hover:text-blue-600 underline font-medium">
               Satoshi Nakamoto's vision
             </button>
