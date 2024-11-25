@@ -30,9 +30,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
-        {/* Mobile Menu Trigger with Enhanced Touch Interaction */}
-        <div className="fixed top-4 left-4 z-50 md:hidden">
-          <SidebarTrigger className="bg-background/80 hover:bg-accent/50 active:bg-accent/70 w-12 h-12 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-md flex items-center justify-center touch-manipulation active:scale-[0.92] active:shadow-md border border-accent/10" />
+        {/* Mobile Menu Trigger */}
+        <div className="fixed top-3 left-3 z-50 md:hidden">
+          <SidebarTrigger className="bg-background/95 hover:bg-accent/50 active:bg-accent/70 w-10 h-10 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl backdrop-blur-sm flex items-center justify-center touch-manipulation" />
         </div>
         
         <Sidebar collapsible="offcanvas">
@@ -47,19 +47,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <SidebarMenuItem key={item.path}>
                   <div
                     role="button"
-                    onClick={() => {
-                      setLocation(item.path);
-                      if (window.innerWidth < 768) { // Close sidebar on mobile after navigation
-                        const triggerButton = document.querySelector('[data-sidebar="trigger"]') as HTMLButtonElement;
-                        triggerButton?.click();
-                      }
-                    }}
+                    onClick={() => setLocation(item.path)}
                     data-active={location === item.path}
-                    className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 md:py-3 text-base md:text-sm transition-all
-                      touch-manipulation active:scale-[0.97] select-none backdrop-blur-sm
+                    className={`flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
                       ${location === item.path 
-                        ? 'bg-accent/90 text-accent-foreground font-medium shadow-sm border border-accent/20' 
-                        : 'hover:bg-accent/50 active:bg-accent/70 border border-transparent hover:border-accent/10'}`}
+                        ? 'bg-accent text-accent-foreground font-medium' 
+                        : 'hover:bg-accent/50 active:bg-accent/70'}`}
                   >
                     {item.icon}
                     <span className="truncate">{item.label}</span>
