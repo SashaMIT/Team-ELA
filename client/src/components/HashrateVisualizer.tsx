@@ -155,6 +155,20 @@ const HashrateVisualizer = () => {
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
+              <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="text-sm text-gray-600">Elastos Hashrate</div>
+              <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
+            </div>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <div className="text-sm text-gray-600">Security Share</div>
+              <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
+            </div>
+          </div>
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Dialog>
