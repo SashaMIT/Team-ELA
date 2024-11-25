@@ -27,7 +27,7 @@ const BlockVisualizer = () => {
 
   const EXPLORER_URL = 'https://ela.elastos.io/block/';
 
-  const truncateHash = (hash, mobile = false) => {
+  const truncateHash = (hash: string, mobile = false): string => {
     if (mobile) {
       return `${hash.substring(0, 6)}...${hash.substring(hash.length - 4)}`;
     }
@@ -52,7 +52,7 @@ const BlockVisualizer = () => {
     return () => clearInterval(interval);
   }, [currentBlock.time]);
 
-  const handleNewBlock = (newBlock) => {
+  const handleNewBlock = (newBlock: BlockData) => {
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentBlock(newBlock);
@@ -74,7 +74,7 @@ const BlockVisualizer = () => {
         time: blockData.time,
         txlength: blockData.tx.length,
         poolInfo: { poolName: blockData.poolInfo?.poolName || 'Unknown' },
-        hashrate: blockData.hashrate || '363.2 EH/s',
+        hashrate: (blockData.networkhashps / 1e18).toFixed(2) + ' EH/s',
         previousblockhash: blockData.previousblockhash
       });
     } catch (error) {
@@ -88,7 +88,13 @@ const BlockVisualizer = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const StatBox = ({ icon: Icon, color, value }) => (
+  interface StatBoxProps {
+    icon: React.ElementType;
+    color: string;
+    value: string | number;
+  }
+
+  const StatBox: React.FC<StatBoxProps> = ({ icon: Icon, color, value }) => (
     <div className={`bg-${color}-50 px-2 py-1 rounded flex items-center justify-between group hover:bg-${color}-100 transition-colors`}>
       <Icon className={`h-3 w-3 text-${color}-500`} />
       <span className="text-xs font-medium">{value}</span>
