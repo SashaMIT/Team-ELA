@@ -87,13 +87,13 @@ const stats: StatItem[] = [
         </div>
         
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-4 rounded-lg space-y-2 text-center mx-auto"
+              className="bg-accent/10 p-2 sm:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto"
             >
-              <div className="text-sm text-muted-foreground">
+              <div className="text-xs sm:text-sm text-muted-foreground">
                 {stat.label}
               </div>
               <div className="flex items-center justify-between">
@@ -114,7 +114,7 @@ const stats: StatItem[] = [
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-lg">{stat.value}</span>
+                    <span className="font-semibold text-sm sm:text-lg">{stat.value}</span>
                     {stat.showChange && typeof stat.change === 'number' && (
                       <span className={`flex items-center text-sm ${stat.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         {stat.change >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
