@@ -157,7 +157,7 @@ const HashrateVisualizer = () => {
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
           {/* Dialog Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2 mb-8">
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
