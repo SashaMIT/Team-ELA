@@ -167,7 +167,19 @@ const ValueCalcPage = () => {
             <div className="space-y-4">
               <div className="bg-blue-50 p-4 rounded-lg space-y-4">
                 <div className="flex items-center justify-between">
-                  <label className="font-medium">Bitcoin Hashrate:</label>
+                  <label className="font-medium flex items-center gap-2">
+                    Bitcoin Hashrate:
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-sm">Hashrate data from blockchain.info API</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </label>
                   <div className="flex items-center gap-4">
                     <span className="text-sm">{bitcoinHashrate.toFixed(2)} EH/s</span>
                     <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
@@ -190,7 +202,19 @@ const ValueCalcPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="font-medium">Bitcoin Price:</label>
+                  <label className="font-medium flex items-center gap-2">
+                    Bitcoin Price:
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-sm">Price data from CoinGecko API</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </label>
                   <div className="flex items-center gap-2">
                     <span>${bitcoinPrice.toLocaleString()}</span>
                     <span className={`flex items-center text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -200,7 +224,19 @@ const ValueCalcPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="font-medium">ELA Price:</label>
+                  <label className="font-medium flex items-center gap-2">
+                    ELA Price:
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-sm">Price data from CoinGecko API</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </label>
                   <div className="flex items-center gap-2">
                     <span>${marketPrice.toFixed(2)}</span>
                     <span className={`flex items-center text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>

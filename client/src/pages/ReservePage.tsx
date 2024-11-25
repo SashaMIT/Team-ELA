@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Bitcoin, TrendingUp, CheckCircle, Server, Zap, Database, LayersIcon, Scale, Award, Clock, Gem, Star, Building } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
-import { useHashrateData } from '../hooks/useHashrateData';
-
-const ReservePage = () => {
+// This file is deprecated. All functionality has been moved to BuyElaPage.tsx
+// This file can be safely deleted.
   const [activeMetric, setActiveMetric] = useState('security');
   const [animatedHashrate, setAnimatedHashrate] = useState(0);
   const { data: hashrateData } = useHashrateData();

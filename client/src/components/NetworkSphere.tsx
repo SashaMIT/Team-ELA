@@ -321,11 +321,35 @@ const NetworkSphere: React.FC = () => {
       <div className="absolute top-4 left-4 space-y-2 z-10 bg-background/80 p-3 rounded-lg backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-orange-500 animate-pulse" />
-          <span className="text-orange-500 font-semibold">Bitcoin: {bitcoinHashrate.toFixed(2)} EH/s</span>
+          <span className="text-orange-500 font-semibold flex items-center gap-2">
+            Bitcoin: {bitcoinHashrate.toFixed(2)} EH/s
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-4 h-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-sm">Real-time hashrate data from blockchain.info API</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
-          <span className="text-blue-500 font-semibold">Elastos: {elastosHashrate.toFixed(2)} EH/s ({securityPercentage}%)</span>
+          <span className="text-blue-500 font-semibold flex items-center gap-2">
+            Elastos: {elastosHashrate.toFixed(2)} EH/s ({securityPercentage}%)
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-4 h-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-sm">Calculated from blockchain.info API data</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </span>
         </div>
       </div>
       <canvas

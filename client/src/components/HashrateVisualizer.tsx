@@ -296,7 +296,19 @@ const HashrateVisualizer = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="space-y-1">
-                            <div className="font-bold text-lg">Bitcoin Network</div>
+                            <div className="font-bold text-lg flex items-center gap-2">
+                              Bitcoin Network
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-muted-foreground" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p className="text-sm">Data from blockchain.info API</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </div>
                             <div className="text-xl sm:text-2xl font-bold text-primary">
                               {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
@@ -330,7 +342,19 @@ const HashrateVisualizer = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="space-y-1">
-                            <div className="font-bold text-lg">Elastos Network</div>
+                            <div className="font-bold text-lg flex items-center gap-2">
+                              Elastos Network
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-muted-foreground" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p className="text-sm">Data from blockchain.info API</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </div>
                             <div className="text-xl sm:text-2xl font-bold text-primary">
                               {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
