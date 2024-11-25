@@ -10,46 +10,81 @@ interface MarketCapData {
 }
 
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
+const FALLBACK_ELASTOS_SUPPLY = 22381457; // Fallback circulating supply from elastos.io
+
+const fetchWithRetry = async (url: string, retries = 3): Promise<Response> => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return response;
+      await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+    } catch (error) {
+      if (i === retries - 1) throw error;
+    }
+  }
+  throw new Error('Max retries reached');
+};
 
 export const useMarketCapData = () => {
   const { data: hashrateData, isLoading: isHashrateLoading, error: hashrateError } = useHashrateData();
 
   const fetchMarketCapData = async (): Promise<MarketCapData> => {
     try {
-      // Bitcoin circulating supply from blockchain.info API
-      const btcSupplyResponse = await fetch('https://blockchain.info/q/totalbc');
-      if (!btcSupplyResponse.ok) {
-        throw new Error('Failed to fetch Bitcoin supply data');
+      // Bitcoin circulating supply from blockchain.info API with retry
+      let bitcoinCirculatingSupply = 0;
+      try {
+        const btcSupplyResponse = await fetchWithRetry('https://blockchain.info/q/totalbc');
+        const btcSupplyData = await btcSupplyResponse.text();
+        bitcoinCirculatingSupply = parseInt(btcSupplyData) / 100000000; // Convert satoshis to BTC
+      } catch (error) {
+        console.error('Failed to fetch Bitcoin supply, using default:', error);
+        bitcoinCirculatingSupply = 19600000; // Fallback to approximate circulating supply
       }
-      const btcSupplyData = await btcSupplyResponse.text();
-      const bitcoinCirculatingSupply = parseInt(btcSupplyData) / 100000000; // Convert satoshis to BTC
 
-      // Calculate Bitcoin market cap using blockchain.info data
+      // Calculate Bitcoin market cap
       const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
       const bitcoinMarketCap = bitcoinPrice * bitcoinCirculatingSupply;
 
-      // Fetch Elastos market data from CoinGecko API
-      const elaMarketDataResponse = await fetch(`${COINGECKO_API}/simple/price?ids=elastos&vs_currencies=usd&include_market_cap=true&include_circulating_supply=true`);
-      if (!elaMarketDataResponse.ok) {
-        throw new Error('Failed to fetch Elastos market data from CoinGecko');
+      // Initialize Elastos market data variables
+      let elastosMarketCap = 0;
+      let elastosCirculatingSupply = FALLBACK_ELASTOS_SUPPLY;
+
+      // Try to fetch Elastos data from CoinGecko API
+      try {
+        const elaMarketDataResponse = await fetchWithRetry(
+          `${COINGECKO_API}/simple/price?ids=elastos&vs_currencies=usd&include_market_cap=true&include_circulating_supply=true`
+        );
+        const elaMarketData = await elaMarketDataResponse.json();
+        elastosMarketCap = elaMarketData.elastos.usd_market_cap;
+        elastosCirculatingSupply = elaMarketData.elastos.circulating_supply || FALLBACK_ELASTOS_SUPPLY;
+      } catch (error) {
+        console.error('Failed to fetch Elastos data from CoinGecko, using fallback calculation:', error);
+        // Fallback calculation using known supply and current price
+        const elaPrice = hashrateData?.elaPrice ?? 0;
+        elastosMarketCap = elaPrice * FALLBACK_ELASTOS_SUPPLY;
       }
-      const elaMarketData = await elaMarketDataResponse.json();
-      const elastosMarketCap = elaMarketData.elastos.usd_market_cap;
-      const elastosCirculatingSupply = elaMarketData.elastos.circulating_supply;
 
-      // Calculate market cap ratio
-      const marketCapRatio = (elastosMarketCap / bitcoinMarketCap) * 100;
+      // Calculate market cap ratio with safeguard against division by zero
+      const marketCapRatio = bitcoinMarketCap > 0 ? (elastosMarketCap / bitcoinMarketCap) * 100 : 0;
 
+      // Return data with fallback to 0 for any NaN values
       return {
-        bitcoinMarketCap,
-        elastosMarketCap,
-        bitcoinCirculatingSupply,
-        elastosCirculatingSupply,
-        marketCapRatio
+        bitcoinMarketCap: bitcoinMarketCap || 0,
+        elastosMarketCap: elastosMarketCap || 0,
+        bitcoinCirculatingSupply: bitcoinCirculatingSupply || 0,
+        elastosCirculatingSupply: elastosCirculatingSupply || 0,
+        marketCapRatio: marketCapRatio || 0
       };
     } catch (error) {
-      console.error('Error fetching market cap data:', error);
-      throw error;
+      console.error('Error in fetchMarketCapData:', error);
+      // Return safe default values instead of throwing
+      return {
+        bitcoinMarketCap: 0,
+        elastosMarketCap: 0,
+        bitcoinCirculatingSupply: 0,
+        elastosCirculatingSupply: 0,
+        marketCapRatio: 0
+      };
     }
   };
 
@@ -58,6 +93,7 @@ export const useMarketCapData = () => {
     queryFn: fetchMarketCapData,
     enabled: !isHashrateLoading && !hashrateError,
     refetchInterval: 300000, // Refetch every 5 minutes
-    staleTime: 60000 // Consider data stale after 1 minute
+    staleTime: 60000, // Consider data stale after 1 minute
+    retry: 3 // Allow 3 retries for the entire query
   });
 };
