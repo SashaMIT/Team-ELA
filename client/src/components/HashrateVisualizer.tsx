@@ -1,7 +1,8 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Info } from "lucide-react";
-import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor } from 'lucide-react';
+import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor, Shield, Lock } from 'lucide-react';
+import BlockVisualizer from './BlockVisualizer';
 import {
   Tooltip,
   TooltipContent,
@@ -42,7 +43,7 @@ interface Scales {
 type ScaleType = keyof Scales;
 
 const HashrateVisualizer = () => {
-  const [selectedScale, setSelectedScale] = useState<ScaleType>('smartphones');
+  const [selectedScale, setSelectedScale] = useState<ScaleType>('supercomputers');
   
   const scales: Scales = {
     supercomputers: {
@@ -157,17 +158,35 @@ const HashrateVisualizer = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <div className="bg-orange-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
-              <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
+              <div className="flex items-center gap-2">
+                <Server className="w-5 h-5 text-orange-500" />
+                <div>
+                  <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
+                  <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
+                </div>
+              </div>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-600">Elastos Hashrate</div>
-              <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-blue-500" />
+                <div>
+                  <div className="text-sm text-gray-600">Elastos Hashrate</div>
+                  <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
+                </div>
+              </div>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-600">Security Share</div>
-              <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
+              <div className="flex items-center gap-2">
+                <Lock className="w-5 h-5 text-green-500" />
+                <div>
+                  <div className="text-sm text-gray-600">Security Share</div>
+                  <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
+                </div>
+              </div>
             </div>
+          </div>
+          <div className="mb-6">
+            <BlockVisualizer />
           </div>
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
