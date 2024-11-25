@@ -51,16 +51,16 @@ const ValueCalcPage = () => {
 
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
-      <Card className="max-w-3xl mx-auto">
-        <CardHeader className="p-4 sm:p-6 space-y-2">
-          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+      <Card className="max-w-3xl mx-auto bg-background/95 backdrop-blur-sm">
+        <CardHeader className="p-3 sm:p-4 md:p-6">
+          <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
             <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0 mt-1" />
             <span className="leading-tight">Elastos Value Calculator</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-8">
-            <div className="flex gap-2 mb-6">
+            <div className="flex flex-col sm:flex-row gap-2 mb-6">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
@@ -172,13 +172,15 @@ const ValueCalcPage = () => {
 
             <div className="space-y-4">
               <div className="bg-blue-50 p-4 rounded-lg space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     Bitcoin Hashrate:
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="w-4 h-4 text-muted-foreground" />
+                          <div className="p-1">
+                            <Info className="w-5 h-5 text-muted-foreground" />
+                          </div>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="text-sm">Hashrate data from blockchain.info API</p>
@@ -186,21 +188,23 @@ const ValueCalcPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </label>
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm">{bitcoinHashrate.toFixed(2)} EH/s</span>
-                    <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="text-sm sm:text-base min-w-[80px]">{bitcoinHashrate.toFixed(2)} EH/s</span>
+                    <div className="w-24 sm:w-32 h-3 bg-green-200 rounded-full overflow-hidden">
                       <div className="h-full w-full bg-green-500 rounded-full" />
                     </div>
-                    <span className="text-sm">100%</span>
+                    <span className="text-sm sm:text-base min-w-[40px]">100%</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     Elastos Hashrate:
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="w-4 h-4 text-muted-foreground" />
+                          <div className="p-1">
+                            <Info className="w-5 h-5 text-muted-foreground" />
+                          </div>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="text-sm">Hashrate data from blockchain.info API</p>
@@ -208,24 +212,26 @@ const ValueCalcPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </label>
-                  <div className="flex items-center gap-4">
-                    <span className="text-sm">{elastosHashrate.toFixed(2)} EH/s</span>
-                    <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="text-sm sm:text-base min-w-[80px]">{elastosHashrate.toFixed(2)} EH/s</span>
+                    <div className="w-24 sm:w-32 h-3 bg-green-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-green-500 rounded-full transition-all duration-500"
                         style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
                       />
                     </div>
-                    <span className="text-sm">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
+                    <span className="text-sm sm:text-base min-w-[40px]">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     Bitcoin Price:
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="w-4 h-4 text-muted-foreground" />
+                          <div className="p-1">
+                            <Info className="w-5 h-5 text-muted-foreground" />
+                          </div>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="text-sm">Price data from CoinGecko API</p>
@@ -233,21 +239,23 @@ const ValueCalcPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </label>
-                  <div className="flex items-center gap-2">
-                    <span>${bitcoinPrice.toLocaleString()}</span>
-                    <span className={`flex items-center text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm sm:text-base">${bitcoinPrice.toLocaleString()}</span>
+                    <span className={`flex items-center gap-1 text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       {Math.abs(bitcoinPriceChange)}%
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     ELA Price:
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="w-4 h-4 text-muted-foreground" />
+                          <div className="p-1">
+                            <Info className="w-5 h-5 text-muted-foreground" />
+                          </div>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="text-sm">Price data from CoinGecko API</p>
@@ -255,10 +263,10 @@ const ValueCalcPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </label>
-                  <div className="flex items-center gap-2">
-                    <span>${marketPrice.toFixed(2)}</span>
-                    <span className={`flex items-center text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {marketPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm sm:text-base">${marketPrice.toFixed(2)}</span>
+                    <span className={`flex items-center gap-1 text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {marketPriceChange >= 0 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       {Math.abs(marketPriceChange)}%
                     </span>
                   </div>
