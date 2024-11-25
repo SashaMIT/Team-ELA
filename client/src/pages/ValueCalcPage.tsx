@@ -58,7 +58,7 @@ const ValueCalcPage = () => {
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
-                    <Info className="w-5 h-5" />
+                    <Calculator className="w-5 h-5 text-blue-500" />
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
@@ -102,7 +102,7 @@ const ValueCalcPage = () => {
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
-                    <BarChart2 className="w-5 h-5" />
+                    <BarChart2 className="w-5 h-5 text-green-500" />
                     Value Calculation Methodology
                   </Button>
                 </DialogTrigger>

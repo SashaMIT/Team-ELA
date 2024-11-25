@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ExternalLink, ShoppingCart, Building2, Wallet } from 'lucide-react';
+import { Shield, Lock, Bitcoin, Star, Clock, Zap, Building, CheckCircle, ExternalLink } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-const BuyElaPage = () => {
+const ReservePage = () => {
+  const bitcoinHashrate = 589.51;
+  const elastosHashrate = 429.43;
+  const [animatedHashrate, setAnimatedHashrate] = useState(0);
+
+  const realHashrateData = [
+    { year: '2018', hashrate: 22, btcHashrate: 101, percentage: "21.8%" },
+    { year: '2020', hashrate: 120, btcHashrate: 250, percentage: "48%" },
+    { year: '2022', hashrate: 240, btcHashrate: 450, percentage: "53.3%" },
+    { year: '2024', hashrate: elastosHashrate, btcHashrate: bitcoinHashrate, percentage: "72.8%" }
+  ];
+
   const exchanges = {
     cex: [
       { name: 'Coinbase', url: 'https://www.coinbase.com/en-gb/advanced-trade/spot/ELA-USD' },
@@ -22,93 +34,203 @@ const BuyElaPage = () => {
         name: 'Chainge Finance', 
         url: 'https://dapp.chainge.finance/',
         description: 'Cross-chain trading with Force Bridge'
+      },
+      { 
+        name: 'Glide Finance', 
+        url: 'https://glidefinance.io/swap',
+        description: 'Elastos Sidechain DEX'
       }
     ]
   };
 
+  useEffect(() => {
+    const duration = 2000;
+    const steps = 50;
+    const increment = elastosHashrate / steps;
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= elastosHashrate) {
+        setAnimatedHashrate(elastosHashrate);
+        clearInterval(timer);
+      } else {
+        setAnimatedHashrate(Math.round(current));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [elastosHashrate]);
+
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
+    <div className="w-full h-full bg-white p-4">
       <Card className="max-w-4xl mx-auto">
-        <CardHeader className="border-b bg-blue-500 text-white">
-          <CardTitle className="text-center">
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <ShoppingCart className="h-8 w-8" />
-              <span className="text-2xl">Buy Elastos (ELA)</span>
-            </div>
-            <div className="text-sm opacity-90 mt-2">
-              Multiple options to acquire ELA through trusted exchanges
+        <CardHeader className="p-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Shield className="w-5 h-5 text-blue-500 shrink-0" />
+            <div className="flex flex-col">
+              <span>Bitcoin-Secured Digital Reserve Asset</span>
+              <span className="text-sm font-normal text-muted-foreground">
+                {elastosHashrate} EH/s Security | Fixed 28.22M Supply | {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}% Bitcoin Security
+              </span>
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-6">
-          <div className="space-y-8">
-            {/* Centralized Exchanges Section */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold flex items-center gap-2">
-                <Building2 className="text-blue-500" />
-                Centralized Exchanges (CEX)
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {exchanges.cex.map((exchange, index) => (
-                  <a
-                    key={index}
-                    href={exchange.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <div className="p-6 bg-white rounded-lg border-2 border-blue-100 hover:border-blue-500 
-                                  transition-all duration-300 hover:shadow-lg group">
-                      <div className="flex items-center justify-between">
-                        <span className="font-semibold text-lg">{exchange.name}</span>
-                        <ExternalLink className="w-5 h-5 text-blue-500 opacity-0 group-hover:opacity-100 
-                                               transition-opacity duration-300" />
-                      </div>
-                    </div>
-                  </a>
-                ))}
+
+        <CardContent className="space-y-4">
+          {/* Quick Stats Grid */}
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-blue-50 p-2 rounded-lg text-center">
+              <Shield className="inline text-blue-500 h-4 w-4 mb-1" />
+              <div className="text-sm font-bold">{animatedHashrate.toFixed(2)} EH/s</div>
+              <div className="text-xs text-gray-600">Security Power</div>
+            </div>
+            <div className="bg-purple-50 p-2 rounded-lg text-center">
+              <Lock className="inline text-purple-500 h-4 w-4 mb-1" />
+              <div className="text-sm font-bold">28.22M</div>
+              <div className="text-xs text-gray-600">Max Supply</div>
+            </div>
+          </div>
+
+          {/* Security Power Bar */}
+          <div className="bg-blue-50 p-2 rounded-lg">
+            <div className="flex items-center justify-between text-sm">
+              <span className="font-medium">Security Share:</span>
+              <div className="flex items-center gap-2">
+                <div className="w-24 h-1.5 bg-blue-200 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                    style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
+                  />
+                </div>
+                <span className="text-xs">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Buy ELA Box */}
+          <div className="bg-green-50 p-3 rounded-lg">
+            <h3 className="text-sm font-medium text-black-700 mb-2">Buy ELA</h3>
+            <div className="grid gap-3">
+              <div>
+                <h4 className="text-xs font-medium text-black-600 mb-1">Centralized Exchanges</h4>
+                <div className="flex flex-wrap gap-2">
+                  {exchanges.cex.map((exchange) => (
+                    <a
+                      key={exchange.name}
+                      href={exchange.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs bg-white text-green-600 hover:bg-green-50 px-2 py-1 rounded border border-green-200 transition-colors"
+                    >
+                      {exchange.name}
+                      <ExternalLink size={12} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-medium text-black-600 mb-1">Decentralized Exchanges</h4>
+                <div className="flex flex-wrap gap-2">
+                  {exchanges.dex.map((exchange) => (
+                    <a
+                      key={exchange.name}
+                      href={exchange.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs bg-white text-green-600 hover:bg-green-50 px-2 py-1 rounded border border-green-200 transition-colors"
+                      title={exchange.description}
+                    >
+                      {exchange.name}
+                      <ExternalLink size={12} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Split Columns: Benefits and Chart */}
+          <div className="grid md:grid-cols-2 gap-3">
+            {/* Left Column: Security & Supply Benefits */}
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg h-[300px] overflow-auto">
+              <h3 className="text-sm font-bold mb-2">Security & Supply Benefits</h3>
+              <div className="grid gap-3">
+                <div>
+                  <h4 className="text-xs font-semibold mb-1">Security Leadership</h4>
+                  <ul className="space-y-1">
+                    {[
+                      "Bitcoin-level security at fraction of energy cost",
+                      `Highest merge-mining participation (${((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%+)`,
+                      `${elastosHashrate} EH/s of protection and growing`,
+                      "6+ years of proven security"
+                    ].map((point, i) => (
+                      <li key={i} className="flex items-center gap-1">
+                        <CheckCircle className="h-3 w-3 shrink-0" />
+                        <span className="text-xs opacity-90">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-xs font-semibold mb-1">Supply Certainty</h4>
+                  <ul className="space-y-1">
+                    {[
+                      "Fixed maximum supply of 28.22M tokens",
+                      "Final supply reached by 2105",
+                      "Mathematically guaranteed cap",
+                      "Transparent emission schedule"
+                    ].map((point, i) => (
+                      <li key={i} className="flex items-center gap-1">
+                        <CheckCircle className="h-3 w-3 shrink-0" />
+                        <span className="text-xs opacity-90">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
 
-            {/* Decentralized Exchanges Section */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold flex items-center gap-2">
-                <Wallet className="text-green-500" />
-                Decentralized Exchanges (DEX)
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {exchanges.dex.map((exchange, index) => (
-                  <a
-                    key={index}
-                    href={exchange.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <div className="p-6 bg-white rounded-lg border-2 border-green-100 hover:border-green-500 
-                                  transition-all duration-300 hover:shadow-lg group">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold text-lg">{exchange.name}</span>
-                        <ExternalLink className="w-5 h-5 text-green-500 opacity-0 group-hover:opacity-100 
-                                               transition-opacity duration-300" />
-                      </div>
-                      <p className="text-sm text-gray-600">{exchange.description}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
+            {/* Right Column: Security Integration Chart */}
+            <div className="bg-white rounded-lg border p-2 h-[300px]">
+              <h3 className="text-sm font-medium mb-2 flex items-center gap-2">
+                <Shield className="h-4 w-4 text-blue-500" />
+                Security Integration
+              </h3>
+              <ResponsiveContainer width="100%" height="90%">
+                <AreaChart data={realHashrateData}>
+                  <XAxis dataKey="year" tick={{fontSize: 10}} />
+                  <YAxis tick={{fontSize: 10}} />
+                  <Tooltip />
+                  <Area 
+                    type="monotone" 
+                    dataKey="btcHashrate" 
+                    stroke="#f59e0b" 
+                    fill="#f59e0b" 
+                    fillOpacity={0.1}
+                    name="Bitcoin Network"
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="hashrate" 
+                    stroke="#2563eb" 
+                    fill="#2563eb"
+                    fillOpacity={0.2}
+                    name="Elastos Security"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
+          </div>
 
-            {/* Additional Information */}
-            <div className="p-6 bg-gradient-to-br from-blue-50 to-green-50 rounded-lg">
-              <h3 className="font-bold text-lg mb-4">Important Information</h3>
-              <ul className="list-disc pl-6 space-y-2 text-gray-600">
-                <li>Always verify you're on the official exchange website</li>
-                <li>Keep your private keys and passwords secure</li>
-                <li>Consider hardware wallets for long-term storage</li>
-                <li>Research the exchange's reputation and security measures</li>
-              </ul>
-            </div>
+          {/* Summary */}
+          <div className="bg-accent/10 p-3 rounded-lg">
+            <p className="text-sm text-gray-600">
+              Elastos combines the world's strongest security infrastructure ({elastosHashrate} EH/s) with 
+              a guaranteed fixed supply (28.22M by 2105), creating a premium store of value 
+              secured by Bitcoin's network while consuming only a fraction of the energy.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -116,4 +238,4 @@ const BuyElaPage = () => {
   );
 };
 
-export default BuyElaPage;
+export default ReservePage;

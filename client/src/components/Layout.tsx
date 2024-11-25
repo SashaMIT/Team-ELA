@@ -22,7 +22,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { icon: <Shield className="w-5 h-5" />, label: 'Security', path: '/security' },
     { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
     { icon: <TrendingUp className="w-5 h-5" />, label: 'Supply', path: '/supply' },
-    { icon: <Database className="w-5 h-5" />, label: 'Reserve', path: '/reserve' },
     { icon: <ShoppingCart className="w-5 h-5" />, label: 'Buy ELA', path: '/buy-ela' },
   ];
 

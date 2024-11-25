@@ -128,15 +128,12 @@ const MergeMiningAnimation = () => {
     <div className="w-full max-w-4xl p-1 sm:p-2 md:p-0 bg-gradient-to-br from-slate-0 to-slate-00 rounded-xl">
       {/* Heading */}
       <h1 className="text-center text-2xl font-bold mt-0 mb-0">
-        Welcome to the Elastos SmartWeb
+        ELA: The Bitcoin-Secured Reserve Asset
       </h1>
 
       {/* Descriptive Text */}
       <p className="text-center text-sm sm:text-base mt-[10px] mb-0">
-        Elastos (ELA) leverages Bitcoin's hash rate and decentralized
-        architecture to build a secure, user-owned internet, empowering data
-        control and fulfilling Satoshi Nakamoto's vision of innovation anchored
-        to Bitcoin's security. 
+        By leveraging Bitcoin's unmatched hash rate, Elastos' ELA fulfills Satoshi Nakamoto's vision of advancing decentralized innovation on the most secure foundation ever created. BTC King. ELA Queen.
       </p>
 
       {/* Animation Container */}
