@@ -68,7 +68,15 @@ const ELASupplyPage = () => {
     return (value / 1000000).toFixed(1) + 'M';
   };
 
-  const CustomTooltip = ({ active, payload, label }) => {
+  interface TooltipProps {
+    active?: boolean;
+    payload?: Array<{
+      value: number;
+    }>;
+    label?: string;
+  }
+
+  const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null;
     const data = supplySchedule.find(item => item.year === label);
     if (!data) return null;

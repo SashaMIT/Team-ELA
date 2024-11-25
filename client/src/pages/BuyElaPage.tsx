@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Shield, Lock, Bitcoin, Star, Clock, Zap, Building, CheckCircle, ExternalLink } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-const ReservePage = () => {
+const BuyElaPage = () => {
   const bitcoinHashrate = 589.51;
   const elastosHashrate = 429.43;
   const [animatedHashrate, setAnimatedHashrate] = useState(0);
@@ -238,4 +238,4 @@ const ReservePage = () => {
   );
 };
 
-export default ReservePage;
+export default BuyElaPage;
