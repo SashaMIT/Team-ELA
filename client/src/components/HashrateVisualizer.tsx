@@ -253,76 +253,32 @@ const HashrateVisualizer = () => {
             </Dialog>
           </div>
 
-          {/* Network Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {/* Bitcoin Card */}
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100/50 p-6 rounded-xl border border-orange-200 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-orange-500/10 rounded-lg">
-                  <Server className="w-6 h-6 text-orange-500" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-medium text-orange-600/90 mb-1">Bitcoin Network</div>
-                  <div className="flex items-baseline gap-2">
-                    <div className="text-2xl font-bold text-orange-700">{bitcoinHashrate.toFixed(2)}</div>
-                    <div className="text-sm text-orange-600/80">EH/s</div>
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <div className="w-full bg-orange-200/50 rounded-full h-2">
-                      <div className="bg-orange-500 h-2 rounded-full w-full animate-pulse" />
-                    </div>
-                    <span className="text-xs font-medium text-orange-600">100%</span>
-                  </div>
+          {/* Colored Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div className="bg-orange-50 p-4 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Server className="w-5 h-5 text-orange-500" />
+                <div>
+                  <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
+                  <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
             </div>
-
-            {/* Elastos Card */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-6 rounded-xl border border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-blue-500/10 rounded-lg">
-                  <Shield className="w-6 h-6 text-blue-500" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-medium text-blue-600/90 mb-1">Elastos Network</div>
-                  <div className="flex items-baseline gap-2">
-                    <div className="text-2xl font-bold text-blue-700">{elastosHashrate.toFixed(2)}</div>
-                    <div className="text-sm text-blue-600/80">EH/s</div>
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <div className="w-full bg-blue-200/50 rounded-full h-2">
-                      <div 
-                        className="bg-blue-500 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-xs font-medium text-blue-600">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
-                  </div>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-blue-500" />
+                <div>
+                  <div className="text-sm text-gray-600">Elastos Hashrate</div>
+                  <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
             </div>
-
-            {/* Security Share Card */}
-            <div className="bg-gradient-to-br from-green-50 to-green-100/50 p-6 rounded-xl border border-green-200 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-green-500/10 rounded-lg">
-                  <Lock className="w-6 h-6 text-green-500" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-sm font-medium text-green-600/90 mb-1">Security Share</div>
-                  <div className="flex items-baseline gap-2">
-                    <div className="text-2xl font-bold text-green-700">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}</div>
-                    <div className="text-sm text-green-600/80">%</div>
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <div className="w-full bg-green-200/50 rounded-full h-2">
-                      <div 
-                        className="bg-green-500 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-xs font-medium text-green-600">of BTC</span>
-                  </div>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <div className="flex items-center gap-2">
+                <Lock className="w-5 h-5 text-green-500" />
+                <div>
+                  <div className="text-sm text-gray-600">Security Share</div>
+                  <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
                 </div>
               </div>
             </div>
