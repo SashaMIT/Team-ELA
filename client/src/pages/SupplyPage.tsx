@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, ChartBar } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Button } from '@/components/ui/button';
 
 const ELASupplyPage = () => {
-  const currentSupply = Math.floor(25748861.07152295); // Updated from Elastos API, rounded down
+  const currentSupply = 25748861.07152295; // Updated from Elastos API
   const nextHalvingDate = new Date('2025-12-01');
 
   const [showData, setShowData] = useState(false);
@@ -172,48 +164,15 @@ const ELASupplyPage = () => {
                 >
                   {isZoomed ? 'View All' : 'Focus Future'}
                 </Button>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-xs flex items-center gap-1"
-                    >
-                      <ChartBar className="h-3 w-3 text-blue-500" />
-                      Supply Details
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-auto">
-                    <DialogHeader>
-                      <DialogTitle>ELA Supply Schedule</DialogTitle>
-                      <DialogDescription>
-                        Detailed breakdown of supply changes over time
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="mt-4">
-                      <table className="w-full text-sm">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="p-2 text-left font-medium text-gray-600">Date</th>
-                            <th className="p-2 text-left font-medium text-gray-600">Growth</th>
-                            <th className="p-2 text-left font-medium text-gray-600">New ELA</th>
-                            <th className="p-2 text-left font-medium text-gray-600">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {supplySchedule.map((item, index) => (
-                            <tr key={index} className="border-t hover:bg-gray-50">
-                              <td className="p-2">{item.halvingDate.toLocaleDateString()}</td>
-                              <td className="p-2">{item.percentage ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
-                              <td className="p-2">{item.increment ? `+${item.increment.toLocaleString()}` : '-'}</td>
-                              <td className="p-2 font-medium">{Math.floor(item.supply).toLocaleString()}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowData(!showData)}
+                  className="text-xs flex items-center gap-1"
+                >
+                  <Table className="h-3 w-3" />
+                  {showData ? 'Hide Details' : 'Show Details'}
+                </Button>
               </div>
             </div>
             <div style={{ width: '100%', height: 400 }}>
@@ -275,7 +234,31 @@ const ELASupplyPage = () => {
             </div>
           </div>
 
-          
+          {/* Supply Schedule Table */}
+          {showData && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="p-2 text-left font-medium text-gray-600">Date</th>
+                    <th className="p-2 text-left font-medium text-gray-600">Growth</th>
+                    <th className="p-2 text-left font-medium text-gray-600">New ELA</th>
+                    <th className="p-2 text-left font-medium text-gray-600">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {supplySchedule.map((item, index) => (
+                    <tr key={index} className="border-t hover:bg-gray-50">
+                      <td className="p-2">{item.halvingDate.toLocaleDateString()}</td>
+                      <td className="p-2">{item.percentage ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
+                      <td className="p-2">{item.increment ? `+${item.increment.toLocaleString()}` : '-'}</td>
+                      <td className="p-2 font-medium">{item.supply.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
