@@ -17,6 +17,7 @@ const MergeMiningAnimation = () => {
   const [step, setStep] = useState(0); // Tracks the active tab
   const [securityParticles, setSecurityParticles] = useState<Particle[]>([]);
   const [rewardParticles, setRewardParticles] = useState<Particle[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Auto-advance tabs (step state)
   useEffect(() => {
@@ -142,11 +143,14 @@ const MergeMiningAnimation = () => {
       {/* Descriptive Text */}
       <p className="text-center text-sm sm:text-base mt-[10px] mb-0">
         By leveraging Bitcoin's unmatched hash rate, Elastos' ELA fulfills{' '}
-        <Dialog>
-          <DialogTrigger asChild>
-            <span className="text-blue-500 hover:text-blue-600 underline font-medium cursor-pointer">
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogTrigger>
+            <button 
+              onClick={() => setIsOpen(true)}
+              className="text-blue-500 hover:text-blue-600 underline font-medium"
+            >
               Satoshi Nakamoto's vision
-            </span>
+            </button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
