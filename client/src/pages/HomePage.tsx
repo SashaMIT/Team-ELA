@@ -1,6 +1,7 @@
 import React from 'react';
 import MergeMiningAnimation from '../components/MergeMiningAnimation';
 import { useHashrateData } from '../hooks/useHashrateData';
+import { useMarketCapData } from '../hooks/useMarketCapData';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
 interface StatItem {
@@ -28,8 +29,9 @@ const HomePage = () => {
     return `$${(value / 1e9).toFixed(2)}B`;
   };
 
-const bitcoinMarketCap = bitcoinPrice * 21000000;
-const elastosMarketCap = elaPrice * 26220000;
+const { data: marketCapData } = useMarketCapData();
+const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
+const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
 
 const stats: StatItem[] = [
     {
