@@ -9,6 +9,11 @@ interface MarketCapData {
   marketCapRatio: number;
 }
 
+interface ElastosSupplyResponse {
+  data: number;
+  status: number;
+}
+
 export const useMarketCapData = () => {
   const { data: hashrateData, isLoading: isHashrateLoading, error: hashrateError } = useHashrateData();
 
@@ -20,11 +25,19 @@ export const useMarketCapData = () => {
 
       // Bitcoin circulating supply from blockchain.info API
       const btcSupplyResponse = await fetch('https://blockchain.info/q/totalbc');
+      if (!btcSupplyResponse.ok) {
+        throw new Error('Failed to fetch Bitcoin supply data');
+      }
       const btcSupplyData = await btcSupplyResponse.text();
       const bitcoinCirculatingSupply = parseInt(btcSupplyData) / 100000000; // Convert satoshis to BTC
 
-      // Elastos current supply
-      const elastosCirculatingSupply = 26220000; // Current supply as of 2024
+      // Fetch Elastos circulating supply from elastos.io API
+      const elaSupplyResponse = await fetch('https://api.elastos.io/widgets?q=circ_supply');
+      if (!elaSupplyResponse.ok) {
+        throw new Error('Failed to fetch Elastos supply data');
+      }
+      const elaSupplyData: ElastosSupplyResponse = await elaSupplyResponse.json();
+      const elastosCirculatingSupply = elaSupplyData.data;
 
       // Calculate market caps
       const bitcoinMarketCap = bitcoinPrice * bitcoinCirculatingSupply;
