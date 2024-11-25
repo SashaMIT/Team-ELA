@@ -161,7 +161,7 @@ const MergeMiningAnimation = () => {
               <p className="text-muted-foreground">
                 In his 2010 Bitcoin forum posts, Satoshi Nakamoto envisioned merged mining to enable networks like BitDNS to share Bitcoin's hash rate. This approach strengthened smaller networks, avoided computational fragmentation, and rewarded miners for securing multiple chains simultaneously, advancing innovation while maintaining decentralization. Bitcoin, as a secure backbone, becomes a foundation for a unified and efficient blockchain ecosystem.
               </p>
-              <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-2">
                 <a href="http://bitcointalk.org/index.php?topic=1790.msg28696#msg28696" 
                    target="_blank" 
                    rel="noopener noreferrer"
