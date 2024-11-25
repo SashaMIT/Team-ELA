@@ -180,7 +180,7 @@ const MergeMiningAnimation = () => {
                 </a>
               </div>
               <div className="mt-6 border-t pt-6">
-                <h3 className="text-sm font-semibold mb-4">Mining Visualization</h3>
+               
                 <MiningAnimation />
               </div>
             </div>
