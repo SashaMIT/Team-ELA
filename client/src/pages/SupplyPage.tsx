@@ -1,45 +1,16 @@
-import { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Button } from '@/components/ui/button';
-import { ZoomIn, ZoomOut, Table, BarChart2, Coins, Clock, Calendar, Percent, PlusSquare, Database, Heart, TrendingUp, ChevronUp, ChevronDown } from 'lucide-react';
-import {
-  Tooltip as UITooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
-const ELASupplyModelDashboard = () => {
+const ELASupplyPage = () => {
   const currentSupply = 26220000;
   const nextHalvingDate = new Date('2025-12-01');
-  
+
   const [showData, setShowData] = useState(false);
   const [countdown, setCountdown] = useState('');
   const [isZoomed, setIsZoomed] = useState(false);
-  const [animatedSupply, setAnimatedSupply] = useState(currentSupply);
-
-  const getHalvingProgress = () => {
-    const lastHalving = new Date('2021-12-01');
-    const now = new Date();
-    const totalDuration = nextHalvingDate.getTime() - lastHalving.getTime();
-    const elapsed = now.getTime() - lastHalving.getTime();
-    return Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
-  };
-
-  const marketCapComparisons = [
-    { name: 'Bitcoin', cap: 880000000000, symbol: 'BTC' },
-    { name: 'Ethereum', cap: 260000000000, symbol: 'ETH' },
-    { name: 'Elastos', cap: currentSupply * 1.78, symbol: 'ELA' }
-  ];
-
-  const keyEvents = [
-    { year: 2021, event: 'First Halving', description: 'Initial supply reduction event' },
-    { year: 2025, event: 'Second Halving', description: 'Major supply reduction milestone' },
-    { year: 2029, event: 'Third Halving', description: 'Further scarcity increase' }
-  ];
 
   const supplySchedule = [
     { halvingDate: new Date('2021-12-01'), year: 2021, percentage: null, increment: null, supply: 24620000 },
@@ -66,6 +37,12 @@ const ELASupplyModelDashboard = () => {
     { halvingDate: new Date('2105-12-01'), year: 2105, percentage: 0.00000191, increment: 1.52587890, supply: 28219999 }
   ];
 
+  const keyEvents = [
+    { year: 2021, event: 'First Halving', description: 'Initial supply reduction event' },
+    { year: 2025, event: 'Second Halving', description: 'Major supply reduction milestone' },
+    { year: 2029, event: 'Third Halving', description: 'Further scarcity increase' }
+  ];
+
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
@@ -77,287 +54,197 @@ const ELASupplyModelDashboard = () => {
       setCountdown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
     }, 1000);
     return () => clearInterval(timer);
-  }, [nextHalvingDate]);
+  }, []);
 
-  useEffect(() => {
-    const duration = 2000;
-    const steps = 60;
-    const increment = (currentSupply - animatedSupply) / steps;
-    const stepDuration = duration / steps;
-    
-    if (animatedSupply !== currentSupply) {
-      const timer = setInterval(() => {
-        setAnimatedSupply(prev => {
-          const next = prev + increment;
-          if (Math.abs(currentSupply - next) < Math.abs(increment)) {
-            clearInterval(timer);
-            return currentSupply;
-          }
-          return next;
-        });
-      }, stepDuration);
-      
-      return () => clearInterval(timer);
-    }
-  }, [currentSupply]);
+  const getHalvingProgress = () => {
+    const lastHalving = new Date('2021-12-01');
+    const now = new Date();
+    const totalDuration = nextHalvingDate.getTime() - lastHalving.getTime();
+    const elapsed = now.getTime() - lastHalving.getTime();
+    return Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+  };
 
-  const formatYAxis = (value: number) => {
+  const formatYAxis = (value) => {
     return (value / 1000000).toFixed(1) + 'M';
   };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null;
-
     const data = supplySchedule.find(item => item.year === label);
     if (!data) return null;
 
     return (
-      <div className="p-4 border rounded-lg bg-white shadow-lg">
-        <p className="font-bold text-blue-600">Year {label}</p>
-        <p className="text-gray-600">Halving Date: {data.halvingDate.toLocaleDateString()}</p>
-        <p className="text-blue-600 font-semibold">Supply: {payload[0].value.toLocaleString()} ELA</p>
+      <div className="p-3 border rounded-lg bg-white shadow-lg">
+        <p className="font-bold text-gray-800">Year {label}</p>
+        <p className="text-gray-600 text-sm">Supply: {Number(payload[0].value).toLocaleString()} ELA</p>
         {data.percentage !== null && (
           <>
-            <p className="text-teal-600">Growth Rate: {(data.percentage * 100).toFixed(10)}%</p>
-            <p className="text-blue-600">New ELA: +{data.increment.toLocaleString()}</p>
+            <p className="text-gray-600 text-sm">Growth: {(data.percentage * 100).toFixed(8)}%</p>
+            <p className="text-gray-600 text-sm">+{data.increment.toLocaleString()} ELA</p>
           </>
         )}
       </div>
     );
   };
 
-  const getYAxisDomain = () => {
-    if (isZoomed) {
-      const zoomedData = supplySchedule.filter(item => item.year >= 2045);
-      const minSupply = Math.min(...zoomedData.map(item => item.supply));
-      const maxSupply = Math.max(...zoomedData.map(item => item.supply));
-      const padding = (maxSupply - minSupply) * 0.01;
-      return [minSupply - padding, maxSupply + padding];
-    }
-    return [24000000, 28500000];
-  };
-
-  const filteredData = isZoomed ? supplySchedule.filter(item => item.year >= 2045) : supplySchedule;
-
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
-      <Card className="max-w-4xl mx-auto bg-gradient-to-br from-blue-50 to-teal-50">
-        <CardHeader className="space-y-4">
-          <div className="flex items-center justify-center gap-4">
-            <Heart size={40} className="text-blue-500" />
-            <CardTitle className="text-3xl bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-              ELA Supply Journey
-            </CardTitle>
-          </div>
-          <p className="text-center text-gray-600">Exploring our token's growth story together!</p>
+    <div className="w-full h-full bg-white p-4">
+      <Card className="max-w-4xl mx-auto">
+        <CardHeader className="p-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Heart className="w-5 h-5 text-blue-500 shrink-0" />
+            <div className="flex flex-col">
+              <span>ELA Supply Journey</span>
+              <span className="text-sm font-normal text-muted-foreground">
+                Exploring our token's growth story together
+              </span>
+            </div>
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <Card className="bg-gradient-to-br from-blue-100 to-blue-50 border-none">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-4">
-                  <Coins size={24} className="text-blue-600" />
-                  <div>
-                    <h3 className="text-lg font-semibold text-blue-700">Current Supply</h3>
-                    <p className="text-2xl text-blue-600">{currentSupply.toLocaleString()} ELA</p>
-                  </div>
+
+        <CardContent className="space-y-4">
+          {/* Current Supply & Next Halving */}
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-blue-50 p-3 rounded-lg">
+              <div className="flex items-center gap-3">
+                <Coins className="text-blue-500 h-5 w-5" />
+                <div>
+                  <div className="text-sm text-gray-600">Current Supply</div>
+                  <div className="font-bold text-lg">{currentSupply.toLocaleString()} ELA</div>
                 </div>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-br from-teal-100 to-teal-50 border-none">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-4">
-                  <Clock size={24} className="text-teal-600" />
-                  <div className="w-full">
-                    <h3 className="text-lg font-semibold text-teal-700">Next Halving</h3>
-                    <p className="text-xl text-teal-600">{nextHalvingDate.toLocaleDateString()}</p>
-                    <p className="text-sm text-teal-500">Time remaining: {countdown}</p>
-                    <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                      <div 
-                        className="bg-gradient-to-r from-blue-500 to-teal-500 h-2 rounded-full transition-all duration-1000"
+              </div>
+            </div>
+
+            <div className="bg-purple-50 p-3 rounded-lg">
+              <div className="flex items-center gap-3">
+                <Clock className="text-purple-500 h-5 w-5" />
+                <div className="w-full">
+                  <div className="text-sm text-gray-600">Next Halving</div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold">{nextHalvingDate.toLocaleDateString()}</span>
+                    <span className="text-sm text-purple-600">({countdown})</span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="flex-1 bg-purple-200 rounded-full h-1.5">
+                      <div
+                        className="bg-purple-500 h-1.5 rounded-full transition-all duration-1000"
                         style={{ width: `${getHalvingProgress()}%` }}
                       />
                     </div>
+                    <span className="text-xs text-purple-600 min-w-[3rem]">
+                      {getHalvingProgress().toFixed(1)}%
+                    </span>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="flex flex-wrap gap-2 mb-4">
-            <Button 
-              variant="outline"
-              onClick={() => setIsZoomed(!isZoomed)}
-              className="bg-white hover:bg-blue-50 text-blue-600 border-blue-200 flex items-center gap-2"
-            >
-              {isZoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
-              {isZoomed ? 'View Full Journey' : 'Focus on Future'}
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={() => setShowData(!showData)}
-              className="bg-white hover:bg-teal-50 text-teal-600 border-teal-200 flex items-center gap-2"
-            >
-              <Table size={18} />
-              {showData ? 'Hide Details' : 'Show Details'}
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <TooltipProvider>
-              {['Circulating', 'Staked', 'Reserved'].map((type, index) => (
-                <Card key={type} className="bg-white">
-                  <CardContent className="pt-6">
-                    <UITooltip>
-                      <TooltipTrigger asChild>
-                        <div className="relative w-24 h-24 mx-auto">
-                          <svg className="w-24 h-24 transform -rotate-90">
-                            <circle
-                              className="text-gray-200"
-                              strokeWidth="8"
-                              stroke="currentColor"
-                              fill="transparent"
-                              r="40"
-                              cx="48"
-                              cy="48"
-                            />
-                            <circle
-                              className="text-blue-600 transition-all duration-1000"
-                              strokeWidth="8"
-                              strokeDasharray={251.2}
-                              strokeDashoffset={251.2 * (1 - ([70, 20, 10][index] / 100))}
-                              strokeLinecap="round"
-                              stroke="currentColor"
-                              fill="transparent"
-                              r="40"
-                              cx="48"
-                              cy="48"
-                            />
-                          </svg>
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                            <motion.div
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              className="text-lg font-bold"
-                            >
-                              {[70, 20, 10][index]}%
-                            </motion.div>
-                          </div>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{type} Supply Distribution</p>
-                      </TooltipContent>
-                    </UITooltip>
-                    <h3 className="text-center mt-4 font-semibold">{type}</h3>
-                  </CardContent>
-                </Card>
-              ))}
-            </TooltipProvider>
-          </div>
-
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-500" />
-              Market Position
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {marketCapComparisons.map((coin) => (
-                <Card key={coin.symbol} className="bg-white">
-                  <CardContent className="pt-6">
-                    <div className="text-center">
-                      <h4 className="font-semibold">{coin.name}</h4>
-                      <p className="text-2xl font-bold">
-                        ${(coin.cap / 1e9).toFixed(2)}B
-                      </p>
-                      {coin.symbol === 'ELA' && (
-                        <div className="text-sm text-green-600 mt-2">
-                          <ChevronUp className="inline w-4 h-4" />
-                          Potential Growth: 100x
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              </div>
             </div>
           </div>
 
-          <div className="h-[500px] bg-white rounded-lg p-4 shadow-inner">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={filteredData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis 
-                  dataKey="year" 
-                  stroke="#666"
-                  tick={{ fill: '#666' }}
-                />
-                <YAxis 
-                  scale="linear"
-                  domain={getYAxisDomain()}
-                  tickFormatter={formatYAxis}
-                  tickCount={10}
-                  stroke="#666"
-                  tick={{ fill: '#666' }}
-                />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="supply" 
-                  stroke="#0ea5e9" 
-                  strokeWidth={2} 
-                  dot={{ r: 4, fill: '#0ea5e9' }} 
-                  name="Smooth Growth"
-                  animationDuration={1000}
-                />
-                <Line 
-                  type="stepAfter" 
-                  dataKey="supply" 
-                  stroke="#14b8a6" 
-                  strokeWidth={2} 
-                  name="Step Growth"
-                  animationDuration={1000}
-                />
-                {keyEvents.map((event, index) => (
-                  <ReferenceLine 
-                    key={index}
-                    x={event.year} 
-                    stroke="#0284c7"
-                    strokeDasharray="3 3"
-                    label={{ 
-                      value: event.event,
-                      position: 'top',
-                      fill: '#0284c7',
-                      fontSize: 10
-                    }}
+          {/* Supply Chart */}
+          <div className="bg-white border rounded-lg p-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-sm font-medium flex items-center gap-2">
+                <Database className="h-4 w-4 text-blue-500" />
+                Supply Growth
+              </h3>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsZoomed(!isZoomed)}
+                  className="text-xs"
+                >
+                  {isZoomed ? 'View All' : 'Focus Future'}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowData(!showData)}
+                  className="text-xs flex items-center gap-1"
+                >
+                  <Table className="h-3 w-3" />
+                  {showData ? 'Hide Details' : 'Show Details'}
+                </Button>
+              </div>
+            </div>
+            <div style={{ width: '100%', height: 400 }}>
+              <ResponsiveContainer>
+                <LineChart
+                  data={supplySchedule}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis 
+                    dataKey="year"
+                    type="number"
+                    domain={['dataMin', 'dataMax']}
+                    tickFormatter={(value) => value.toString()}
                   />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
+                  <YAxis 
+                    domain={[24000000, 28500000]}
+                    tickFormatter={formatYAxis}
+                    width={60}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                  <Line
+                    name="Smooth Growth"
+                    type="monotone"
+                    dataKey="supply"
+                    stroke="#0ea5e9"
+                    strokeWidth={2}
+                    dot={{ fill: '#0ea5e9', r: 4 }}
+                    isAnimationActive={true}
+                    animationDuration={2000}
+                  />
+                  <Line
+                    name="Step Growth"
+                    type="stepAfter"
+                    dataKey="supply"
+                    stroke="#10b981"
+                    strokeWidth={2}
+                    dot={false}
+                    isAnimationActive={true}
+                    animationDuration={2000}
+                  />
+                  {keyEvents.map((event, index) => (
+                    <ReferenceLine
+                      key={index}
+                      x={event.year}
+                      stroke="#0284c7"
+                      strokeDasharray="3 3"
+                      label={{
+                        value: event.event,
+                        position: 'top',
+                        fill: '#0284c7',
+                        fontSize: 10
+                      }}
+                    />
+                  ))}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
+          {/* Supply Schedule Table */}
           {showData && (
-            <div className="mt-6 overflow-x-auto">
-              <table className="w-full bg-white rounded-lg overflow-hidden">
-                <thead>
-                  <tr className="bg-gradient-to-r from-blue-100 to-teal-100">
-                    <th className="p-4 text-left text-gray-700"><Calendar size={18} className="inline mr-2 text-blue-600" />Halving Date</th>
-                    <th className="p-4 text-left text-gray-700"><Percent size={18} className="inline mr-2 text-teal-600" />Growth Rate</th>
-                    <th className="p-4 text-left text-gray-700"><PlusSquare size={18} className="inline mr-2 text-blue-600" />New ELA</th>
-                    <th className="p-4 text-left text-gray-700"><Database size={18} className="inline mr-2 text-teal-600" />Total Supply</th>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="p-2 text-left font-medium text-gray-600">Date</th>
+                    <th className="p-2 text-left font-medium text-gray-600">Growth</th>
+                    <th className="p-2 text-left font-medium text-gray-600">New ELA</th>
+                    <th className="p-2 text-left font-medium text-gray-600">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   {supplySchedule.map((item, index) => (
-                    <tr 
-                      key={index} 
-                      className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50 transition-colors`}
-                    >
-                      <td className="p-4 text-gray-600">{item.halvingDate.toLocaleDateString()}</td>
-                      <td className="p-4 text-teal-600">{item.percentage !== null ? (item.percentage * 100).toFixed(10) + '%' : '-'}</td>
-                      <td className="p-4 text-blue-600">{item.increment !== null ? '+' + item.increment.toLocaleString() : '-'}</td>
-                      <td className="p-4 text-teal-600 font-semibold">{item.supply.toLocaleString()}</td>
+                    <tr key={index} className="border-t hover:bg-gray-50">
+                      <td className="p-2">{item.halvingDate.toLocaleDateString()}</td>
+                      <td className="p-2">{item.percentage ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
+                      <td className="p-2">{item.increment ? `+${item.increment.toLocaleString()}` : '-'}</td>
+                      <td className="p-2 font-medium">{item.supply.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -370,4 +257,4 @@ const ELASupplyModelDashboard = () => {
   );
 };
 
-export default ELASupplyModelDashboard;
+export default ELASupplyPage;
