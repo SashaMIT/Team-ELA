@@ -34,7 +34,7 @@ const BlockVisualizer = () => {
     return `${hash.substring(0, 8)}...${hash.substring(hash.length - 8)}`;
   };
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     setShowCopied(true);
     setTimeout(() => setShowCopied(false), 2000);

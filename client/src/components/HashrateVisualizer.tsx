@@ -46,6 +46,30 @@ const HashrateVisualizer = () => {
   const [selectedScale, setSelectedScale] = useState<ScaleType>('supercomputers');
   
   const scales: Scales = {
+    supercomputers: {
+      unit: "Frontier Supercomputers",
+      buttonText: "Supercomputers",
+      base: 1_500_000_000_000,
+      icon: <Monitor className="w-5 h-5 text-orange-500" />,
+      explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
+      details: [
+        "Frontier: 1.5 EH/s theoretical peak performance",
+        "World's first exascale computing system",
+        "Located at Oak Ridge National Laboratory"
+      ]
+    },
+    datacenters: {
+      unit: "Large data centers",
+      buttonText: "Data Centers",
+      base: 500_000_000_000,
+      icon: <Building2 className="w-5 h-5 text-green-500" />,
+      explanation: "Based on data center with 1000 servers with multiple GPUs",
+      details: [
+        "1 EH/s = 1,000,000,000,000 MH/s",
+        "Data center hashrate: ~500 GH/s",
+        "Based on enterprise-scale operation with 1000+ servers"
+      ]
+    },
     computers: {
       unit: "High-end gaming PCs",
       buttonText: "Gaming PCs",
@@ -68,30 +92,6 @@ const HashrateVisualizer = () => {
         "1 EH/s = 1,000,000,000,000 MH/s",
         "iPhone hashrate: ~15 MH/s per device",
         "Shows equivalent number of iPhones needed to match network power"
-      ]
-    },
-    datacenters: {
-      unit: "Large data centers",
-      buttonText: "Data Centers",
-      base: 500_000_000_000,
-      icon: <Building2 className="w-5 h-5 text-green-500" />,
-      explanation: "Based on data center with 1000 servers with multiple GPUs",
-      details: [
-        "1 EH/s = 1,000,000,000,000 MH/s",
-        "Data center hashrate: ~500 GH/s",
-        "Based on enterprise-scale operation with 1000+ servers"
-      ]
-    },
-    supercomputers: {
-      unit: "Frontier Supercomputers",
-      buttonText: "Supercomputers",
-      base: 1_500_000_000_000,
-      icon: <Monitor className="w-5 h-5 text-orange-500" />,
-      explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
-      details: [
-        "Frontier: 1.5 EH/s theoretical peak performance",
-        "World's first exascale computing system",
-        "Located at Oak Ridge National Laboratory"
       ]
     }
   };
@@ -154,7 +154,7 @@ const HashrateVisualizer = () => {
           </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4 sm:p-4">
+      <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
           {/* Dialog Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -288,7 +288,103 @@ const HashrateVisualizer = () => {
             <BlockVisualizer />
           </div>
 
-         
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Calculator className="w-5 h-5 text-blue-500" />
+                    What is Hashrate?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-left">
+                      <Calculator className="w-6 h-6 text-blue-500" />
+                      Understanding Hashrate
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                    <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
+                      <p>
+                        Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
+                      </p>
+                      <p>
+                        A higher hashrate means more computational power, making the network stronger and more secure against attacks, such as a 51% attack, where an entity could potentially control the network. This immense computational effort creates trust and ensures the network remains decentralized and tamper-proof.
+                      </p>
+                      <p>
+                        Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
+                      </p>
+                    </div>
+                    <div className="lg:w-1/2 flex justify-center">
+                      <div className="max-w-sm">
+                        <FriendlyHashrate />
+                      </div>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Cpu className="w-5 h-5 text-purple-500" />
+                    What is EH/s?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader className="text-center">
+                    <DialogTitle className="flex items-center justify-center gap-2">
+                      <Cpu className="w-6 h-6 text-purple-500" />
+                      Understanding EH/s (ExaHashes per second)
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="text-muted-foreground text-center">
+                      <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
+                      <HashScaleViz />
+                      <p className="mt-4">
+                        So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
+                      </p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Network className="w-5 h-5 text-green-500" />
+                    What is Merge Mining?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-left">
+                      <Network className="w-6 h-6 text-green-500" />
+                      Understanding Merge Mining
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                    <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
+                      <p>Merge mining allows miners to mine multiple cryptocurrencies simultaneously without requiring additional computing power. Think of it like this:</p>
+                      <ul className="list-disc ml-6 mt-2 space-y-1">
+                        <li>When a miner solves a block for Bitcoin, they can reuse that same work to mine Elastos blocks</li>
+                        <li>This means Elastos gets Bitcoin's security without requiring extra energy</li>
+                        <li>It's like getting two rewards for doing one job</li>
+                      </ul>
+                      <p className="mt-2">
+                        This is why Elastos's hashrate is so high - it's effectively borrowing roughly {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}% of Bitcoin's massive mining power through merge mining!
+                      </p>
+                    </div>
+                    <div className="lg:w-1/2">
+                      <MergeMiningViz />
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
 
           <div className="space-y-4">
             <div className="font-medium flex items-center gap-2">
