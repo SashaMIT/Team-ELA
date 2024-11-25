@@ -30,9 +30,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
-        {/* Mobile Menu Trigger with Improved Touch Interaction */}
+        {/* Mobile Menu Trigger with Enhanced Touch Interaction */}
         <div className="fixed top-4 left-4 z-50 md:hidden">
-          <SidebarTrigger className="bg-background/95 hover:bg-accent/50 active:bg-accent/70 w-12 h-12 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm flex items-center justify-center touch-manipulation active:scale-95 active:shadow-md" />
+          <SidebarTrigger className="bg-background/80 hover:bg-accent/50 active:bg-accent/70 w-12 h-12 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-md flex items-center justify-center touch-manipulation active:scale-[0.92] active:shadow-md border border-accent/10" />
         </div>
         
         <Sidebar collapsible="offcanvas">
@@ -56,10 +56,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     }}
                     data-active={location === item.path}
                     className={`flex w-full items-center gap-3 rounded-xl px-4 py-4 md:py-3 text-base md:text-sm transition-all
-                      touch-manipulation active:scale-[0.98] select-none
+                      touch-manipulation active:scale-[0.97] select-none backdrop-blur-sm
                       ${location === item.path 
-                        ? 'bg-accent text-accent-foreground font-medium shadow-sm' 
-                        : 'hover:bg-accent/50 active:bg-accent/70'}`}
+                        ? 'bg-accent/90 text-accent-foreground font-medium shadow-sm border border-accent/20' 
+                        : 'hover:bg-accent/50 active:bg-accent/70 border border-transparent hover:border-accent/10'}`}
                   >
                     {item.icon}
                     <span className="truncate">{item.label}</span>

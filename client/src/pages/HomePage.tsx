@@ -123,15 +123,15 @@ const stats: StatItem[] = [
         
         
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full px-2">
-          {/* Bitcoin Stats */}
-          <div className="contents lg:col-span-2">
+          {/* Bitcoin Stats Column */}
+          <div className="col-span-1 space-y-3">
             {stats.slice(0, 4).map((stat, index) => (
               <StatCard key={`bitcoin-${index}`} stat={stat} />
             ))}
           </div>
           
-          {/* Elastos Stats */}
-          <div className="contents lg:col-span-2">
+          {/* Elastos Stats Column */}
+          <div className="col-span-1 space-y-3">
             {stats.slice(4).map((stat, index) => (
               <StatCard key={`elastos-${index}`} stat={stat} />
             ))}
