@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Shield, Lock, Bitcoin, Star, Clock, Zap, Building, CheckCircle, ExternalLink } from 'lucide-react';
+import { useHashrateData } from '../hooks/useHashrateData';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const BuyElaPage = () => {
-  const bitcoinHashrate = 589.51;
-  const elastosHashrate = 429.43;
+  const { data: hashrateData } = useHashrateData();
+  const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
+  const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
   const [animatedHashrate, setAnimatedHashrate] = useState(0);
 
   const realHashrateData = [
     { year: '2018', hashrate: 22, btcHashrate: 101, percentage: "21.8%" },
     { year: '2020', hashrate: 120, btcHashrate: 250, percentage: "48%" },
     { year: '2022', hashrate: 240, btcHashrate: 450, percentage: "53.3%" },
-    { year: '2024', hashrate: elastosHashrate, btcHashrate: bitcoinHashrate, percentage: "72.8%" }
+    { year: '2024', hashrate: elastosHashrate, btcHashrate: bitcoinHashrate, percentage: ((elastosHashrate/bitcoinHashrate) * 100).toFixed(1) + "%" }
   ];
 
   const exchanges = {
