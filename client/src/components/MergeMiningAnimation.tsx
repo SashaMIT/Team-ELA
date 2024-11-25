@@ -141,13 +141,13 @@ const MergeMiningAnimation = () => {
       </h1>
 
       {/* Descriptive Text */}
-      <p className="text-center text-sm sm:text-base mt-[10px] mb-0">
+      <p className="text-center text-sm sm:text-base mt-[10px] mb-0 relative z-50">
         By leveraging Bitcoin's unmatched hash rate, Elastos' ELA fulfills{' '}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger>
             <button 
               onClick={() => setIsOpen(true)}
-              className="text-blue-500 hover:text-blue-600 underline font-medium"
+              className="text-blue-500 hover:text-blue-600 underline font-medium relative z-50"
             >
               Satoshi Nakamoto's vision
             </button>
@@ -181,7 +181,7 @@ const MergeMiningAnimation = () => {
       </p>
 
       {/* Animation Container */}
-      <div className="relative h-[400px] sm:h-[400px] mt-[-90px]">
+      <div className="relative h-[400px] sm:h-[400px] mt-[-90px] z-0">
         {/* Animated Particles and Labels Container */}
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
           {/* Flow Labels */}
