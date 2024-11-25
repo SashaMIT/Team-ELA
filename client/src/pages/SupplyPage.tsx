@@ -5,7 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { Button } from '@/components/ui/button';
 
 const ELASupplyPage = () => {
-  const currentSupply = 26220000;
+  const currentSupply = 25748861.07152295; // Updated from Elastos API
   const nextHalvingDate = new Date('2025-12-01');
 
   const [showData, setShowData] = useState(false);
@@ -64,7 +64,7 @@ const ELASupplyPage = () => {
     return Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
   };
 
-  const formatYAxis = (value) => {
+  const formatYAxis = (value: number): string => {
     return (value / 1000000).toFixed(1) + 'M';
   };
 
@@ -78,7 +78,7 @@ const ELASupplyPage = () => {
 
   const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
     if (!active || !payload?.length) return null;
-    const data = supplySchedule.find(item => item.year === label);
+    const data = supplySchedule.find(item => item.year.toString() === label);
     if (!data) return null;
 
     return (

@@ -336,7 +336,7 @@ const NetworkSphere: React.FC = () => {
                   <Info className="w-4 h-4 text-muted-foreground" />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-sm">Real-time hashrate data from blockchain.info API</p>
+                  <p className="text-sm">Real-time hashrate data from Elastos API</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
