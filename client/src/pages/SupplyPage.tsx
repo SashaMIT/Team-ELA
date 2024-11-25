@@ -104,7 +104,7 @@ const ELASupplyPage = () => {
             <div className="flex flex-col">
               <span>ELA Supply Journey</span>
               <span className="text-sm font-normal text-muted-foreground">
-                Exploring our token's growth story together
+                Exploring ELAs story together
               </span>
             </div>
           </CardTitle>
@@ -112,7 +112,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <div className="bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
