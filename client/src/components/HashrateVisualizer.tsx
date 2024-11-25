@@ -1,5 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Info } from "lucide-react";
 import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor } from 'lucide-react';
 import {
   Tooltip,

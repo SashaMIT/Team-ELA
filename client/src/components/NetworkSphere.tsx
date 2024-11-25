@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { useHashrateData } from '../hooks/useHashrateData';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 
 interface Point {
   x: number;
