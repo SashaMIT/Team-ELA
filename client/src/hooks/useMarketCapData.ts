@@ -37,9 +37,9 @@ export const useMarketCapData = () => {
         throw new Error('Failed to fetch Elastos supply data');
       }
       const elaSupplyData: ElastosSupplyResponse = await elaSupplyResponse.json();
-      const elastosCirculatingSupply = elaSupplyData.data || 26220000; // Fallback value if API fails
+      const elastosCirculatingSupply = elaSupplyData.data;
 
-      // Calculate market caps with type safety checks
+      // Calculate market caps with exact values
       const bitcoinMarketCap = !isNaN(bitcoinPrice) && !isNaN(bitcoinCirculatingSupply)
         ? bitcoinPrice * bitcoinCirculatingSupply
         : 0;
