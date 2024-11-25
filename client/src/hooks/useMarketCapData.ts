@@ -40,12 +40,8 @@ export const useMarketCapData = () => {
       const elastosCirculatingSupply = elaSupplyData.data;
 
       // Calculate market caps with exact values
-      const bitcoinMarketCap = !isNaN(bitcoinPrice) && !isNaN(bitcoinCirculatingSupply)
-        ? bitcoinPrice * bitcoinCirculatingSupply
-        : 0;
-      const elastosMarketCap = !isNaN(elaPrice) && !isNaN(elastosCirculatingSupply)
-        ? elaPrice * elastosCirculatingSupply
-        : 0;
+      const bitcoinMarketCap = bitcoinPrice * bitcoinCirculatingSupply;
+      const elastosMarketCap = elaPrice * elastosCirculatingSupply;
       const marketCapRatio = (elastosMarketCap / bitcoinMarketCap) * 100;
 
       return {
