@@ -1,13 +1,7 @@
 import React from 'react';
 import MergeMiningAnimation from '../components/MergeMiningAnimation';
 import { useHashrateData } from '../hooks/useHashrateData';
-import { ChevronUp, ChevronDown, Info } from 'lucide-react';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { ChevronUp, ChevronDown } from 'lucide-react';
 
 interface StatItem {
   label: string;
@@ -97,48 +91,8 @@ const stats: StatItem[] = [
               key={index}
               className="bg-accent/10 p-4 rounded-lg space-y-2 text-center mx-auto"
             >
-              <div className="text-sm text-muted-foreground flex items-center gap-2">
+              <div className="text-sm text-muted-foreground">
                 {stat.label}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Info className="w-4 h-4 text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-sm">
-                        Data from{' '}
-                        {stat.label.includes("Hashrate") ? (
-                          <a 
-                            href="https://api.elastos.io/ela" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                          >
-                            Elastos API
-                          </a>
-                        ) : stat.label.includes("Price") ? (
-                          <a 
-                            href="https://api.coingecko.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                          >
-                            CoinGecko API
-                          </a>
-                        ) : (
-                          <a 
-                            href="https://api.elastos.io/ela" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                          >
-                            Elastos API
-                          </a>
-                        )}
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
               </div>
               <div className="flex items-center justify-between">
                 {stat.label.includes("Hashrate") ? (
