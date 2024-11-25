@@ -123,6 +123,17 @@ const ELASupplyPage = () => {
               </div>
             </div>
 
+            <div className="bg-green-50 p-3 rounded-lg">
+              <div className="flex items-center gap-3">
+                <Database className="text-green-500 h-5 w-5" />
+                <div>
+                  <div className="text-sm text-gray-600">Total Supply</div>
+                  <div className="font-bold text-lg">28,199,999 ELA</div>
+                  <div className="text-xs text-gray-500">by 2105</div>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-purple-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Clock className="text-purple-500 h-5 w-5" />
