@@ -289,7 +289,81 @@ const HashrateVisualizer = () => {
           </div>
 
           <div className="space-y-4">
-            {/* Device comparison buttons will be added here */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Calculator className="w-5 h-5 text-blue-500" />
+                    What is Hashrate?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-left">
+                      <Calculator className="w-6 h-6 text-blue-500" />
+                      Understanding Hashrate
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col lg:flex-row gap-6 items-center">
+                    <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
+                      <p>
+                        Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
+                      </p>
+                      <p>
+                        A higher hashrate means more computational power, making the network stronger and more secure against attacks, such as a 51% attack, where an entity could potentially control the network. This immense computational effort creates trust and ensures the network remains decentralized and tamper-proof.
+                      </p>
+                      <p>
+                        Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
+                      </p>
+                    </div>
+                    <div className="lg:w-1/2 flex justify-center">
+                      <div className="max-w-sm">
+                        <FriendlyHashrate />
+                      </div>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Cpu className="w-5 h-5 text-purple-500" />
+                    What is EH/s?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader className="text-center">
+                    <DialogTitle className="flex items-center justify-center gap-2">
+                      <Cpu className="w-6 h-6 text-purple-500" />
+                      Understanding EH/s (ExaHashes per second)
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="text-muted-foreground text-center">
+                      <p>EH/s stands for ExaHashes per second. To understand how big this is:</p>
+                      <HashScaleViz />
+                      <p className="mt-4">
+                        So when we say Bitcoin's hashrate is {bitcoinHashrate} EH/s, it means the network is performing {bitcoinHashrate} quintillion calculations every second!
+                      </p>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
+                    <Network className="w-5 h-5 text-green-500" />
+                    What is Merge Mining?
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2 text-left">
+                      <Network className="w-6 h-6 text-green-500" />
+                      Understanding Merge Mining
+                    </DialogTitle>
                   </DialogHeader>
                   <div className="flex flex-col lg:flex-row gap-6 items-center">
                     <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
@@ -318,95 +392,6 @@ const HashrateVisualizer = () => {
               Compare to everyday devices:
             </div>
             
-            {/* Device comparison buttons */}
-            <div className="font-medium flex items-center gap-2">
-              <Server className="w-5 h-5 text-blue-500" />
-              Compare to everyday devices:
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-6 px-1">
-              {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
-                <TooltipProvider key={key}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant={selectedScale === key ? "default" : "outline"}
-                        onClick={() => setSelectedScale(key)}
-                        className={cn(
-                          "w-full gap-2 min-h-[2.5rem] px-2 py-1",
-                          selectedScale === key && "shadow-lg"
-                        )}
-                      >
-                        <span>{scales[key].icon}</span>
-                        <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-[200px] text-sm">
-                      {explanation}
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              ))}
-            </div>
-
-            {/* Colored Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-gradient-to-r from-orange-100 to-orange-50 p-4 rounded-lg border border-orange-200">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-lg font-semibold text-orange-800">Bitcoin Network</div>
-                    <div className="text-3xl font-bold text-orange-600">{bitcoinHashrate.toFixed(2)} EH/s</div>
-                  </div>
-                  <Shield className="w-12 h-12 text-orange-500 opacity-50" />
-                </div>
-                <div className="mt-2 flex items-center gap-2">
-                  <div className="text-orange-600 text-sm">Network Security</div>
-                  <div className="flex-1 h-2 bg-orange-200 rounded-full">
-                    <div className="h-full w-full bg-orange-500 rounded-full" />
-                  </div>
-                  <span className="text-sm font-medium text-orange-600">100%</span>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-blue-100 to-blue-50 p-4 rounded-lg border border-blue-200">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-lg font-semibold text-blue-800">Elastos Network</div>
-                    <div className="text-3xl font-bold text-blue-600">{elastosHashrate.toFixed(2)} EH/s</div>
-                  </div>
-                  <Lock className="w-12 h-12 text-blue-500 opacity-50" />
-                </div>
-                <div className="mt-2 flex items-center gap-2">
-                  <div className="text-blue-600 text-sm">Security Share</div>
-                  <div className="flex-1 h-2 bg-blue-200 rounded-full">
-                    <div 
-                      className="h-full bg-blue-500 rounded-full transition-all duration-500"
-                      style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                    />
-                  </div>
-                  <span className="text-sm font-medium text-blue-600">
-                    {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%
-                  </span>
-                </div>
-              </div>
-
-              {/* Scale Details */}
-              <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200 md:col-span-2">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Comparison Scale Details</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {scales[selectedScale].details.map((detail: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      <span className="text-sm text-gray-600">{detail}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
               {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
                 <TooltipProvider key={key}>
@@ -432,46 +417,32 @@ const HashrateVisualizer = () => {
               ))}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-gradient-to-r from-orange-100 to-orange-50 p-4 rounded-lg border border-orange-200">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-lg font-semibold text-orange-800">Bitcoin Network</div>
-                      <div className="text-3xl font-bold text-orange-600">{bitcoinHashrate.toFixed(2)} EH/s</div>
-                    </div>
-                    <Shield className="w-12 h-12 text-orange-500 opacity-50" />
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <div className="text-orange-600 text-sm">Network Security</div>
-                    <div className="flex-1 h-2 bg-orange-200 rounded-full">
-                      <div className="h-full w-full bg-orange-500 rounded-full" />
-                    </div>
-                    <span className="text-sm font-medium text-orange-600">100%</span>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-blue-100 to-blue-50 p-4 rounded-lg border border-blue-200">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-lg font-semibold text-blue-800">Elastos Network</div>
-                      <div className="text-3xl font-bold text-blue-600">{elastosHashrate.toFixed(2)} EH/s</div>
-                    </div>
-                    <Lock className="w-12 h-12 text-blue-500 opacity-50" />
-                  </div>
-                  <div className="mt-2 flex items-center gap-2">
-                    <div className="text-blue-600 text-sm">Security Share</div>
-                    <div className="flex-1 h-2 bg-blue-200 rounded-full">
-                      <div 
-                        className="h-full bg-blue-500 rounded-full transition-all duration-500"
-                        style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-sm font-medium text-blue-600">
-                      {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <div className="space-y-4">
+              <motion.div 
+                className="relative h-28 bg-gradient-to-r from-orange-100/50 to-orange-50/50 rounded-lg overflow-hidden shadow-md border border-orange-200/50"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="h-full flex items-center justify-between p-3">
+                  <div className="flex-1">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="space-y-1">
+                            <div className="font-bold text-lg flex items-center gap-2">
+                              Bitcoin Network
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-muted-foreground" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p className="text-sm">Data from blockchain.info API</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </div>
                             <div className="text-xl sm:text-2xl font-bold text-primary">
                               {formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
                             </div>
