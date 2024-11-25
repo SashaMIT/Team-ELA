@@ -13,14 +13,7 @@ interface BlockData {
 }
 
 const BlockVisualizer = () => {
-  const [currentBlock, setCurrentBlock] = useState<BlockData>({
-    hash: "23411800476b40efe8e8874b3fea794bf8ac6d89503d37cc8c1cd386c62a6721",
-    height: 1829335,
-    time: Date.now() / 1000,
-    txlength: 2,
-    poolInfo: { poolName: "ViaBTC" },
-    hashrate: "363.2 EH/s"
-  });
+  const [currentBlock, setCurrentBlock] = useState<BlockData | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [timeAgo, setTimeAgo] = useState('');
   const [showCopied, setShowCopied] = useState(false);
@@ -34,7 +27,7 @@ const BlockVisualizer = () => {
     return `${hash.substring(0, 8)}...${hash.substring(hash.length - 8)}`;
   };
 
-  const copyToClipboard = (text) => {
+  const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     setShowCopied(true);
     setTimeout(() => setShowCopied(false), 2000);
@@ -83,8 +76,8 @@ const BlockVisualizer = () => {
   };
 
   useEffect(() => {
-    fetchLatestBlock();
-    const interval = setInterval(fetchLatestBlock, 10000);
+    fetchLatestBlock(); // Immediate call
+    const interval = setInterval(fetchLatestBlock, 15000);
     return () => clearInterval(interval);
   }, []);
 
@@ -100,6 +93,16 @@ const BlockVisualizer = () => {
       <span className="text-xs font-medium">{value}</span>
     </div>
   );
+
+  if (!currentBlock) {
+    return (
+      <Card className="w-full p-4">
+        <div className="animate-pulse text-center text-muted-foreground">
+          Loading latest block...
+        </div>
+      </Card>
+    );
+  }
 
   return (
     <Card className={`w-full bg-white transform transition-all duration-500 border-blue-100
