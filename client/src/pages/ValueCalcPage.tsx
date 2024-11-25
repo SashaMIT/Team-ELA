@@ -195,7 +195,19 @@ const ValueCalcPage = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <label className="font-medium">Elastos Hashrate:</label>
+                  <label className="font-medium flex items-center gap-2">
+                    Elastos Hashrate:
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-sm">Hashrate data from blockchain.info API</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </label>
                   <div className="flex items-center gap-4">
                     <span className="text-sm">{elastosHashrate.toFixed(2)} EH/s</span>
                     <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
