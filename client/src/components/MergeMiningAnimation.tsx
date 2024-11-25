@@ -127,7 +127,8 @@ const MergeMiningAnimation = () => {
   return (
     <div className="w-full max-w-4xl p-1 sm:p-2 md:p-0 bg-gradient-to-br from-slate-0 to-slate-00 rounded-xl">
       {/* Heading */}
-      <h1 className="text-center text-2xl font-bold mt-0 mb-0">
+      <h1 className="text-center text-2xl font-bold mt-0 mb-0 flex items-center justify-center gap-2">
+        <Shield className="w-6 h-6 text-blue-500" />
         ELA: The Bitcoin-Secured Reserve Asset
       </h1>
 
