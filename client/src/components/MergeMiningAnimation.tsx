@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Server, Shield, Coins, Zap } from 'lucide-react';
+import { Server, Shield, Coins, Zap, Globe, Lock, GitMerge } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
