@@ -13,7 +13,14 @@ interface BlockData {
 }
 
 const BlockVisualizer = () => {
-  const [currentBlock, setCurrentBlock] = useState<BlockData | null>(null);
+  const [currentBlock, setCurrentBlock] = useState<BlockData>({
+    hash: "23411800476b40efe8e8874b3fea794bf8ac6d89503d37cc8c1cd386c62a6721",
+    height: 1829335,
+    time: Date.now() / 1000,
+    txlength: 2,
+    poolInfo: { poolName: "ViaBTC" },
+    hashrate: "363.2 EH/s"
+  });
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [timeAgo, setTimeAgo] = useState('');
   const [showCopied, setShowCopied] = useState(false);
@@ -27,15 +34,13 @@ const BlockVisualizer = () => {
     return `${hash.substring(0, 8)}...${hash.substring(hash.length - 8)}`;
   };
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     setShowCopied(true);
     setTimeout(() => setShowCopied(false), 2000);
   };
 
   useEffect(() => {
-    if (!currentBlock) return;
-    
     const updateTime = () => {
       const seconds = Math.floor(Date.now() / 1000 - currentBlock.time);
       if (seconds < 60) setTimeAgo(`${seconds}s ago`);
@@ -45,7 +50,7 @@ const BlockVisualizer = () => {
     updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
-  }, [currentBlock?.time]);
+  }, [currentBlock.time]);
 
   const handleNewBlock = (newBlock: BlockData) => {
     setIsTransitioning(true);
@@ -78,8 +83,8 @@ const BlockVisualizer = () => {
   };
 
   useEffect(() => {
-    fetchLatestBlock(); // Immediate call
-    const interval = setInterval(fetchLatestBlock, 15000);
+    fetchLatestBlock();
+    const interval = setInterval(fetchLatestBlock, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -95,16 +100,6 @@ const BlockVisualizer = () => {
       <span className="text-xs font-medium">{value}</span>
     </div>
   );
-
-  if (!currentBlock) {
-    return (
-      <Card className="w-full p-4">
-        <div className="animate-pulse text-center text-muted-foreground">
-          Loading latest block...
-        </div>
-      </Card>
-    );
-  }
 
   return (
     <Card className={`w-full bg-white transform transition-all duration-500 border-blue-100
@@ -167,7 +162,7 @@ const BlockVisualizer = () => {
                     <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </a>
                   <button
-                    onClick={() => currentBlock?.previousblockhash && copyToClipboard(currentBlock.previousblockhash)}
+                    onClick={() => copyToClipboard(currentBlock.previousblockhash)}
                     className="opacity-0 group-hover:opacity-70 hover:opacity-100 transition-opacity shrink-0"
                     title="Copy hash"
                   >
