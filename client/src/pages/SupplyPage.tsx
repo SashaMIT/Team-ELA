@@ -57,7 +57,7 @@ const ELASupplyPage = () => {
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-      setCountdown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      setCountdown(`${days}d ${hours}h ${minutes}m`);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -125,6 +125,7 @@ const ELASupplyPage = () => {
                 <div>
                   <div className="text-sm text-gray-600">Current Supply</div>
                   <div className="font-bold text-lg">{currentSupply.toLocaleString()} ELA</div>
+                  <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
                 </div>
               </div>
             </div>
