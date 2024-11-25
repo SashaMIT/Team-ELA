@@ -31,8 +31,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <SidebarProvider>
       <div className="flex min-h-screen">
         {/* Mobile Menu Trigger */}
-        <div className="fixed top-2 left-2 z-50 md:hidden">
-          <SidebarTrigger />
+        <div className="fixed top-4 left-4 z-50 md:hidden">
+          <SidebarTrigger className="bg-blue-100 hover:bg-blue-200 w-10 h-10 rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg" />
         </div>
         
         <Sidebar collapsible="offcanvas">

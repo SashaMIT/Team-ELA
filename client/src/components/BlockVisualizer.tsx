@@ -162,7 +162,7 @@ const BlockVisualizer = () => {
                     <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                   </a>
                   <button
-                    onClick={() => copyToClipboard(currentBlock.previousblockhash)}
+                    onClick={() => currentBlock.previousblockhash && copyToClipboard(currentBlock.previousblockhash)}
                     className="opacity-0 group-hover:opacity-70 hover:opacity-100 transition-opacity shrink-0"
                     title="Copy hash"
                   >
