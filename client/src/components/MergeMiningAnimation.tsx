@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Server, Shield, Coins, Zap } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface Particle {
   id: number;
@@ -134,7 +141,39 @@ const MergeMiningAnimation = () => {
 
       {/* Descriptive Text */}
       <p className="text-center text-sm sm:text-base mt-[10px] mb-0">
-        By leveraging Bitcoin's unmatched hash rate, Elastos' ELA fulfills Satoshi Nakamoto's vision of advancing decentralized innovation on the most secure foundation ever created. BTC King. ELA Queen.
+        By leveraging Bitcoin's unmatched hash rate, Elastos' ELA fulfills{' '}
+        <Dialog>
+          <DialogTrigger asChild>
+            <button className="text-blue-500 hover:text-blue-600 underline font-medium">
+              Satoshi Nakamoto's vision
+            </button>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Satoshi Nakamoto's Vision of Merged Mining</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                In his 2010 Bitcoin forum posts, Satoshi Nakamoto envisioned merged mining to enable networks like BitDNS to share Bitcoin's hash rate. This approach strengthened smaller networks, avoided computational fragmentation, and rewarded miners for securing multiple chains simultaneously, advancing innovation while maintaining decentralization. Bitcoin, as a secure backbone, becomes a foundation for a unified and efficient blockchain ecosystem.
+              </p>
+              <div className="space-y-2">
+                <a href="http://bitcointalk.org/index.php?topic=1790.msg28696#msg28696" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="block text-sm text-blue-500 hover:text-blue-600">
+                  BitcoinForum Post 1 →
+                </a>
+                <a href="http://bitcointalk.org/index.php?topic=1790.msg28715#msg28715" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   className="block text-sm text-blue-500 hover:text-blue-600">
+                  Bitcoin Forum Post 2 →
+                </a>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+        {' '}of advancing decentralized innovation on the most secure foundation ever created. BTC King. ELA Queen.
       </p>
 
       {/* Animation Container */}
