@@ -33,19 +33,19 @@ const BlockVisualizer = () => {
     setTimeout(() => setShowCopied(false), 2000);
   };
 
-  if (currentBlock) {
-    useEffect(() => {
-      const updateTime = () => {
-        const seconds = Math.floor(Date.now() / 1000 - currentBlock.time);
-        if (seconds < 60) setTimeAgo(`${seconds}s ago`);
-        else if (seconds < 3600) setTimeAgo(`${Math.floor(seconds / 60)}m ago`);
-        else setTimeAgo(`${Math.floor(seconds / 3600)}h ago`);
-      };
-      updateTime();
-      const interval = setInterval(updateTime, 1000);
-      return () => clearInterval(interval);
-    }, [currentBlock.time]);
-  }
+  useEffect(() => {
+    if (!currentBlock) return;
+    
+    const updateTime = () => {
+      const seconds = Math.floor(Date.now() / 1000 - currentBlock.time);
+      if (seconds < 60) setTimeAgo(`${seconds}s ago`);
+      else if (seconds < 3600) setTimeAgo(`${Math.floor(seconds / 60)}m ago`);
+      else setTimeAgo(`${Math.floor(seconds / 3600)}h ago`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [currentBlock?.time]);
 
   const handleNewBlock = (newBlock: BlockData) => {
     setIsTransitioning(true);

@@ -414,54 +414,7 @@ const HashrateVisualizer = () => {
               </motion.div>
               </motion.div>
 
-              <motion.div 
-                className="relative h-28 bg-gradient-to-r from-blue-100/50 to-blue-50/50 rounded-lg overflow-hidden shadow-md border border-blue-200/50"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-              >
-                <div className="h-full flex items-center justify-between p-3">
-                  <div className="flex-1">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="space-y-1">
-                            <div className="font-bold text-lg flex items-center gap-2">
-                              Elastos Network
-                              <TooltipProvider>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Info className="w-4 h-4 text-muted-foreground" />
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p className="text-sm">Data from blockchain.info API</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
-                            </div>
-                            <div className="text-xl sm:text-2xl font-bold text-primary">
-                              {formatNumber(calculateEquivalent(elastosHashrate, scales[selectedScale].base))} {scales[selectedScale].unit}
-                            </div>
-                            <div className="flex items-center gap-4">
-                              <span className="text-sm">{elastosHashrate.toFixed(2)} EH/s</span>
-                              <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-green-500 rounded-full transition-all duration-500"
-                                  style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                                />
-                              </div>
-                              <span className="text-sm">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
-                            </div>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" align="start" sideOffset={5} className="max-w-[250px]">
-                          <p className="text-sm">Elastos leverages merge mining with Bitcoin, sharing about 48% of Bitcoin's hashrate for enhanced security without additional energy consumption.</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                </div>
-              </motion.div>
+              
             </div>
           </div>
 
