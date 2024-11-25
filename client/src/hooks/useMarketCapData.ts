@@ -9,20 +9,13 @@ interface MarketCapData {
   marketCapRatio: number;
 }
 
-interface ElastosSupplyResponse {
-  data: number;
-  status: number;
-}
+const COINGECKO_API = 'https://api.coingecko.com/api/v3';
 
 export const useMarketCapData = () => {
   const { data: hashrateData, isLoading: isHashrateLoading, error: hashrateError } = useHashrateData();
 
   const fetchMarketCapData = async (): Promise<MarketCapData> => {
     try {
-      // Using existing price data from useHashrateData
-      const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
-      const elaPrice = hashrateData?.elaPrice ?? 0;
-
       // Bitcoin circulating supply from blockchain.info API
       const btcSupplyResponse = await fetch('https://blockchain.info/q/totalbc');
       if (!btcSupplyResponse.ok) {
@@ -31,17 +24,20 @@ export const useMarketCapData = () => {
       const btcSupplyData = await btcSupplyResponse.text();
       const bitcoinCirculatingSupply = parseInt(btcSupplyData) / 100000000; // Convert satoshis to BTC
 
-      // Fetch Elastos circulating supply from elastos.io API
-      const elaSupplyResponse = await fetch('https://api.elastos.io/widgets?q=circ_supply');
-      if (!elaSupplyResponse.ok) {
-        throw new Error('Failed to fetch Elastos supply data');
-      }
-      const elaSupplyData: ElastosSupplyResponse = await elaSupplyResponse.json();
-      const elastosCirculatingSupply = elaSupplyData.data;
-
-      // Calculate market caps with exact values
+      // Calculate Bitcoin market cap using blockchain.info data
+      const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
       const bitcoinMarketCap = bitcoinPrice * bitcoinCirculatingSupply;
-      const elastosMarketCap = elaPrice * elastosCirculatingSupply;
+
+      // Fetch Elastos market data from CoinGecko API
+      const elaMarketDataResponse = await fetch(`${COINGECKO_API}/simple/price?ids=elastos&vs_currencies=usd&include_market_cap=true&include_circulating_supply=true`);
+      if (!elaMarketDataResponse.ok) {
+        throw new Error('Failed to fetch Elastos market data from CoinGecko');
+      }
+      const elaMarketData = await elaMarketDataResponse.json();
+      const elastosMarketCap = elaMarketData.elastos.usd_market_cap;
+      const elastosCirculatingSupply = elaMarketData.elastos.circulating_supply;
+
+      // Calculate market cap ratio
       const marketCapRatio = (elastosMarketCap / bitcoinMarketCap) * 100;
 
       return {
