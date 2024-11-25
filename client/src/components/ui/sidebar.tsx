@@ -197,7 +197,7 @@ const Sidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="w-[--sidebar-width] bg-background border-r p-0 text-foreground [&>button]:hidden transition-transform duration-300 ease-in-out"
+            className="w-[--sidebar-width] bg-background/95 backdrop-blur-sm border-r p-0 text-foreground [&>button]:hidden transition-all duration-300 ease-in-out touch-manipulation"
             style={
               {
                 "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -277,7 +277,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-      <PanelLeft />
+      <PanelLeft className="w-5 h-5" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

@@ -31,8 +31,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <SidebarProvider>
       <div className="flex min-h-screen">
         {/* Mobile Menu Trigger */}
-        <div className="fixed top-4 left-4 z-50 md:hidden">
-          <SidebarTrigger className="bg-blue-100 hover:bg-blue-200 w-10 h-10 rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg" />
+        <div className="fixed top-3 left-3 z-50 md:hidden">
+          <SidebarTrigger className="bg-background hover:bg-accent/50 w-10 h-10 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center" />
         </div>
         
         <Sidebar collapsible="offcanvas">
@@ -49,10 +49,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     role="button"
                     onClick={() => setLocation(item.path)}
                     data-active={location === item.path}
-                    className={`flex w-full items-center gap-2 rounded-md px-3 py-3 text-sm transition-colors
+                    className={`flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
                       ${location === item.path 
-                        ? 'bg-accent text-accent-foreground' 
-                        : 'hover:bg-accent/50'}`}
+                        ? 'bg-accent text-accent-foreground font-medium' 
+                        : 'hover:bg-accent/50 active:bg-accent/70'}`}
                   >
                     {item.icon}
                     <span className="truncate">{item.label}</span>
