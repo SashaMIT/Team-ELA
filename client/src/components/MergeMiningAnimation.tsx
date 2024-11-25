@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Server, Shield, Coins, Zap, Globe, Lock, GitMerge } from 'lucide-react';
+import { Server, Shield, Coins, Zap, Globe, Lock, GitMerge, MessageCircle } from 'lucide-react';
 import MiningAnimation from './MiningAnimation';
 import {
   Dialog,
@@ -165,13 +165,17 @@ const MergeMiningAnimation = () => {
                 <a href="http://bitcointalk.org/index.php?topic=1790.msg28696#msg28696" 
                    target="_blank" 
                    rel="noopener noreferrer"
-                   className="block text-sm text-blue-500 hover:text-blue-600">
+                   className="flex items-center gap-2 text-sm px-3 py-2 bg-orange-50 hover:bg-orange-100 text-orange-600 rounded-lg transition-colors w-full"
+                >
+                  <MessageCircle className="w-4 h-4" />
                   BitcoinForum Post 1 →
                 </a>
                 <a href="http://bitcointalk.org/index.php?topic=1790.msg28715#msg28715" 
                    target="_blank" 
                    rel="noopener noreferrer"
-                   className="block text-sm text-blue-500 hover:text-blue-600">
+                   className="flex items-center gap-2 text-sm px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors w-full"
+                >
+                  <MessageCircle className="w-4 h-4" />
                   Bitcoin Forum Post 2 →
                 </a>
               </div>
