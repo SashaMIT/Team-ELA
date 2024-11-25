@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table } from 'lucide-react';
+import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table, Focus } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Button } from '@/components/ui/button';
 
@@ -171,17 +177,18 @@ const ELASupplyPage = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => setIsZoomed(!isZoomed)}
-                  className="text-xs"
+                  className="text-xs flex items-center gap-2"
                 >
+                  <Focus className="h-4 w-4 text-blue-500" />
                   {isZoomed ? 'View All' : 'Focus Future'}
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setShowData(!showData)}
-                  className="text-xs flex items-center gap-1"
+                  className="text-xs flex items-center gap-2"
                 >
-                  <Table className="h-3 w-3" />
+                  <Table className="h-4 w-4 text-green-500" />
                   {showData ? 'Hide Details' : 'Show Details'}
                 </Button>
               </div>
@@ -196,7 +203,7 @@ const ELASupplyPage = () => {
                   <XAxis 
                     dataKey="year"
                     type="number"
-                    domain={['dataMin', 'dataMax']}
+                    domain={isZoomed ? [2024, 'dataMax'] : ['dataMin', 'dataMax']}
                     tickFormatter={(value) => value.toString()}
                   />
                   <YAxis 
@@ -245,31 +252,36 @@ const ELASupplyPage = () => {
             </div>
           </div>
 
-          {/* Supply Schedule Table */}
-          {showData && (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="p-2 text-left font-medium text-gray-600">Date</th>
-                    <th className="p-2 text-left font-medium text-gray-600">Growth</th>
-                    <th className="p-2 text-left font-medium text-gray-600">New ELA</th>
-                    <th className="p-2 text-left font-medium text-gray-600">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {supplySchedule.map((item, index) => (
-                    <tr key={index} className="border-t hover:bg-gray-50">
-                      <td className="p-2">{item.halvingDate.toLocaleDateString()}</td>
-                      <td className="p-2">{item.percentage ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
-                      <td className="p-2">{item.increment ? `+${item.increment.toLocaleString()}` : '-'}</td>
-                      <td className="p-2 font-medium">{item.supply.toLocaleString()}</td>
+          {/* Supply Schedule Dialog */}
+          <Dialog open={showData} onOpenChange={setShowData}>
+            <DialogContent className="max-w-4xl">
+              <DialogHeader>
+                <DialogTitle>Supply Schedule Details</DialogTitle>
+              </DialogHeader>
+              <div className="overflow-x-auto max-h-[60vh]">
+                <table className="w-full text-sm">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="p-2 text-left font-medium text-gray-600">Date</th>
+                      <th className="p-2 text-left font-medium text-gray-600">Growth</th>
+                      <th className="p-2 text-left font-medium text-gray-600">New ELA</th>
+                      <th className="p-2 text-left font-medium text-gray-600">Total</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  </thead>
+                  <tbody>
+                    {supplySchedule.map((item, index) => (
+                      <tr key={index} className="border-t hover:bg-gray-50">
+                        <td className="p-2">{item.halvingDate.toLocaleDateString()}</td>
+                        <td className="p-2">{item.percentage ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
+                        <td className="p-2">{item.increment ? `+${item.increment.toLocaleString()}` : '-'}</td>
+                        <td className="p-2 font-medium">{item.supply.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </DialogContent>
+          </Dialog>
         </CardContent>
       </Card>
     </div>
