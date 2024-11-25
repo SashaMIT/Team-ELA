@@ -32,7 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="flex min-h-screen">
         {/* Mobile Menu Trigger */}
         <div className="fixed top-3 left-3 z-50 md:hidden">
-          <SidebarTrigger className="bg-background hover:bg-accent/50 w-10 h-10 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center" />
+          <SidebarTrigger className="bg-background/95 hover:bg-accent/50 active:bg-accent/70 w-10 h-10 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl backdrop-blur-sm flex items-center justify-center touch-manipulation" />
         </div>
         
         <Sidebar collapsible="offcanvas">
