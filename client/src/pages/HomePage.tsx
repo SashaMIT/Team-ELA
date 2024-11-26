@@ -88,20 +88,20 @@ const HomePage = () => {
           <MergeMiningAnimation />
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full max-w-[1000px] mx-auto mt-4 sm:mt-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2 max-w-[1000px] mx-auto mt-4 sm:mt-6">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full"
+              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full flex flex-col justify-center"
             >
-              <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
+              <div className="text-xs sm:text-sm text-muted-foreground">
                 {stat.label}
               </div>
               <div className="flex flex-col items-center">
                 {stat.label.includes("Hashrate") ? (
                   <div className="flex items-center justify-center gap-2 sm:gap-4 w-full">
                     <span className="text-xs sm:text-sm">{stat.value}</span>
-                    <div className="w-16 sm:w-20 lg:w-24 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
+                    <div className="w-14 sm:w-16 lg:w-20 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-green-500 rounded-full transition-all duration-500"
                         style={{ 
@@ -115,9 +115,9 @@ const HomePage = () => {
                   </div>
                 ) : (
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-sm sm:text-lg">{stat.value}</span>
+                    <span className="font-semibold text-sm sm:text-base lg:text-lg">{stat.value}</span>
                     {stat.showChange && typeof stat.change === 'number' && (
-                      <span className={`flex items-center text-sm ${stat.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      <span className={`flex items-center text-xs sm:text-sm ${stat.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         {stat.change >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         {Math.abs(stat.change)}%
                       </span>
