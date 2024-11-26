@@ -2,7 +2,13 @@ import React from 'react';
 import MergeMiningAnimation from '../components/MergeMiningAnimation';
 import { useHashrateData } from '../hooks/useHashrateData';
 import { useMarketCapData } from '../hooks/useMarketCapData';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface StatItem {
   label: string;
@@ -95,8 +101,38 @@ const stats: StatItem[] = [
               key={index}
               className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full flex flex-col items-center"
             >
-              <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
-                {stat.label}
+              <div className="flex items-center gap-1">
+                <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-xs sm:text-sm">
+                        {stat.label.includes("Bitcoin") ? (
+                          stat.label.includes("Price") ? 
+                            "Real-time price data from CoinGecko API" :
+                          stat.label.includes("Supply") ?
+                            "Total supply from Bitcoin protocol" :
+                          stat.label.includes("Market Cap") ?
+                            "Calculated using CoinGecko price data" :
+                            "Hashrate data from blockchain.info API"
+                        ) : (
+                          stat.label.includes("Price") ?
+                            "Real-time price data from CoinGecko API" :
+                          stat.label.includes("Supply") ?
+                            "Current circulating supply from elastos.io" :
+                          stat.label.includes("Market Cap") ?
+                            "Calculated using CoinGecko price data" :
+                            "Hashrate data from elastos.io API"
+                        )}
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               <div className="flex items-center justify-center w-full">
                 {stat.label.includes("Hashrate") ? (

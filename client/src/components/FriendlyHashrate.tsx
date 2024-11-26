@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Cpu, Lock } from 'lucide-react';
+import { Cpu, Lock, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useHashrateData } from '../hooks/useHashrateData';
 
 const FriendlyHashrate = () => {
@@ -68,9 +74,29 @@ const FriendlyHashrate = () => {
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-500">
           Bitcoin's Network Security
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="inline-block w-4 h-4 ml-2 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs">Network security metrics powered by blockchain.info API</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </h2>
-        <p className="text-gray-600 mt-2">
+        <p className="text-gray-600 mt-2 flex items-center gap-2">
           {bitcoinHashrate.toFixed(2)} EH/s = {(bitcoinHashrate * 1e18).toLocaleString()} hashes per second 🔒
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs">Real-time hashrate data with 5-minute refresh interval</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </p>
       </div>
 

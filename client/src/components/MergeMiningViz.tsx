@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Cpu, Lock } from 'lucide-react';
+import { Cpu, Lock, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useHashrateData } from '../hooks/useHashrateData';
 
 interface Lock {
@@ -133,8 +139,32 @@ const MergeMiningViz = () => {
 
         {/* Hashrate indicator */}
         <div className="absolute top-4 right-4 bg-card/90 rounded-lg p-2 text-sm">
-          <div className="text-orange-500">Bitcoin Hashrate: {bitcoinHashrate.toFixed(2)} EH/s</div>
-          <div className="text-blue-500">Elastos Security: {securityPercentage}%</div>
+          <div className="flex items-center gap-2">
+            <div className="text-orange-500">Bitcoin Hashrate: {bitcoinHashrate.toFixed(2)} EH/s</div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Real-time hashrate data from blockchain.info API</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="text-blue-500">Elastos Security: {securityPercentage}%</div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs">Real-time security data from elastos.io API</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
         </div>
       </div>
     </div>
