@@ -97,9 +97,9 @@ const HomePage = () => {
               <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                 {stat.label}
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col items-center">
                 {stat.label.includes("Hashrate") ? (
-                  <div className="flex items-center gap-2 sm:gap-4 w-full">
+                  <div className="flex items-center justify-center gap-2 sm:gap-4 w-full">
                     <span className="text-xs sm:text-sm">{stat.value}</span>
                     <div className="w-16 sm:w-20 lg:w-24 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
