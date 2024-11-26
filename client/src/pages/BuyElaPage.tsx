@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Bitcoin, Star, Wallet, ExternalLink } from 'lucide-react';
+import { Shield, Lock, Bitcoin, Star, Wallet, ExternalLink, CheckCircle } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
