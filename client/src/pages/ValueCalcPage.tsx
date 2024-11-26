@@ -51,15 +51,15 @@ const ValueCalcPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-2 sm:p-4 md:p-6">
-      <Card className="w-full bg-background/95 backdrop-blur-sm">
-        <CardHeader className="p-2 sm:p-4 md:p-6">
+    <div className="min-h-screen bg-background px-0 sm:px-4 md:px-6 py-2 sm:py-4 md:py-6">
+      <Card className="w-full bg-background/95 backdrop-blur-sm mx-0">
+        <CardHeader className="px-2 py-3 sm:p-4 md:p-6">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
             <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0 mt-1" />
             <span className="leading-tight">Elastos Value Calculator</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-0">
+        <CardContent className="px-2 sm:px-4 md:px-6 pt-0">
           <div className="space-y-8">
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
               <Dialog>
@@ -69,7 +69,7 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm" aria-labelledby="calculator-dialog-title" aria-describedby="calculator-dialog-description">
+                <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[85vh] backdrop-blur-sm mx-auto my-2" aria-labelledby="calculator-dialog-title" aria-describedby="calculator-dialog-description">
                   <DialogHeader>
                     <DialogTitle id="calculator-dialog-title" className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
                     <DialogDescription id="calculator-dialog-description">
