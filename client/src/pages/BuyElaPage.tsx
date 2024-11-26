@@ -205,6 +205,7 @@ const BuyElaPage = () => {
                   <ul className="space-y-1">
                     {[
                       "Bitcoin-level security at fraction of energy cost",
+                      `Highest merge-mining participation (${((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%+)`,
                       `${elastosHashrate} EH/s of protection and growing`,
                       "6+ years of proven security"
                     ].map((point, i) => (
