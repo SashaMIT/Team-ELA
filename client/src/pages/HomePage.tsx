@@ -89,11 +89,11 @@ const stats: StatItem[] = [
         </div>
         
         
-        <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-1.5 sm:p-2 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full"
+              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full"
             >
               <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                 {stat.label}
