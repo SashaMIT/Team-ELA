@@ -9,17 +9,28 @@ interface MarketCapData {
   marketCapRatio: number;
 }
 
+type MarketCapError = Error & {
+  response?: Response;
+  status?: number;
+};
+
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
 const FALLBACK_ELASTOS_SUPPLY = 22381457; // Fallback circulating supply from elastos.io
 
 const fetchWithCORS = async (url: string) => {
-  const response = await fetch(url, {
-    mode: 'cors',
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
-  return response;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'User-Agent': 'Elastos-Dashboard/1.0'
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error('CORS fetch error:', error);
+    throw error;
+  }
 };
 
 const backoff = (retryCount: number) => Math.min(1000 * Math.pow(2, retryCount), 10000);
@@ -126,10 +137,10 @@ export const useMarketCapData = () => {
     staleTime: 60000, // Consider data stale after 1 minute
     retry: 3, // Allow 3 retries for the entire query
     retryDelay: (attemptIndex) => Math.min(1000 * Math.pow(2, attemptIndex), 30000), // Exponential backoff with max 30s
-    onError: (error) => {
+    onError: (error: MarketCapError) => {
       console.error('Market cap data fetch error:', error);
     },
-    select: (data) => ({
+    select: (data: MarketCapData): MarketCapData => ({
       ...data,
       // Ensure all values are valid numbers
       bitcoinMarketCap: Number.isFinite(data.bitcoinMarketCap) ? data.bitcoinMarketCap : 0,
