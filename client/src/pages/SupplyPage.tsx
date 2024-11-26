@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table, Focus } from 'lucide-react';
+import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table, Focus, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Button } from '@/components/ui/button';
 
 const ELASupplyPage = () => {
@@ -118,8 +124,20 @@ const ELASupplyPage = () => {
             <div className="bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
-                <div>
-                  <div className="text-sm text-gray-600">Current Supply</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <div className="text-sm text-gray-600">Current Supply</div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-xs">Real-time supply data from elastos.io API</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <div className="font-bold text-lg">{currentSupply.toLocaleString()} ELA</div>
                   <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
                 </div>
@@ -129,8 +147,20 @@ const ELASupplyPage = () => {
             <div className="bg-green-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Database className="text-green-500 h-5 w-5" />
-                <div>
-                  <div className="text-sm text-gray-600">Total Supply</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <div className="text-sm text-gray-600">Total Supply</div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-xs">Maximum supply based on Elastos tokenomics</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <div className="font-bold text-lg">28,199,999 ELA</div>
                   <div className="text-xs text-gray-500">by 2105</div>
                 </div>
@@ -141,7 +171,19 @@ const ELASupplyPage = () => {
               <div className="flex items-center gap-3">
                 <Clock className="text-purple-500 h-5 w-5" />
                 <div className="w-full">
-                  <div className="text-sm text-gray-600">Next Halving</div>
+                  <div className="flex items-center gap-2">
+                    <div className="text-sm text-gray-600">Next Halving</div>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="text-xs">Based on Elastos halving schedule (every 4 years)</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <div className="flex items-center gap-2">
                     <span className="font-bold">{nextHalvingDate.toLocaleDateString()}</span>
                     <span className="text-sm text-purple-600">({countdown})</span>
@@ -186,6 +228,16 @@ const ELASupplyPage = () => {
               <h3 className="text-sm font-medium flex items-center gap-2">
                 <Database className="h-4 w-4 text-blue-500" />
                 Supply Growth
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-xs">Visualizes ELA supply growth based on halving schedule until 2105</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </h3>
               <div className="flex gap-2">
                 <Button
@@ -232,7 +284,7 @@ const ELASupplyPage = () => {
                     tickFormatter={formatYAxis}
                     width={60}
                   />
-                  <Tooltip content={<CustomTooltip />} />
+                  <RechartsTooltip content={<CustomTooltip />} />
                   <Legend />
                   <Line
                     name="Smooth Growth"
