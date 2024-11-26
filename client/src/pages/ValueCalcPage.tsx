@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -50,9 +51,9 @@ const ValueCalcPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
-      <Card className="max-w-3xl mx-auto bg-background/95 backdrop-blur-sm">
-        <CardHeader className="p-3 sm:p-4 md:p-6">
+    <div className="min-h-screen bg-background p-2 sm:p-4 md:p-6">
+      <Card className="w-full bg-background/95 backdrop-blur-sm">
+        <CardHeader className="p-2 sm:p-4 md:p-6">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
             <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0 mt-1" />
             <span className="leading-tight">Elastos Value Calculator</span>
@@ -68,9 +69,12 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
+                <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm" aria-labelledby="calculator-dialog-title" aria-describedby="calculator-dialog-description">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
+                    <DialogTitle id="calculator-dialog-title" className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
+                    <DialogDescription id="calculator-dialog-description">
+                      Learn how the Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining
+                    </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 sm:space-y-6">
                     <ValueJustificationViz />
@@ -112,9 +116,16 @@ const ValueCalcPage = () => {
                     Value Calculation Methodology
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[95vw] w-full sm:max-w-4xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
+                <DialogContent 
+                  className="max-w-[95vw] w-full sm:max-w-4xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
+                  aria-labelledby="methodology-dialog-title"
+                  aria-describedby="methodology-dialog-description"
+                >
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">Value Calculation Methodology</DialogTitle>
+                    <DialogTitle id="methodology-dialog-title" className="text-lg sm:text-xl">Value Calculation Methodology</DialogTitle>
+                    <DialogDescription id="methodology-dialog-description">
+                      Understand how we calculate ELA's value based on Bitcoin's security metrics and merge mining data
+                    </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 sm:space-y-6">
                     <CompactCalcAnimation />
