@@ -68,7 +68,7 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-5xl">
+                <DialogContent className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                   <DialogHeader>
                     <DialogTitle>Understanding the Value Calculator</DialogTitle>
                   </DialogHeader>
@@ -112,7 +112,7 @@ const ValueCalcPage = () => {
                     Value Calculation Methodology
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl">
+                <DialogContent className="max-w-[95vw] sm:max-w-4xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                   <DialogHeader>
                     <DialogTitle>Value Calculation Methodology</DialogTitle>
                   </DialogHeader>

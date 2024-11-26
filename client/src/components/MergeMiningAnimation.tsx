@@ -153,12 +153,12 @@ const MergeMiningAnimation = () => {
               Satoshi Nakamoto's vision
             </span>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
             <DialogHeader>
               <DialogTitle>Satoshi Nakamoto's Vision of Merged Mining</DialogTitle>
             </DialogHeader>
             <div className="space-y-6">
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 In his 2010 Bitcoin forum posts, Satoshi Nakamoto envisioned merged mining to enable networks like BitDNS to share Bitcoin's hash rate. This approach strengthened smaller networks, avoided computational fragmentation, and rewarded miners for securing multiple chains simultaneously, advancing innovation while maintaining decentralization. Bitcoin, as a secure backbone, becomes a foundation for a unified and efficient blockchain ecosystem.
               </p>
               <div className="grid grid-cols-2 gap-2">
