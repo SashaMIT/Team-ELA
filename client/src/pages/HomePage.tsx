@@ -83,16 +83,16 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
-      <div className="max-w-[1200px] w-full flex flex-col items-center space-y-4 sm:space-y-6 px-2 sm:px-4">
-        <div className="w-full flex justify-center items-center">
+      <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 sm:space-y-4 px-2 sm:px-4">
+        <div className="w-full flex justify-center items-center mb-2 sm:mb-4">
           <MergeMiningAnimation />
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-1.5 sm:p-2 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full"
+              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full"
             >
               <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                 {stat.label}
