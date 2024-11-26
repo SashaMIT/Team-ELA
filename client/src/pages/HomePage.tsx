@@ -132,12 +132,14 @@ const stats: StatItem[] = [
                           )}
                           {(stat.label.includes("Price") || stat.label.includes("Market Cap")) && (
                             <a 
-                              href="https://api.coingecko.com/api/v3/simple/price"
+                              href={stat.label.includes("Bitcoin") 
+                                ? "https://www.coingecko.com/en/coins/bitcoin"
+                                : "https://www.coingecko.com/en/coins/elastos"}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline"
                             >
-                              CoinGecko API
+                              CoinGecko
                             </a>
                           )}
                           {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
@@ -152,7 +154,7 @@ const stats: StatItem[] = [
                           )}
                           {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
                             <a 
-                              href="https://api.elastos.io/ela/api/v1/block/height/0"
+                              href="https://ela.elastos.io/api/v1/block/"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline"

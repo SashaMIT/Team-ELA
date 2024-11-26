@@ -61,6 +61,7 @@ const ValueCalcPage = () => {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-8">
+            {/* Dialog buttons */}
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
               <Dialog>
                 <DialogTrigger asChild>
@@ -171,6 +172,7 @@ const ValueCalcPage = () => {
               </Dialog>
             </div>
             
+            {/* Value Display */}
             <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2 mb-2">
                 <DollarSign className="w-6 h-6 text-green-500" />
@@ -181,8 +183,10 @@ const ValueCalcPage = () => {
               </div>
             </div>
 
+            {/* Metrics Display */}
             <div className="space-y-4">
               <div className="bg-blue-50 p-4 rounded-lg space-y-4">
+                {/* Bitcoin Hashrate */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     Bitcoin Hashrate:
@@ -190,11 +194,21 @@ const ValueCalcPage = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="p-1">
-                            <Info className="w-5 h-5 text-muted-foreground" />
+                            <Info className="w-5 h-5 text-muted-foreground cursor-help" />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="text-sm">Hashrate data from blockchain.info API</p>
+                          <div className="text-sm">
+                            Hashrate data from{' '}
+                            <a 
+                              href="https://blockchain.info/q/hashrate"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              blockchain.info API
+                            </a>
+                          </div>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -207,6 +221,8 @@ const ValueCalcPage = () => {
                     <span className="text-sm sm:text-base min-w-[40px]">100%</span>
                   </div>
                 </div>
+
+                {/* Elastos Hashrate */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     Elastos Hashrate:
@@ -214,11 +230,21 @@ const ValueCalcPage = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="p-1">
-                            <Info className="w-5 h-5 text-muted-foreground" />
+                            <Info className="w-5 h-5 text-muted-foreground cursor-help" />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="text-sm">Hashrate data from blockchain.info API</p>
+                          <div className="text-sm">
+                            Hashrate data from{' '}
+                            <a 
+                              href="https://ela.elastos.io/api/v1/block/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              elastos.io API
+                            </a>
+                          </div>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -234,6 +260,8 @@ const ValueCalcPage = () => {
                     <span className="text-sm sm:text-base min-w-[40px]">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
                   </div>
                 </div>
+
+                {/* Bitcoin Price */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     Bitcoin Price:
@@ -241,11 +269,21 @@ const ValueCalcPage = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="p-1">
-                            <Info className="w-5 h-5 text-muted-foreground" />
+                            <Info className="w-5 h-5 text-muted-foreground cursor-help" />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="text-sm">Price data from CoinGecko API</p>
+                          <div className="text-sm">
+                            Price data from{' '}
+                            <a 
+                              href="https://www.coingecko.com/en/coins/bitcoin"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              CoinGecko
+                            </a>
+                          </div>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -253,11 +291,13 @@ const ValueCalcPage = () => {
                   <div className="flex items-center gap-3">
                     <span className="text-sm sm:text-base">${bitcoinPrice.toLocaleString()}</span>
                     <span className={`flex items-center gap-1 text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                       {Math.abs(bitcoinPriceChange)}%
                     </span>
                   </div>
                 </div>
+
+                {/* ELA Price */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <label className="font-medium flex items-center gap-2">
                     ELA Price:
@@ -265,11 +305,21 @@ const ValueCalcPage = () => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="p-1">
-                            <Info className="w-5 h-5 text-muted-foreground" />
+                            <Info className="w-5 h-5 text-muted-foreground cursor-help" />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="text-sm">Price data from CoinGecko API</p>
+                          <div className="text-sm">
+                            Price data from{' '}
+                            <a 
+                              href="https://www.coingecko.com/en/coins/elastos"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              CoinGecko
+                            </a>
+                          </div>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
