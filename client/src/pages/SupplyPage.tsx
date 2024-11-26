@@ -16,7 +16,7 @@ const ELASupplyPage = () => {
 
   const [showData, setShowData] = useState(false);
   const [countdown, setCountdown] = useState('');
-  const [isZoomed, setIsZoomed] = useState(false);
+  const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([24000000, 28500000]);
 
   const supplySchedule = [
     { halvingDate: new Date('2021-12-01'), year: 2021, percentage: null, increment: null, supply: 24620000 },
@@ -191,11 +191,11 @@ const ELASupplyPage = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setIsZoomed(!isZoomed)}
+                  onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [25500000, 28500000] : [24000000, 28500000])}
                   className="text-xs flex items-center gap-2"
                 >
-                  <Focus className="h-4 w-4 text-blue-500" />
-                  {isZoomed ? 'View All' : 'Focus Future'}
+                  <TrendingUp className="h-4 w-4 text-blue-500" />
+                  {yAxisDomain[0] === 24000000 ? 'Zoom Supply' : 'View All'}
                 </Button>
                 <Button
                   variant="outline"
@@ -224,11 +224,11 @@ const ELASupplyPage = () => {
                   <XAxis 
                     dataKey="year"
                     type="number"
-                    domain={isZoomed ? [2024, 'dataMax'] : ['dataMin', 'dataMax']}
+                    domain={['dataMin', 'dataMax']}
                     tickFormatter={(value) => value.toString()}
                   />
                   <YAxis 
-                    domain={[24000000, 28500000]}
+                    domain={yAxisDomain}
                     tickFormatter={formatYAxis}
                     width={60}
                   />
