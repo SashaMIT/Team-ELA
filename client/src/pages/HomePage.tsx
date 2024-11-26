@@ -34,26 +34,12 @@ const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
 const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
 
 const stats: StatItem[] = [
+    // Left column - Bitcoin stats
     {
       label: "Bitcoin Price",
       value: `$${bitcoinPrice.toLocaleString()}`,
       change: bitcoinPriceChange,
       showChange: true
-    },
-    {
-      label: "Bitcoin Supply",
-      value: "21 Million",
-      showChange: false
-    },
-    {
-      label: "Bitcoin Market Cap",
-      value: formatMarketCap(bitcoinMarketCap),
-      showChange: false
-    },
-    {
-      label: "Bitcoin Hashrate (EH/s)",
-      value: bitcoinHashrate.toFixed(2),
-      showChange: false
     },
     {
       label: "Elastos Price",
@@ -62,13 +48,28 @@ const stats: StatItem[] = [
       showChange: true
     },
     {
+      label: "Bitcoin Supply",
+      value: "21 Million",
+      showChange: false
+    },
+    {
       label: "Elastos Supply",
       value: "28.22 Million",
       showChange: false
     },
     {
+      label: "Bitcoin Market Cap",
+      value: formatMarketCap(bitcoinMarketCap),
+      showChange: false
+    },
+    {
       label: "Elastos Market Cap",
       value: formatMarketCap(elastosMarketCap, true),
+      showChange: false
+    },
+    {
+      label: "Bitcoin Hashrate (EH/s)",
+      value: bitcoinHashrate.toFixed(2),
       showChange: false
     },
     {
@@ -87,7 +88,7 @@ const stats: StatItem[] = [
         </div>
         
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}

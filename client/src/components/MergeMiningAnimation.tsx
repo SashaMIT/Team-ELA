@@ -196,8 +196,8 @@ const MergeMiningAnimation = () => {
           {/* Flow Labels */}
           <div
             className="absolute left-1/2 transform -translate-x-1/2 
-                       font-bold text-xs sm:text-sm md:text-[15px] text-orange-600/90 px-2 sm:px-4
-                       bg-white/80 rounded py-0.5 sm:py-1"
+                      font-bold text-[10px] sm:text-xs md:text-[15px] text-orange-600/90 px-2 sm:px-4
+                      bg-white/80 rounded py-0.5 sm:py-1"
             style={{ top: "42%" }}
           >
             SECURITY
@@ -205,8 +205,8 @@ const MergeMiningAnimation = () => {
 
           <div
             className="absolute left-1/2 transform -translate-x-1/2 
-            font-bold text-xs sm:text-sm md:text-[15px] text-blue-600/90 px-2 sm:px-4
-            bg-white/80 rounded py-0.5 sm:py-1"
+                      font-bold text-[10px] sm:text-xs md:text-[15px] text-blue-600/90 px-2 sm:px-4
+                      bg-white/80 rounded py-0.5 sm:py-1"
             style={{ top: "62%" }}
           >
             REWARDS
