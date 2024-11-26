@@ -191,7 +191,7 @@ const ELASupplyPage = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [27000000, 28500000] : [24000000, 28500000])}
+                  onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28000000, 28500000] : [24000000, 28500000])}
                   className="text-xs flex items-center gap-2"
                 >
                   <TrendingUp className="h-4 w-4 text-blue-500" />
