@@ -43,11 +43,7 @@ const ELASupplyPage = () => {
     { halvingDate: new Date('2105-12-01'), year: 2105, percentage: 0.00000191, increment: 1.52587890, supply: 28219999 }
   ];
 
-  const keyEvents = [
-    { year: 2021, event: 'First Halving', description: 'Initial supply reduction event' },
-    { year: 2025, event: 'Second Halving', description: 'Major supply reduction milestone' },
-    { year: 2029, event: 'Third Halving', description: 'Further scarcity increase' }
-  ];
+  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -218,7 +214,13 @@ const ELASupplyPage = () => {
                   data={supplySchedule}
                   margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid 
+                    strokeDasharray="2 4" 
+                    stroke="#94a3b8" 
+                    strokeOpacity={0.3}
+                    horizontal={true}
+                    vertical={true}
+                  />
                   <XAxis 
                     dataKey="year"
                     type="number"
@@ -252,20 +254,7 @@ const ELASupplyPage = () => {
                     isAnimationActive={true}
                     animationDuration={2000}
                   />
-                  {keyEvents.map((event, index) => (
-                    <ReferenceLine
-                      key={index}
-                      x={event.year}
-                      stroke="#0284c7"
-                      strokeDasharray="3 3"
-                      label={{
-                        value: event.event,
-                        position: 'top',
-                        fill: '#0284c7',
-                        fontSize: 10
-                      }}
-                    />
-                  ))}
+                  
                 </LineChart>
               </ResponsiveContainer>
             </div>
