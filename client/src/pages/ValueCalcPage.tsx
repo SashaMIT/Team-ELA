@@ -70,32 +70,32 @@ const ValueCalcPage = () => {
                 </DialogTrigger>
                 <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                   <DialogHeader>
-                    <DialogTitle>Understanding the Value Calculator</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <ValueJustificationViz />
-                    <div className="space-y-4">
-                      <p className="text-muted-foreground">
+                    <div className="space-y-3 sm:space-y-4 px-1 sm:px-2">
+                      <p className="text-sm sm:text-base text-muted-foreground">
                         The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
                       </p>
                       
-                      <div>
-                        <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Features:</h4>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                      <div className="mt-4">
+                        <h4 className="font-semibold text-sm sm:text-base text-muted-foreground mb-3">Key Features:</h4>
+                        <ul className="grid grid-cols-1 gap-3 sm:gap-2">
+                          <li className="flex items-center gap-3 p-2 sm:p-1 bg-blue-50/50 rounded-lg text-xs sm:text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></div>
                             Real-time blockchain.info API integration
                           </li>
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                          <li className="flex items-center gap-3 p-2 sm:p-1 bg-blue-50/50 rounded-lg text-xs sm:text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></div>
                             5-minute automatic data updates
                           </li>
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                          <li className="flex items-center gap-3 p-2 sm:p-1 bg-blue-50/50 rounded-lg text-xs sm:text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></div>
                             24-hour price movement tracking
                           </li>
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                          <li className="flex items-center gap-3 p-2 sm:p-1 bg-blue-50/50 rounded-lg text-xs sm:text-sm text-muted-foreground">
+                            <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></div>
                             Dynamic merge mining calculations
                           </li>
                         </ul>
