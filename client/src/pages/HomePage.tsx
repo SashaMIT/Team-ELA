@@ -99,9 +99,9 @@ const HomePage = () => {
               </div>
               <div className="flex flex-col items-center">
                 {stat.label.includes("Hashrate") ? (
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4 w-full">
-                    <span className="text-[10px] sm:text-sm font-medium">{stat.value}</span>
-                    <div className="w-12 sm:w-16 lg:w-20 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
+                  <div className="flex items-center justify-center gap-2 sm:gap-4 w-full">
+                    <span className="text-xs sm:text-sm whitespace-nowrap">{stat.value}</span>
+                    <div className="w-14 sm:w-16 lg:w-20 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-green-500 rounded-full transition-all duration-500"
                         style={{ 
@@ -109,7 +109,7 @@ const HomePage = () => {
                         }}
                       />
                     </div>
-                    <span className="text-[10px] sm:text-sm font-medium">
+                    <span className="text-xs sm:text-sm whitespace-nowrap">
                       {stat.label.includes("Bitcoin") ? "100%" : stat.subValue}
                     </span>
                   </div>
