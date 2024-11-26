@@ -37,7 +37,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         
         <Sidebar collapsible="offcanvas">
           <SidebarHeader className="flex flex-col items-center justify-center gap-4 p-4">
-            <div className="font-mono text-[0.6rem] leading-[0.6rem] whitespace-pre select-none opacity-50">
+            <div className="font-mono text-[0.4rem] leading-[0.4rem] whitespace-pre select-none opacity-50">
               {`@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@*#@@@@@@@@@@@@@@#*@@@@@@@@@@
 @@@@@#=.      -*@@@@@@@@*-      .=#@@@@
