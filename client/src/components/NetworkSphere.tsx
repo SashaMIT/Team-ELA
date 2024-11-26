@@ -352,7 +352,7 @@ const NetworkSphere: React.FC = () => {
                   <Info className="w-4 h-4 text-muted-foreground" />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-sm">Calculated from blockchain.info API data</p>
+                  <p className="text-sm">Real-time data from Elastos node API</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
