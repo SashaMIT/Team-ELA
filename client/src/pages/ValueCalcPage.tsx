@@ -64,12 +64,22 @@ const ValueCalcPage = () => {
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="w-full sm:w-auto flex items-center gap-2">
                     <Calculator className="w-5 h-5 text-blue-500" />
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[85vh] backdrop-blur-sm mx-auto my-2" aria-labelledby="calculator-dialog-title" aria-describedby="calculator-dialog-description">
+                <DialogContent 
+                  className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[85vh] backdrop-blur-sm mx-auto my-2" 
+                  aria-labelledby="calculator-dialog-title" 
+                  aria-describedby="calculator-dialog-description"
+                >
+                  <DialogHeader>
+                    <DialogTitle id="calculator-dialog-title">Understanding the Value Calculator</DialogTitle>
+                    <DialogDescription id="calculator-dialog-description">
+                      Learn how the Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining
+                    </DialogDescription>
+                  </DialogHeader>
                   <DialogHeader>
                     <DialogTitle id="calculator-dialog-title" className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
                     <DialogDescription id="calculator-dialog-description">
@@ -111,7 +121,7 @@ const ValueCalcPage = () => {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="w-full sm:w-auto flex items-center gap-2">
                     <BarChart2 className="w-5 h-5 text-green-500" />
                     Value Calculation Methodology
                   </Button>
@@ -121,6 +131,12 @@ const ValueCalcPage = () => {
                   aria-labelledby="methodology-dialog-title"
                   aria-describedby="methodology-dialog-description"
                 >
+                  <DialogHeader>
+                    <DialogTitle id="methodology-dialog-title">Value Calculation Methodology</DialogTitle>
+                    <DialogDescription id="methodology-dialog-description">
+                      Understand how we calculate ELA's value based on Bitcoin's security metrics and merge mining data
+                    </DialogDescription>
+                  </DialogHeader>
                   <DialogHeader>
                     <DialogTitle id="methodology-dialog-title" className="text-lg sm:text-xl">Value Calculation Methodology</DialogTitle>
                     <DialogDescription id="methodology-dialog-description">
