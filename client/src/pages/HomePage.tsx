@@ -82,13 +82,12 @@ const stats: StatItem[] = [
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
-      <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 px-2">
-        <div className="w-full flex justify-center items-center">
+      <div className="max-w-[1200px] w-full flex flex-col items-center space-y-4 sm:space-y-6 px-2 sm:px-4">
+        <div className="w-full flex justify-center items-center mb-2 sm:mb-4">
           <MergeMiningAnimation />
         </div>
         
-        
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
