@@ -88,20 +88,20 @@ const HomePage = () => {
           <MergeMiningAnimation />
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2 max-w-[1000px] mx-auto mt-4 sm:mt-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full max-w-[1000px] mx-auto mt-4 sm:mt-6">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full"
+              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full flex flex-col justify-center"
             >
               <div className="text-xs sm:text-sm text-muted-foreground">
                 {stat.label}
               </div>
               <div className="flex flex-col items-center">
                 {stat.label.includes("Hashrate") ? (
-                  <div className="flex items-center justify-center gap-2 sm:gap-4 w-full">
-                    <span className="text-xs sm:text-sm whitespace-nowrap">{stat.value}</span>
-                    <div className="w-14 sm:w-16 lg:w-20 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
+                  <div className="flex items-center justify-center gap-1 sm:gap-2 w-full">
+                    <span className="text-[11px] sm:text-sm font-medium">{stat.value}</span>
+                    <div className="w-12 sm:w-16 lg:w-20 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-green-500 rounded-full transition-all duration-500"
                         style={{ 
@@ -109,7 +109,7 @@ const HomePage = () => {
                         }}
                       />
                     </div>
-                    <span className="text-xs sm:text-sm whitespace-nowrap">
+                    <span className="text-[11px] sm:text-sm font-medium">
                       {stat.label.includes("Bitcoin") ? "100%" : stat.subValue}
                     </span>
                   </div>
