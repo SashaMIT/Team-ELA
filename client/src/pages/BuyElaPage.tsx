@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Bitcoin, Star, Wallet, ExternalLink, CheckCircle } from 'lucide-react';
+import { Shield, Lock, Bitcoin, Star, Wallet, ExternalLink, CheckCircle, CheckCircle2 } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -81,7 +81,7 @@ const BuyElaPage = () => {
 
         <CardContent className="space-y-4">
           {/* Quick Stats Grid */}
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-4 gap-2">
             <div className="bg-blue-50 p-2 rounded-lg text-center">
               <Shield className="inline text-blue-500 h-4 w-4 mb-1" />
               <div className="text-sm font-bold">{animatedHashrate.toFixed(2)} EH/s</div>
@@ -96,6 +96,11 @@ const BuyElaPage = () => {
               <Star className="inline text-green-500 h-4 w-4 mb-1" />
               <div className="text-sm font-bold">3.29%</div>
               <div className="text-xs text-gray-600">APY</div>
+            </div>
+            <div className="bg-orange-50 p-2 rounded-lg text-center">
+              <CheckCircle className="inline text-orange-500 h-4 w-4 mb-1" />
+              <div className="text-sm font-bold">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
+              <div className="text-xs text-gray-600">Security Share</div>
             </div>
           </div>
 
