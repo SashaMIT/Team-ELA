@@ -29,22 +29,16 @@ const HomePage = () => {
     return `$${(value / 1e9).toFixed(2)}B`;
   };
 
-const { data: marketCapData } = useMarketCapData();
-const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
-const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
+  const { data: marketCapData } = useMarketCapData();
+  const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
+  const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
 
-const stats: StatItem[] = [
-    // Left column - Bitcoin stats
+  const stats: StatItem[] = [
+    // Bitcoin stats (top row on desktop)
     {
       label: "Bitcoin Price",
       value: `$${bitcoinPrice.toLocaleString()}`,
       change: bitcoinPriceChange,
-      showChange: true
-    },
-    {
-      label: "Elastos Price",
-      value: `$${elaPrice.toFixed(2)}`,
-      change: elaPriceChange,
       showChange: true
     },
     {
@@ -53,23 +47,30 @@ const stats: StatItem[] = [
       showChange: false
     },
     {
-      label: "Elastos Supply",
-      value: "28.22 Million",
-      showChange: false
-    },
-    {
       label: "Bitcoin Market Cap",
       value: formatMarketCap(bitcoinMarketCap),
       showChange: false
     },
     {
-      label: "Elastos Market Cap",
-      value: formatMarketCap(elastosMarketCap, true),
+      label: "Bitcoin Hashrate (EH/s)",
+      value: bitcoinHashrate.toFixed(2),
+      showChange: false
+    },
+    // Elastos stats (bottom row on desktop)
+    {
+      label: "Elastos Price",
+      value: `$${elaPrice.toFixed(2)}`,
+      change: elaPriceChange,
+      showChange: true
+    },
+    {
+      label: "Elastos Supply",
+      value: "28.22 Million",
       showChange: false
     },
     {
-      label: "Bitcoin Hashrate (EH/s)",
-      value: bitcoinHashrate.toFixed(2),
+      label: "Elastos Market Cap",
+      value: formatMarketCap(elastosMarketCap, true),
       showChange: false
     },
     {
@@ -83,15 +84,15 @@ const stats: StatItem[] = [
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
       <div className="max-w-[1200px] w-full flex flex-col items-center space-y-4 sm:space-y-6 px-2 sm:px-4">
-        <div className="w-full flex justify-center items-center mb-2 sm:mb-4">
+        <div className="w-full flex justify-center items-center">
           <MergeMiningAnimation />
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-1.5 sm:p-2 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full"
+              className="bg-accent/10 p-1.5 sm:p-2 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full"
             >
               <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                 {stat.label}
