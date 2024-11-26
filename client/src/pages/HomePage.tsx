@@ -92,7 +92,7 @@ const HomePage = () => {
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full flex flex-col justify-center"
+              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center w-full"
             >
               <div className="text-xs sm:text-sm text-muted-foreground">
                 {stat.label}
@@ -100,7 +100,7 @@ const HomePage = () => {
               <div className="flex flex-col items-center">
                 {stat.label.includes("Hashrate") ? (
                   <div className="flex items-center justify-center gap-2 sm:gap-4 w-full">
-                    <span className="text-xs sm:text-sm">{stat.value}</span>
+                    <span className="text-xs sm:text-sm whitespace-nowrap">{stat.value}</span>
                     <div className="w-14 sm:w-16 lg:w-20 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-green-500 rounded-full transition-all duration-500"
