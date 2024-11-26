@@ -70,35 +70,60 @@ const ValueCalcPage = () => {
                 </DialogTrigger>
                 <DialogContent className="max-w-[95vw] w-full sm:max-w-5xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                   <DialogHeader>
-                    <DialogTitle>Understanding the Value Calculator</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
+                    <DialogDescription className="text-sm text-muted-foreground">
+                      Learn how the Value Calculator determines ELA's intrinsic value based on Bitcoin's security
+                    </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-6">
-                    <ValueJustificationViz />
-                    <div className="space-y-4">
-                      <p className="text-muted-foreground">
-                        The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
-                      </p>
-                      
-                      <div>
-                        <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Features:</h4>
-                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            Real-time blockchain.info API integration
-                          </li>
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            5-minute automatic data updates
-                          </li>
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            24-hour price movement tracking
-                          </li>
-                          <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            Dynamic merge mining calculations
-                          </li>
-                        </ul>
+                  <div className="space-y-4 sm:space-y-6">
+                    {/* Mobile View */}
+                    <div className="block sm:hidden space-y-6">
+                      <div className="space-y-4 px-2">
+                        <div className="bg-orange-50 rounded-lg p-4">
+                          <h3 className="font-bold text-orange-800 mb-2">Secure Network</h3>
+                          <p className="text-sm text-orange-600">Bitcoin's massive hashrate provides unmatched security</p>
+                        </div>
+                        <div className="bg-blue-50 rounded-lg p-4">
+                          <h3 className="font-bold text-blue-800 mb-2">Shared Security</h3>
+                          <p className="text-sm text-blue-600">Elastos inherits {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}% of Bitcoin's security through merge mining</p>
+                        </div>
+                        <div className="bg-purple-50 rounded-lg p-4">
+                          <h3 className="font-bold text-purple-800 mb-2">Value Translation</h3>
+                          <p className="text-sm text-purple-600">Security translates to network value and token price support</p>
+                        </div>
+                      </div>
+                      <ValueJustificationViz />
+                    </div>
+
+                    {/* Desktop View */}
+                    <div className="hidden sm:block">
+                      <ValueJustificationViz />
+                      <div className="space-y-4 mt-6">
+                        <p className="text-muted-foreground">
+                          The Value Calculator determines ELA's intrinsic value based on Bitcoin's security through merge mining. This tool analyzes Bitcoin mining rewards and Elastos' network share to derive a fundamental value proposition.
+                        </p>
+                        
+                        <div>
+                          <h4 className="font-semibold text-sm text-muted-foreground mb-2">Key Features:</h4>
+                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                              Real-time blockchain.info API integration
+                            </li>
+                            <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                              5-minute automatic data updates
+                            </li>
+                            <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                              24-hour price movement tracking
+                            </li>
+                            <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                              Dynamic merge mining calculations
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -115,6 +140,9 @@ const ValueCalcPage = () => {
                 <DialogContent className="max-w-[95vw] w-full sm:max-w-4xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                   <DialogHeader>
                     <DialogTitle className="text-lg sm:text-xl">Value Calculation Methodology</DialogTitle>
+                    <DialogDescription className="text-sm text-muted-foreground">
+                      Understanding how ELA's value is calculated using Bitcoin's security metrics
+                    </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 sm:space-y-6">
                     <CompactCalcAnimation />
