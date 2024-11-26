@@ -123,9 +123,9 @@ const ValueJustificationViz = () => {
         <p className="text-gray-600">Bitcoin Security → Elastos Value</p>
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
         {/* Stats Panel */}
-        <div className="w-1/4 space-y-4">
+        <div className="w-full sm:w-1/4 grid grid-cols-3 sm:grid-cols-1 gap-2 sm:space-y-4">
           <div className="bg-orange-100 p-4 rounded-lg">
             <h3 className="text-orange-800 font-bold">Bitcoin Mining</h3>
             <div className="text-orange-600 font-mono">{bitcoinHashrate.toFixed(2)} EH/s</div>
@@ -146,7 +146,7 @@ const ValueJustificationViz = () => {
         </div>
 
         {/* Main Visualization */}
-        <div className="flex-1 relative h-[330px] bg-gradient-to-b from-gray-50 to-white rounded-xl overflow-hidden border border-gray-200">
+        <div className="flex-1 relative h-[250px] sm:h-[330px] bg-gradient-to-b from-gray-50 to-white rounded-xl overflow-hidden border border-gray-200">
           {/* Value Flow Labels */}
           <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-r from-transparent to-gray-50/50 flex flex-col justify-around p-4">
             <div className="text-sm text-gray-600">

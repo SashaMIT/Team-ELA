@@ -78,10 +78,10 @@ const CompactCalcAnimation = () => {
                 step >= i ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
             >
-              <div className={`bg-${s.color}-50 p-3 rounded-lg w-[120px]`}>
-                <div className={`text-${s.color}-600 text-xs mb-1`}>{s.label}</div>
-                <div className="font-mono text-sm mb-1">{s.formula}</div>
-                <div className={`text-${s.color}-700 font-bold`}>{s.result}</div>
+              <div className={`bg-${s.color}-50 p-2 sm:p-3 rounded-lg w-[90px] sm:w-[120px]`}>
+                <div className={`text-${s.color}-600 text-[10px] sm:text-xs mb-1`}>{s.label}</div>
+                <div className="font-mono text-[10px] sm:text-sm mb-1">{s.formula}</div>
+                <div className={`text-${s.color}-700 font-bold text-[11px] sm:text-sm`}>{s.result}</div>
               </div>
             </div>
             {i < steps.length - 1 && (
