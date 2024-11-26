@@ -157,11 +157,11 @@ const HashrateVisualizer = () => {
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
           {/* Dialog Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div className="flex flex-col sm:grid sm:grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline" className="w-full flex items-center gap-2 px-4 py-3 hover:bg-accent/50">
-                  <Calculator className="w-5 h-5 text-blue-500" />
+                <Button variant="outline" className="w-full flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 hover:bg-accent/50 text-sm sm:text-base">
+                  <Calculator className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
                   What is Hashrate?
                 </Button>
               </DialogTrigger>
@@ -254,13 +254,13 @@ const HashrateVisualizer = () => {
           </div>
 
           {/* Colored Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="bg-orange-50 p-4 rounded-lg">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
+            <div className="bg-orange-50 p-3 sm:p-4 rounded-lg">
               <div className="flex items-center gap-2">
-                <Server className="w-5 h-5 text-orange-500" />
+                <Server className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
                 <div>
-                  <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
-                  <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Bitcoin Hashrate</div>
+                  <div className="font-bold text-sm sm:text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
             </div>
