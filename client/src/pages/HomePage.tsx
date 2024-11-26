@@ -34,7 +34,7 @@ const bitcoinMarketCap = marketCapData?.bitcoinMarketCap ?? 0;
 const elastosMarketCap = marketCapData?.elastosMarketCap ?? 0;
 
 const stats: StatItem[] = [
-    // Left column - Bitcoin stats
+    // Top row - Bitcoin stats
     {
       label: "Bitcoin Price",
       value: `$${bitcoinPrice.toLocaleString()}`,
@@ -56,7 +56,7 @@ const stats: StatItem[] = [
       value: bitcoinHashrate.toFixed(2),
       showChange: false
     },
-    // Right column - Elastos stats
+    // Bottom row - Elastos stats
     {
       label: "Elastos Price",
       value: `$${elaPrice.toFixed(2)}`,
@@ -89,7 +89,7 @@ const stats: StatItem[] = [
         </div>
         
         
-        <div className="grid grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
