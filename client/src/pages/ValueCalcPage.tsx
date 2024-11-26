@@ -223,14 +223,14 @@ const ValueCalcPage = () => {
                     <span className="text-sm sm:text-base min-w-[40px]">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <label className="font-medium flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                  <label className="font-medium flex items-center gap-2 text-sm sm:text-base">
                     Bitcoin Price:
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="p-1">
-                            <Info className="w-5 h-5 text-muted-foreground" />
+                            <Info className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -239,22 +239,24 @@ const ValueCalcPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </label>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm sm:text-base">${bitcoinPrice.toLocaleString()}</span>
-                    <span className={`flex items-center gap-1 text-sm ${bitcoinPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                      {Math.abs(bitcoinPriceChange)}%
-                    </span>
+                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-3">
+                    <span className="text-base sm:text-lg font-medium">${bitcoinPrice.toLocaleString()}</span>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${
+                      bitcoinPriceChange >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                    }`}>
+                      {bitcoinPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      <span className="text-xs font-medium">{Math.abs(bitcoinPriceChange)}%</span>
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <label className="font-medium flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-2 rounded-lg hover:bg-blue-50/50 transition-colors">
+                  <label className="font-medium flex items-center gap-2 text-sm sm:text-base">
                     ELA Price:
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="p-1">
-                            <Info className="w-5 h-5 text-muted-foreground" />
+                            <Info className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -263,12 +265,14 @@ const ValueCalcPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </label>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm sm:text-base">${marketPrice.toFixed(2)}</span>
-                    <span className={`flex items-center gap-1 text-sm ${marketPriceChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {marketPriceChange >= 0 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                      {Math.abs(marketPriceChange)}%
-                    </span>
+                  <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 sm:gap-3">
+                    <span className="text-base sm:text-lg font-medium">${marketPrice.toFixed(2)}</span>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${
+                      marketPriceChange >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                    }`}>
+                      {marketPriceChange >= 0 ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      <span className="text-xs font-medium">{Math.abs(marketPriceChange)}%</span>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Info } from "lucide-react";
+import { Info, X } from "lucide-react";
 import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor, Shield, Lock } from 'lucide-react';
 import BlockVisualizer from './BlockVisualizer';
 import {
@@ -167,9 +167,24 @@ const HashrateVisualizer = () => {
               </DialogTrigger>
               <DialogContent className="max-w-5xl p-4 sm:p-6">
                 <DialogHeader className="mb-2 sm:mb-4">
-                  <DialogTitle className="flex items-center gap-2 text-left text-base sm:text-lg">
-                    <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
-                    Understanding Hashrate
+                  <DialogTitle className="flex items-center justify-between text-left text-base sm:text-lg">
+                    <div className="flex items-center gap-2">
+                      <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
+                      Understanding Hashrate
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 rounded-full opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const closeEvent = new Event('close');
+                        e.currentTarget.dispatchEvent(closeEvent);
+                      }}
+                    >
+                      <X className="h-4 w-4" />
+                      <span className="sr-only">Close</span>
+                    </Button>
                   </DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
@@ -254,31 +269,31 @@ const HashrateVisualizer = () => {
           </div>
 
           {/* Colored Stats Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
             <div className="bg-orange-50 p-3 sm:p-4 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Server className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
-                <div>
+              <div className="flex items-center justify-between sm:justify-start gap-2">
+                <Server className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500 shrink-0" />
+                <div className="flex-1">
                   <div className="text-xs sm:text-sm text-gray-600">Bitcoin Hashrate</div>
-                  <div className="font-bold text-sm sm:text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
+                  <div className="font-bold text-base sm:text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
             </div>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-blue-500" />
-                <div>
-                  <div className="text-sm text-gray-600">Elastos Hashrate</div>
-                  <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
+            <div className="bg-blue-50 p-3 sm:p-4 rounded-lg">
+              <div className="flex items-center justify-between sm:justify-start gap-2">
+                <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0" />
+                <div className="flex-1">
+                  <div className="text-xs sm:text-sm text-gray-600">Elastos Hashrate</div>
+                  <div className="font-bold text-base sm:text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
             </div>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Lock className="w-5 h-5 text-green-500" />
-                <div>
-                  <div className="text-sm text-gray-600">Security Share</div>
-                  <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
+            <div className="bg-green-50 p-3 sm:p-4 rounded-lg">
+              <div className="flex items-center justify-between sm:justify-start gap-2">
+                <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 shrink-0" />
+                <div className="flex-1">
+                  <div className="text-xs sm:text-sm text-gray-600">Security Share</div>
+                  <div className="font-bold text-base sm:text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
                 </div>
               </div>
             </div>
