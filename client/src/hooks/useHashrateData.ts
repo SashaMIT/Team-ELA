@@ -49,7 +49,7 @@ const fetchHashrate = async (): Promise<number> => {
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://node1.elaphant.app/api/v1/block/height/0', {
+    const response = await fetchWithRetry('https://ela.elastos.io/api/v1/block/height/0', {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
