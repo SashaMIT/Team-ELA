@@ -42,19 +42,8 @@ const stats: StatItem[] = [
       showChange: true
     },
     {
-      label: "Elastos Price",
-      value: `$${elaPrice.toFixed(2)}`,
-      change: elaPriceChange,
-      showChange: true
-    },
-    {
       label: "Bitcoin Supply",
       value: "21 Million",
-      showChange: false
-    },
-    {
-      label: "Elastos Supply",
-      value: "28.22 Million",
       showChange: false
     },
     {
@@ -63,13 +52,25 @@ const stats: StatItem[] = [
       showChange: false
     },
     {
-      label: "Elastos Market Cap",
-      value: formatMarketCap(elastosMarketCap, true),
+      label: "Bitcoin Hashrate (EH/s)",
+      value: bitcoinHashrate.toFixed(2),
+      showChange: false
+    },
+    // Right column - Elastos stats
+    {
+      label: "Elastos Price",
+      value: `$${elaPrice.toFixed(2)}`,
+      change: elaPriceChange,
+      showChange: true
+    },
+    {
+      label: "Elastos Supply",
+      value: "28.22 Million",
       showChange: false
     },
     {
-      label: "Bitcoin Hashrate (EH/s)",
-      value: bitcoinHashrate.toFixed(2),
+      label: "Elastos Market Cap",
+      value: formatMarketCap(elastosMarketCap, true),
       showChange: false
     },
     {
@@ -88,7 +89,7 @@ const stats: StatItem[] = [
         </div>
         
         
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
+        <div className="grid grid-cols-2 lg:grid-cols-2 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
