@@ -114,13 +114,13 @@ const ValueCalcPage = () => {
                 </DialogTrigger>
                 <DialogContent className="max-w-[95vw] w-full sm:max-w-4xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                   <DialogHeader>
-                    <DialogTitle>Value Calculation Methodology</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">Value Calculation Methodology</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <CompactCalcAnimation />
-                    <div className="text-muted-foreground">
-                      <h4 className="font-semibold mb-2">🧮 How it's calculated:</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="text-muted-foreground px-1 sm:px-2">
+                      <h4 className="font-semibold mb-2 text-sm sm:text-base">🧮 How it's calculated:</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div className="space-y-2">
                           <div className="flex items-start gap-2">
                             <div className="w-2 h-2 rounded-full bg-orange-500 mt-2"></div>

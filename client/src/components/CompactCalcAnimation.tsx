@@ -59,18 +59,18 @@ const CompactCalcAnimation = () => {
   ];
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4 bg-white rounded-xl shadow-lg">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold text-gray-800">ELA Security Value</h2>
+    <div className="w-full max-w-3xl mx-auto p-2 sm:p-4 bg-white rounded-xl shadow-lg">
+      <div className="flex justify-between items-center mb-2 sm:mb-4">
+        <h2 className="text-base sm:text-lg font-bold text-gray-800">ELA Security Value</h2>
         <button
           onClick={() => setIsAnimating(!isAnimating)}
-          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           {isAnimating ? '⏸' : '▶️'}
         </button>
       </div>
 
-      <div className="flex items-center justify-between gap-2 mb-2">
+      <div className="flex flex-col sm:flex-row items-center sm:justify-between gap-3 sm:gap-2 mb-2">
         {steps.map((s, i) => (
           <React.Fragment key={i}>
             <div 
@@ -94,11 +94,11 @@ const CompactCalcAnimation = () => {
       </div>
 
       {/* Animated lock particles showing security flow */}
-      <div className="relative h-16 bg-gradient-to-r from-orange-50 via-blue-50 to-purple-50 rounded-lg overflow-hidden">
+      <div className="relative h-12 sm:h-16 bg-gradient-to-r from-orange-50 via-blue-50 to-purple-50 rounded-lg overflow-hidden">
         {step >= 1 && Array.from({ length: 5 }).map((_, i) => (
           <Lock
             key={i}
-            size={16}
+            size={12}
             className={`absolute top-1/2 transform -translate-y-1/2 transition-all duration-1000 
               ${step >= 3 ? 'text-purple-500' : step >= 2 ? 'text-blue-500' : 'text-orange-500'}
             `}
