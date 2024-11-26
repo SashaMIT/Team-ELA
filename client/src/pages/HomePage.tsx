@@ -93,14 +93,14 @@ const stats: StatItem[] = [
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full"
+              className="bg-accent/10 p-2 sm:p-3 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full flex flex-col items-center"
             >
               <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                 {stat.label}
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-center w-full">
                 {stat.label.includes("Hashrate") ? (
-                  <div className="flex items-center gap-2 sm:gap-4 w-full">
+                  <div className="flex items-center justify-center gap-2 sm:gap-4 w-full">
                     <span className="text-xs sm:text-sm">{stat.value}</span>
                     <div className="w-16 sm:w-20 lg:w-24 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
