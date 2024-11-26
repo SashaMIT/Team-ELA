@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Bitcoin, Star, Clock, Zap, Building, CheckCircle, ExternalLink } from 'lucide-react';
+import { Shield, Lock, Bitcoin, Star, Clock, Zap, Building, CheckCircle, ExternalLink, Wallet, Database, Percent } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -16,6 +16,30 @@ const BuyElaPage = () => {
     { year: '2022', hashrate: 240, btcHashrate: 450, percentage: "53.3%" },
     { year: '2024', hashrate: elastosHashrate, btcHashrate: bitcoinHashrate, percentage: ((elastosHashrate/bitcoinHashrate) * 100).toFixed(1) + "%" }
   ];
+
+  const wallets = {
+    desktop: [
+      { name: 'Elephant Wallet', url: 'https://elephantwallet.app', platforms: ['Windows', 'macOS', 'Linux'] },
+      { name: 'Essentials', url: 'https://essentials.elastos.net', platforms: ['Windows', 'macOS'] }
+    ],
+    mobile: [
+      { name: 'Essentials Mobile', url: 'https://essentials.elastos.net', platforms: ['iOS', 'Android'] },
+      { name: 'Elephant Mobile', url: 'https://elephantwallet.app', platforms: ['iOS', 'Android'] }
+    ]
+  };
+
+  const rpcNodes = [
+    { network: 'Mainnet', url: 'https://api.elastos.io/eth', chainId: '20' },
+    { network: 'Mainnet', url: 'https://rpc.elastos.io/api', chainId: '20' },
+    { network: 'Testnet', url: 'https://rpc.elaeth.io', chainId: '21' }
+  ];
+
+  const stakingInfo = {
+    currentAPY: '4.5%',
+    minStake: '100 ELA',
+    lockPeriod: '7 days',
+    totalStaked: '5.2M ELA'
+  };
 
   const exchanges = {
     cex: [
@@ -110,9 +134,103 @@ const BuyElaPage = () => {
             </div>
           </div>
 
+          {/* Staking Info Box */}
+          <div className="bg-purple-50 p-3 rounded-lg mb-3">
+            <h3 className="text-sm font-medium text-black-700 mb-2 flex items-center gap-2">
+              <Percent className="w-4 h-4 text-purple-500" />
+              Staking Rewards
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="bg-white p-2 rounded">
+                <div className="text-xs text-gray-600">Current APY</div>
+                <div className="font-bold text-purple-600">{stakingInfo.currentAPY}</div>
+              </div>
+              <div className="bg-white p-2 rounded">
+                <div className="text-xs text-gray-600">Minimum Stake</div>
+                <div className="font-bold text-purple-600">{stakingInfo.minStake}</div>
+              </div>
+              <div className="bg-white p-2 rounded">
+                <div className="text-xs text-gray-600">Lock Period</div>
+                <div className="font-bold text-purple-600">{stakingInfo.lockPeriod}</div>
+              </div>
+              <div className="bg-white p-2 rounded">
+                <div className="text-xs text-gray-600">Total Staked</div>
+                <div className="font-bold text-purple-600">{stakingInfo.totalStaked}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Wallet Downloads Box */}
+          <div className="bg-blue-50 p-3 rounded-lg mb-3">
+            <h3 className="text-sm font-medium text-black-700 mb-2 flex items-center gap-2">
+              <Wallet className="w-4 h-4 text-blue-500" />
+              Wallet Downloads
+            </h3>
+            <div className="space-y-3">
+              <div>
+                <h4 className="text-xs font-medium text-black-600 mb-1">Desktop Wallets</h4>
+                <div className="flex flex-wrap gap-2">
+                  {wallets.desktop.map((wallet) => (
+                    <a
+                      key={wallet.name}
+                      href={wallet.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
+                      title={`Available for ${wallet.platforms.join(', ')}`}
+                    >
+                      {wallet.name}
+                      <ExternalLink size={12} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="text-xs font-medium text-black-600 mb-1">Mobile Wallets</h4>
+                <div className="flex flex-wrap gap-2">
+                  {wallets.mobile.map((wallet) => (
+                    <a
+                      key={wallet.name}
+                      href={wallet.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
+                      title={`Available for ${wallet.platforms.join(', ')}`}
+                    >
+                      {wallet.name}
+                      <ExternalLink size={12} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RPC List Box */}
+          <div className="bg-orange-50 p-3 rounded-lg mb-3">
+            <h3 className="text-sm font-medium text-black-700 mb-2 flex items-center gap-2">
+              <Database className="w-4 h-4 text-orange-500" />
+              RPC Endpoints
+            </h3>
+            <div className="space-y-2">
+              {rpcNodes.map((node, index) => (
+                <div key={index} className="bg-white p-2 rounded text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-medium text-gray-600">{node.network}</span>
+                    <span className="text-orange-600">Chain ID: {node.chainId}</span>
+                  </div>
+                  <div className="font-mono text-gray-500 break-all">{node.url}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Buy ELA Box */}
           <div className="bg-green-50 p-3 rounded-lg">
-            <h3 className="text-sm font-medium text-black-700 mb-2">Buy ELA</h3>
+            <h3 className="text-sm font-medium text-black-700 mb-2 flex items-center gap-2">
+              <Star className="w-4 h-4 text-green-500" />
+              Buy ELA
+            </h3>
             <div className="grid gap-3">
               <div>
                 <h4 className="text-xs font-medium text-black-600 mb-1">Centralized Exchanges</h4>
