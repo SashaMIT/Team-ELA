@@ -121,15 +121,26 @@ const BuyElaPage = () => {
               <Wallet className="w-4 h-4 text-blue-500" />
               <h3 className="text-sm font-medium">Download Essentials Wallet</h3>
             </div>
-            <a
-              href="https://apps.apple.com/us/app/web3-essentials-crypto-wallet/id1568931743"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
-            >
-              Essentials for iOS
-              <ExternalLink size={12} />
-            </a>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="https://apps.apple.com/us/app/web3-essentials-crypto-wallet/id1568931743"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
+              >
+                Essentials for iOS
+                <ExternalLink size={12} />
+              </a>
+              <a
+                href="https://download.elastos.io/app/elastos-essentials/Essentials.apk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
+              >
+                Essentials for Android
+                <ExternalLink size={12} />
+              </a>
+            </div>
           </div>
 
           {/* Buy ELA Box */}
