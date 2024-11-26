@@ -23,9 +23,11 @@ const fetchWithCORS = async (url: string) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'User-Agent': 'Elastos-Dashboard/1.0'
-      }
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2'
+      },
+      cache: 'no-store'
     });
+    if (!response.ok) throw new Error(response.statusText);
     return response;
   } catch (error) {
     console.error('CORS fetch error:', error);
@@ -129,7 +131,7 @@ export const useMarketCapData = () => {
     }
   };
 
-  return useQuery<MarketCapData>({
+  return useQuery<MarketCapData, Error, MarketCapData>({
     queryKey: ['marketCapData', hashrateData],
     queryFn: fetchMarketCapData,
     enabled: !isHashrateLoading && !hashrateError,
@@ -137,9 +139,6 @@ export const useMarketCapData = () => {
     staleTime: 60000, // Consider data stale after 1 minute
     retry: 3, // Allow 3 retries for the entire query
     retryDelay: (attemptIndex) => Math.min(1000 * Math.pow(2, attemptIndex), 30000), // Exponential backoff with max 30s
-    onError: (error: MarketCapError) => {
-      console.error('Market cap data fetch error:', error);
-    },
     select: (data: MarketCapData): MarketCapData => ({
       ...data,
       // Ensure all values are valid numbers
