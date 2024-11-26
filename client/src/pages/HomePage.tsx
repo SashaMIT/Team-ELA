@@ -155,7 +155,7 @@ const stats: StatItem[] = [
                           )}
                           {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
                             <a 
-                              href="https://ela.elastos.io/api/v1/block/height/0"
+                              href="https://ela.elastos.io/api/v1/block/{latest_block_hash}"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline"

@@ -49,21 +49,42 @@ const fetchHashrate = async (): Promise<number> => {
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://api.elastos.io/ela', {
-      method: 'POST',
+    // First fetch the latest block hash
+    const latestBlockResponse = await fetchWithRetry('https://ela.elastos.io/api/v1/block/height/0', {
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        method: 'getmininginfo',
-        params: []
-      })
+        'Accept': 'application/json'
+      }
     });
     
-    const data = await response.json();
-    return Number(data.result.networkhashps) / 1e18; // Convert to EH/s
+    if (!latestBlockResponse.ok) {
+      throw new Error(`Failed to fetch latest block: ${latestBlockResponse.statusText}`);
+    }
+    
+    const latestBlockData = await latestBlockResponse.json();
+    const latestBlockHash = latestBlockData.hash;
+    
+    // Then fetch the block details using the hash
+    const blockResponse = await fetchWithRetry(`https://ela.elastos.io/api/v1/block/${latestBlockHash}`, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    
+    if (!blockResponse.ok) {
+      throw new Error(`Failed to fetch block details: ${blockResponse.statusText}`);
+    }
+    
+    const blockData = await blockResponse.json();
+    
+    if (!blockData || typeof blockData.difficulty !== 'number') {
+      throw new Error('Invalid block data received');
+    }
+    
+    // Convert difficulty to hashrate (EH/s)
+    const hashrate = Number(blockData.difficulty) / 1e18;
+    return isNaN(hashrate) ? 48.52 : hashrate;
   } catch (error) {
-    console.warn('Elastos hashrate fetch error:', error);
+    console.error('Elastos hashrate fetch error:', error);
     return 48.52; // Fallback value
   }
 };
