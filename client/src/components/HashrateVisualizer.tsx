@@ -165,27 +165,27 @@ const HashrateVisualizer = () => {
                   What is Hashrate?
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-5xl">
-                <DialogHeader>
-                  <DialogTitle className="flex items-center gap-2 text-left">
-                    <Calculator className="w-6 h-6 text-blue-500" />
+              <DialogContent className="max-w-5xl p-4 sm:p-6">
+                <DialogHeader className="mb-2 sm:mb-4">
+                  <DialogTitle className="flex items-center gap-2 text-left text-base sm:text-lg">
+                    <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
                     Understanding Hashrate
                   </DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col lg:flex-row gap-6 items-center">
-                  <div className="text-muted-foreground space-y-2 lg:w-1/2 text-left">
-                    <p>
+                <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
+                  <div className="text-muted-foreground space-y-2 sm:space-y-3 lg:w-1/2 w-full text-left px-2 sm:px-0">
+                    <p className="text-sm sm:text-base">
                       Hashrate measures how quickly a computer or network can solve cryptographic puzzles called "hashes." In cryptocurrency networks, these puzzles secure the blockchain by verifying transactions and preventing tampering.
                     </p>
-                    <p>
+                    <p className="text-sm sm:text-base">
                       A higher hashrate means more computational power, making the network stronger and more secure against attacks, such as a 51% attack, where an entity could potentially control the network. This immense computational effort creates trust and ensures the network remains decentralized and tamper-proof.
                     </p>
-                    <p>
+                    <p className="text-sm sm:text-base">
                       Just as gold derives value from its scarcity and the effort required to mine it, cryptocurrency networks gain value from the energy and computing power securing them. Hashrate reflects not only security but also the overall health and activity of the network.
                     </p>
                   </div>
-                  <div className="lg:w-1/2 flex justify-center">
-                    <div className="max-w-sm">
+                  <div className="lg:w-1/2 w-full flex justify-center px-2 sm:px-4 lg:px-0">
+                    <div className="max-w-sm w-full">
                       <FriendlyHashrate />
                     </div>
                   </div>
