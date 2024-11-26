@@ -148,14 +148,14 @@ const MergeMiningViz = () => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <div className="text-xs">
-                    Real-time hashrate data from{' '}
+                    Real-time Bitcoin network hashrate data provided by{' '}
                     <a 
                       href="https://blockchain.info/q/hashrate"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:text-blue-600 underline"
                     >
-                      blockchain.info API
+                      Blockchain.info API
                     </a>
                   </div>
                 </TooltipContent>
@@ -171,14 +171,14 @@ const MergeMiningViz = () => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <div className="text-xs">
-                    Real-time security data from{' '}
+                    Real-time Elastos network security metrics provided by{' '}
                     <a 
-                      href="https://ela.elastos.io/api/v1/block/"
+                      href="https://ela.elastos.io/api/v1/block/height/0"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:text-blue-600 underline"
                     >
-                      elastos.io API
+                      Elastos.io API
                     </a>
                   </div>
                 </TooltipContent>

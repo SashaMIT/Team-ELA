@@ -80,7 +80,7 @@ const FriendlyHashrate = () => {
                 <Info className="inline-block w-4 h-4 ml-2 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent>
-                <p className="text-xs">Network security metrics powered by blockchain.info API</p>
+                <p className="text-xs">Network security metrics powered by Blockchain.info API</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -93,7 +93,7 @@ const FriendlyHashrate = () => {
                 <Info className="w-4 h-4 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent>
-                <p className="text-xs">Real-time hashrate data with 5-minute refresh interval</p>
+                <p className="text-xs">Real-time network hashrate data with 5-minute refresh interval</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
