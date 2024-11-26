@@ -136,8 +136,8 @@ const MergeMiningAnimation = () => {
   return (
     <div className="w-full max-w-4xl p-1 sm:p-2 md:p-0 bg-gradient-to-br from-slate-0 to-slate-00 rounded-xl">
       {/* Heading */}
-      <h1 className="text-center text-lg sm:text-2xl font-bold mt-0 mb-0 flex items-center justify-center gap-1 sm:gap-2 px-2">
-        <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0" />
+      <h1 className="text-center text-base sm:text-lg md:text-2xl font-bold mt-0 mb-0 flex items-center justify-center gap-1 sm:gap-2 px-2 leading-snug">
+        <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500 shrink-0" />
         ELA: The Bitcoin-Secured Reserve Asset
       </h1>
 
@@ -196,7 +196,8 @@ const MergeMiningAnimation = () => {
           {/* Flow Labels */}
           <div
             className="absolute left-1/2 transform -translate-x-1/2 
-                       font-bold text-[15px] text-orange-600/90 px-4"
+                       font-bold text-xs sm:text-sm md:text-[15px] text-orange-600/90 px-2 sm:px-4
+                       bg-white/80 rounded py-0.5 sm:py-1"
             style={{ top: "42%" }}
           >
             SECURITY
@@ -204,7 +205,8 @@ const MergeMiningAnimation = () => {
 
           <div
             className="absolute left-1/2 transform -translate-x-1/2 
-            font-bold text-[15px] text-blue-600/90 px-4"
+            font-bold text-xs sm:text-sm md:text-[15px] text-blue-600/90 px-2 sm:px-4
+            bg-white/80 rounded py-0.5 sm:py-1"
             style={{ top: "62%" }}
           >
             REWARDS

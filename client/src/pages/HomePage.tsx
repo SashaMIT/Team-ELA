@@ -87,20 +87,20 @@ const stats: StatItem[] = [
         </div>
         
         
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full px-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="bg-accent/10 p-2 sm:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto"
+              className="bg-accent/10 p-1.5 sm:p-2 lg:p-4 rounded-lg space-y-1 sm:space-y-2 text-center mx-auto w-full"
             >
-              <div className="text-xs sm:text-sm text-muted-foreground">
+              <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                 {stat.label}
               </div>
               <div className="flex items-center justify-between">
                 {stat.label.includes("Hashrate") ? (
-                  <div className="flex items-center gap-4 w-full">
-                    <span>{stat.value}</span>
-                    <div className="w-24 h-2 bg-green-200 rounded-full overflow-hidden">
+                  <div className="flex items-center gap-2 sm:gap-4 w-full">
+                    <span className="text-xs sm:text-sm">{stat.value}</span>
+                    <div className="w-16 sm:w-20 lg:w-24 h-1.5 sm:h-2 bg-green-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-green-500 rounded-full transition-all duration-500"
                         style={{ 
@@ -108,7 +108,7 @@ const stats: StatItem[] = [
                         }}
                       />
                     </div>
-                    <span className="text-sm">
+                    <span className="text-xs sm:text-sm whitespace-nowrap">
                       {stat.label.includes("Bitcoin") ? "100%" : stat.subValue}
                     </span>
                   </div>
