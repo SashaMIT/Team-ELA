@@ -117,24 +117,6 @@ const ELASupplyPage = () => {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {/* Progress Bar */}
-          <div className="bg-white/50 p-4 rounded-lg space-y-2">
-            <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
-              <span>Progress to Total Supply</span>
-              <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
-            </div>
-            <div className="w-full bg-accent/20 rounded-full h-2.5">
-              <div
-                className="bg-blue-500 h-2.5 rounded-full transition-all duration-500"
-                style={{ width: `${(currentSupply / 28199999) * 100}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-xs text-muted-foreground mt-1">
-              <span>{currentSupply.toLocaleString()} ELA</span>
-              <span>28,199,999 ELA</span>
-            </div>
-          </div>
-
           {/* Current Supply & Next Halving */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <div className="bg-blue-50 p-3 rounded-lg">
@@ -181,6 +163,24 @@ const ELASupplyPage = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="bg-white/50 p-4 rounded-lg space-y-2">
+            <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
+              <span>Progress to Total Supply</span>
+              <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
+            </div>
+            <div className="w-full bg-accent/20 rounded-full h-2.5">
+              <div
+                className="bg-blue-500 h-2.5 rounded-full transition-all duration-500"
+                style={{ width: `${(currentSupply / 28199999) * 100}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-xs text-muted-foreground mt-1">
+              <span>{currentSupply.toLocaleString()} ELA</span>
+              <span>28,199,999 ELA</span>
             </div>
           </div>
 
