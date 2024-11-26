@@ -173,7 +173,7 @@ const MergeMiningViz = () => {
                   <div className="text-xs">
                     Real-time Elastos network security metrics provided by{' '}
                     <a 
-                      href="https://ela.elastos.io/api/v1/block/{latest_block_hash}"
+                      href="https://ela.elastos.io/api/v1/block/height/0"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:text-blue-600 underline"
