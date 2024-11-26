@@ -253,14 +253,7 @@ const BuyElaPage = () => {
             </div>
           </div>
 
-          {/* Summary */}
-          <div className="bg-accent/10 p-3 rounded-lg">
-            <p className="text-sm text-gray-600">
-              Elastos combines the world's strongest security infrastructure ({elastosHashrate} EH/s) with 
-              a guaranteed fixed supply (28.22M by 2105), creating a premium store of value 
-              secured by Bitcoin's network while consuming only a fraction of the energy.
-            </p>
-          </div>
+
         </CardContent>
       </Card>
     </div>
