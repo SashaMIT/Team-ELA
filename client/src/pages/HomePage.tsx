@@ -111,25 +111,57 @@ const stats: StatItem[] = [
                       <Info className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs sm:text-sm">
-                        {stat.label.includes("Bitcoin") ? (
-                          stat.label.includes("Price") ? 
-                            "Real-time price data from CoinGecko API" :
-                          stat.label.includes("Supply") ?
-                            "Total supply from Bitcoin protocol" :
-                          stat.label.includes("Market Cap") ?
-                            "Calculated using CoinGecko price data" :
-                            "Hashrate data from blockchain.info API"
-                        ) : (
-                          stat.label.includes("Price") ?
-                            "Real-time price data from CoinGecko API" :
-                          stat.label.includes("Supply") ?
-                            "Current circulating supply from elastos.io" :
-                          stat.label.includes("Market Cap") ?
-                            "Calculated using CoinGecko price data" :
-                            "Hashrate data from elastos.io API"
-                        )}
-                      </p>
+                      <div className="text-xs sm:text-sm space-y-1">
+                        <p>
+                          {stat.label.includes("Bitcoin") ? (
+                            stat.label.includes("Price") ? 
+                              "Real-time price data from " :
+                            stat.label.includes("Supply") ?
+                              "Total supply from Bitcoin protocol" :
+                            stat.label.includes("Market Cap") ?
+                              "Calculated using CoinGecko price data" :
+                              "Hashrate data from "
+                          ) : (
+                            stat.label.includes("Price") ?
+                              "Real-time price data from " :
+                            stat.label.includes("Supply") ?
+                              "Current circulating supply from elastos.io" :
+                            stat.label.includes("Market Cap") ?
+                              "Calculated using CoinGecko price data" :
+                              "Hashrate data from "
+                          )}
+                          {(stat.label.includes("Price") || stat.label.includes("Market Cap")) && (
+                            <a 
+                              href="https://api.coingecko.com/api/v3/simple/price"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              CoinGecko API
+                            </a>
+                          )}
+                          {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
+                            <a 
+                              href="https://blockchain.info/q/hashrate"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              blockchain.info API
+                            </a>
+                          )}
+                          {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
+                            <a 
+                              href="https://api.elastos.io/ela/api/v1/block/height/0"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              elastos.io API
+                            </a>
+                          )}
+                        </p>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
