@@ -104,21 +104,7 @@ const BuyElaPage = () => {
             </div>
           </div>
 
-          {/* Security Power Bar */}
-          <div className="bg-blue-50 p-2 rounded-lg">
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-medium">Security Share:</span>
-              <div className="flex items-center gap-2">
-                <div className="w-24 h-1.5 bg-blue-200 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-blue-500 rounded-full transition-all duration-500"
-                    style={{ width: `${(elastosHashrate/bitcoinHashrate) * 100}%` }}
-                  />
-                </div>
-                <span className="text-xs">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</span>
-              </div>
-            </div>
-          </div>
+ 
 
           {/* Wallet Download Box */}
           <div className="bg-blue-50 p-3 rounded-lg">
