@@ -6,7 +6,17 @@
     "value": "Valeur",
     "calculator": "Calculatrice",
     "supply": "Offre",
-    "buyELA": "Acheter ELA"
+    "buyELA": "Acheter ELA",
+    "retry": "Réessayer",
+    "loading": "Chargement...",
+    "error": {
+      "fetchFailed": "Échec de la récupération des données",
+      "networkError": "Erreur de connexion réseau",
+      "tryAgain": "Veuillez réessayer plus tard",
+      "timeoutError": "Délai d'attente dépassé",
+      "serverError": "Erreur du serveur",
+      "unknownError": "Une erreur inconnue s'est produite"
+    }
   },
   "home": {
     "title": "Comparaison des taux de hachage Bitcoin et Elastos",

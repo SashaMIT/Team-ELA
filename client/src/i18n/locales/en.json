@@ -6,7 +6,17 @@
     "value": "Value",
     "calculator": "Calculator",
     "supply": "Supply",
-    "buyELA": "Buy ELA"
+    "buyELA": "Buy ELA",
+    "retry": "Retry",
+    "loading": "Loading...",
+    "error": {
+      "fetchFailed": "Failed to fetch data",
+      "networkError": "Network connection error",
+      "tryAgain": "Please try again later",
+      "timeoutError": "Request timed out",
+      "serverError": "Server error occurred",
+      "unknownError": "An unknown error occurred"
+    }
   },
   "home": {
     "title": "Bitcoin and Elastos Network Hashrate Comparison",

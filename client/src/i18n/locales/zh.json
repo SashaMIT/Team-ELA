@@ -6,7 +6,17 @@
     "value": "价值",
     "calculator": "计算器",
     "supply": "供应",
-    "buyELA": "购买 ELA"
+    "buyELA": "购买 ELA",
+    "retry": "重试",
+    "loading": "加载中...",
+    "error": {
+      "fetchFailed": "获取数据失败",
+      "networkError": "网络连接错误",
+      "tryAgain": "请稍后重试",
+      "timeoutError": "请求超时",
+      "serverError": "服务器错误",
+      "unknownError": "发生未知错误"
+    }
   },
   "home": {
     "title": "比特币和亦来云网络算力对比",

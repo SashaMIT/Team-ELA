@@ -6,7 +6,17 @@
     "value": "Valor",
     "calculator": "Calculadora",
     "supply": "Suministro",
-    "buyELA": "Comprar ELA"
+    "buyELA": "Comprar ELA",
+    "retry": "Reintentar",
+    "loading": "Cargando...",
+    "error": {
+      "fetchFailed": "Error al obtener datos",
+      "networkError": "Error de conexión de red",
+      "tryAgain": "Por favor, inténtelo de nuevo más tarde",
+      "timeoutError": "Tiempo de espera agotado",
+      "serverError": "Error del servidor",
+      "unknownError": "Se produjo un error desconocido"
+    }
   },
   "home": {
     "title": "Comparación de tasa de hash de Bitcoin y Elastos",
