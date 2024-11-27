@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'wouter';
-import { Shield, Home, Calculator, TrendingUp, Database, ShoppingCart, Menu } from 'lucide-react';
+import { Shield, Home, Calculator, TrendingUp, ShoppingCart } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -9,24 +9,61 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+// Define menu items outside component to avoid recreation
+const menuItems = [
+  { icon: <Home className="w-5 h-5" />, label: 'Home', path: '/' },
+  { icon: <Shield className="w-5 h-5" />, label: 'Security', path: '/security' },
+  { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
+  { icon: <TrendingUp className="w-5 h-5" />, label: 'Supply', path: '/supply' },
+  { icon: <ShoppingCart className="w-5 h-5" />, label: 'Buy ELA', path: '/buy-ela' },
+];
+
+const NavigationMenu: React.FC = () => {
   const [location, setLocation] = useLocation();
+  const { setOpenMobile } = useSidebar();
+  
+  return (
+    <>
+      <SidebarHeader className="flex flex-col items-center justify-center gap-4 p-4">
+        <span className="text-lg font-semibold">
+          Team ELA
+        </span>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarMenu>
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.path}>
+              <div
+                role="button"
+                onClick={() => {
+                  setLocation(item.path);
+                  setOpenMobile(false);
+                }}
+                data-active={location === item.path}
+                className={`flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
+                  ${location === item.path 
+                    ? 'bg-accent text-accent-foreground font-medium' 
+                    : 'hover:bg-accent/50 active:bg-accent/70'}`}
+              >
+                {item.icon}
+                <span className="truncate">{item.label}</span>
+              </div>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+    </>
+  );
+};
 
-  const menuItems = [
-    { icon: <Home className="w-5 h-5" />, label: 'Home', path: '/' },
-    { icon: <Shield className="w-5 h-5" />, label: 'Security', path: '/security' },
-    { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
-    { icon: <TrendingUp className="w-5 h-5" />, label: 'Supply', path: '/supply' },
-    { icon: <ShoppingCart className="w-5 h-5" />, label: 'Buy ELA', path: '/buy-ela' },
-  ];
-
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
@@ -36,38 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
         
         <Sidebar collapsible="offcanvas">
-          <SidebarHeader className="flex flex-col items-center justify-center gap-4 p-4">
-            <span className="text-lg font-semibold">
-              Team ELA
-            </span>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.path}>
-                  <div
-                    role="button"
-                    onClick={() => {
-                      setLocation(item.path);
-                      const sidebarContext = document.querySelector('[data-mobile="true"]')?.parentElement;
-                      if (sidebarContext) {
-                        const closeButton = sidebarContext.querySelector('button[data-state="open"]');
-                        closeButton?.click();
-                      }
-                    }}
-                    data-active={location === item.path}
-                    className={`flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
-                      ${location === item.path 
-                        ? 'bg-accent text-accent-foreground font-medium' 
-                        : 'hover:bg-accent/50 active:bg-accent/70'}`}
-                  >
-                    {item.icon}
-                    <span className="truncate">{item.label}</span>
-                  </div>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarContent>
+          <NavigationMenu />
         </Sidebar>
         
         <main className="flex-1 overflow-auto pt-14 md:pt-0">
