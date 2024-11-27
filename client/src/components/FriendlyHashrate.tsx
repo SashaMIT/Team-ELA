@@ -81,7 +81,7 @@ const FriendlyHashrate = () => {
               </TooltipTrigger>
               <TooltipContent className="p-3 touch-auto">
                 <div className="text-sm space-y-2">
-                  <p>Real-time Bitcoin network security metrics from Minerstat</p>
+                  <p>Live Bitcoin network security metrics provided by Minerstat</p>
                   <a 
                     href="https://minerstat.com/coin/BTC"
                     target="_blank"
@@ -104,7 +104,7 @@ const FriendlyHashrate = () => {
               </TooltipTrigger>
               <TooltipContent className="p-3 touch-auto">
                 <div className="text-sm space-y-2">
-                  <p>Network hashrate updated every 5 minutes with verified blockchain data</p>
+                  <p>Network hashrate is updated every 5 minutes with verified blockchain data</p>
                 </div>
               </TooltipContent>
             </Tooltip>

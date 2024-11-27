@@ -41,7 +41,9 @@ const fetchHashrate = async (): Promise<number> => {
     throw new Error('Invalid API response: network_hashrate not found');
   }
   
-  return Number(data[0].network_hashrate);
+  // Convert to EH/s
+  const hashrate = Number(data[0].network_hashrate) / 1e18;
+  return hashrate;
 };
 
 const fetchElastosHashrate = async (): Promise<number> => {

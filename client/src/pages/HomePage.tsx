@@ -115,12 +115,12 @@ const stats: StatItem[] = [
                         <p>
                           {stat.label.includes("Bitcoin") ? (
                             stat.label.includes("Price") ? 
-                              "Real-time Bitcoin price data with 5-minute updates from " :
+                              "Live Bitcoin price data updated every 5 minutes from " :
                             stat.label.includes("Supply") ?
-                              "Current Bitcoin circulating supply data from " :
+                              "Current Bitcoin circulating supply information from " :
                             stat.label.includes("Market Cap") ?
-                              "Real-time market capitalization calculations using data from " :
-                              "Real-time Bitcoin network hashrate metrics from "
+                              "Real-time market capitalization data calculated using " :
+                              "Live Bitcoin network hashrate metrics provided by "
                           ) : (
                             stat.label.includes("Price") ?
                               "Real-time Elastos price data with 5-minute updates from " :
