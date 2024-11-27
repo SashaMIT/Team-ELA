@@ -49,19 +49,15 @@ const fetchHashrate = async (): Promise<number> => {
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://api.elastos.io/ela', {
-      method: 'POST',
+    const response = await fetchWithRetry('https://ela.elastos.io/api/v1/data-statistics', {
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        method: 'getmininginfo',
-        params: []
-      })
+        'Accept': 'application/json'
+      }
     });
     
     const data = await response.json();
-    return Number(data.result.networkhashps) / 1e18; // Convert to EH/s
+    return Number(data.hashrate) / 1e18; // Convert to EH/s
   } catch (error) {
     console.warn('Elastos hashrate fetch error:', error);
     return 48.52; // Fallback value
