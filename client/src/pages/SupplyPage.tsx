@@ -15,34 +15,6 @@ const ELASupplyPage = () => {
   const currentSupply = 25748861;
   const nextHalvingDate = new Date('2025-12-01');
 
-  const [showData, setShowData] = useState(false);
-  const [countdown, setCountdown] = useState('');
-  const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([24000000, 28500000]);
-  const [zoomLevel, setZoomLevel] = useState([0]);
-  
-  const handleZoomChange = (value: number[]) => {
-    setZoomLevel(value);
-    const baseMin = 24000000;
-    const baseMax = 28500000;
-    const zoomFactor = value[0] / 100;
-    const targetValue = 28218437.5; // 2065 supply value
-    const maxValue = 28220000; // Slightly above 2065 value to show future data
-    
-    if (zoomFactor === 0) {
-      setYAxisDomain([baseMin, baseMax]);
-    } else {
-      // Calculate range based on zoom factor
-      const totalRange = maxValue - targetValue;
-      const zoomedRange = totalRange / (1 + zoomFactor * 3); // Adjust multiplier for smoother zoom
-      
-      // Position 2065 value near bottom with more space above for future values
-      const newMin = Math.max(baseMin, targetValue - (zoomedRange * 0.1)); // Small buffer below 2065
-      const newMax = Math.min(baseMax, targetValue + (zoomedRange * 0.9)); // More space above for future values
-      
-      setYAxisDomain([newMin, newMax]);
-    }
-  };
-
   const supplySchedule = [
     { halvingDate: new Date('2021-12-01'), year: 2021, percentage: null, increment: null, supply: 24620000 },
     { halvingDate: new Date('2025-12-01'), year: 2025, percentage: 0.02, increment: 1600000, supply: 26620000 },
@@ -67,6 +39,47 @@ const ELASupplyPage = () => {
     { halvingDate: new Date('2101-12-01'), year: 2101, percentage: 0.000003814697265625, increment: 3.0517578125, supply: 28219996.9482421875 },
     { halvingDate: new Date('2105-12-01'), year: 2105, percentage: 0.00000191, increment: 1.52587890, supply: 28219999 }
   ];
+
+  const [showData, setShowData] = useState(false);
+  const [countdown, setCountdown] = useState('');
+  const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([24000000, 28500000]);
+  const [zoomLevel, setZoomLevel] = useState([0]);
+  const [filteredData, setFilteredData] = useState(supplySchedule);
+  
+  const handleZoomChange = (value: number[]) => {
+    setZoomLevel(value);
+    const zoomFactor = value[0] / 100;
+    const maxYear = 2105;
+    const minYear = 2021;
+    const yearRange = maxYear - minYear;
+    
+    // Calculate the selected year based on zoom factor
+    const selectedYear = Math.floor(minYear + (yearRange * (zoomFactor)));
+    
+    // Find the supply data for selected year
+    const selectedData = supplySchedule.find(item => item.year >= selectedYear);
+    
+    if (!selectedData) return;
+    
+    // Calculate Y-axis range
+    const currentSupplyValue = selectedData.supply;
+    const maxSupplyValue = 28220000; // Max supply with buffer
+    const remainingRange = maxSupplyValue - currentSupplyValue;
+    
+    // Set domains
+    if (zoomFactor === 0) {
+      setYAxisDomain([24000000, 28500000]);
+      setFilteredData(supplySchedule);
+    } else {
+      const buffer = remainingRange * 0.1; // 10% buffer for visibility
+      setYAxisDomain([
+        currentSupplyValue - buffer,
+        maxSupplyValue + buffer
+      ]);
+      // Update chart data filtering to show only future years
+      setFilteredData(supplySchedule.filter(item => item.year >= selectedYear));
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -230,15 +243,15 @@ const ELASupplyPage = () => {
                     size="sm"
                     onClick={() => {
                       if (yAxisDomain[0] === 24000000) {
-                        // Zoom to 2065 with appropriate range
-                        const targetValue = 28218437.5; // 2065 value
-                        const buffer = 1000; // Buffer for better visibility
-                        setYAxisDomain([targetValue - buffer * 0.1, targetValue + buffer * 0.9]);
-                        setZoomLevel([80]); // Set slider to zoomed position
+                        // Zoom to 2065
+                        const targetYear = 2065;
+                        const targetData = supplySchedule.find(item => item.year === targetYear);
+                        if (targetData) {
+                          const zoomPercentage = ((targetYear - 2021) / (2105 - 2021)) * 100;
+                          handleZoomChange([zoomPercentage]);
+                        }
                       } else {
-                        // Reset to full view
-                        setYAxisDomain([24000000, 28500000]);
-                        setZoomLevel([0]);
+                        handleZoomChange([0]);
                       }
                     }}
                     className="text-xs flex items-center gap-2 touch-none"
@@ -261,7 +274,7 @@ const ELASupplyPage = () => {
             <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
               <ResponsiveContainer>
                 <LineChart
-                  data={supplySchedule}
+                  data={filteredData}
                   margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                 >
                   <CartesianGrid 
@@ -329,9 +342,9 @@ const ELASupplyPage = () => {
                     {supplySchedule.map((item, index) => (
                       <tr key={index} className="border-t hover:bg-gray-50">
                         <td className="p-2">{item.halvingDate.toLocaleDateString()}</td>
-                        <td className="p-2">{item.percentage ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
-                        <td className="p-2">{item.increment ? `+${item.increment.toLocaleString()}` : '-'}</td>
-                        <td className="p-2 font-medium">{item.supply.toLocaleString()}</td>
+                        <td className="p-2">{item.percentage !== null ? `${(item.percentage * 100).toFixed(8)}%` : '-'}</td>
+                        <td className="p-2">{item.increment !== null ? `+${item.increment.toLocaleString()}` : '-'}</td>
+                        <td className="p-2">{item.supply.toLocaleString()}</td>
                       </tr>
                     ))}
                   </tbody>
