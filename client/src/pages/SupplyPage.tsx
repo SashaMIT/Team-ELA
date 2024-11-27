@@ -83,24 +83,17 @@ const ELASupplyPage = () => {
   };
 
   useEffect(() => {
-    let countdownTimer: NodeJS.Timeout | null = null;
-    const updateCountdown = () => {
+    const timer = setInterval(() => {
       const now = new Date();
       const difference = nextHalvingDate.getTime() - now.getTime();
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
       setCountdown(`${days}d ${hours}h ${minutes}m`);
-    };
-    updateCountdown(); // Initial update
-    countdownTimer = setInterval(updateCountdown, 60000); // Update every minute
-    return () => {
-      if (countdownTimer) {
-        clearInterval(countdownTimer);
-        countdownTimer = null;
-      }
-    };
-  }, [nextHalvingDate]);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const getHalvingProgress = () => {
     const lastHalving = new Date('2021-12-01');

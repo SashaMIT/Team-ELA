@@ -14,105 +14,57 @@ interface HashrateData {
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000;
 
-interface FetchError extends Error {
-  status?: number;
-  endpoint?: string;
-}
-
 const fetchWithRetry = async (url: string, options: RequestInit = {}, retries = MAX_RETRIES): Promise<Response> => {
-  let lastError: FetchError;
-  for (let i = 0; i < retries; i++) {
-    try {
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'Elastos-Dashboard',
-          ...options.headers,
-        }
-      });
-      
-      if (!response.ok) {
-        const error = new Error(response.statusText) as FetchError;
-        error.status = response.status;
-        error.endpoint = url;
-        throw error;
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'Elastos-Dashboard',
+        ...options.headers,
       }
-      
-      return response;
-    } catch (error) {
-      lastError = error as FetchError;
-      lastError.endpoint = url;
-      
-      if (i < retries - 1) {
-        console.warn(`Retry ${i + 1}/${retries} for ${url} failed:`, error);
-        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY * Math.pow(2, i))); // Exponential backoff
-        continue;
-      }
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return response;
+  } catch (error) {
+    if (retries > 0) {
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+      return fetchWithRetry(url, options, retries - 1);
     }
+    throw error;
   }
-  throw lastError!;
 };
 
 const fetchHashrate = async (): Promise<number> => {
   try {
     const response = await fetchWithRetry('https://blockchain.info/q/hashrate');
     const hashrate = await response.json();
-    if (typeof hashrate !== 'number' || isNaN(hashrate)) {
-      throw new Error('Invalid hashrate data received');
-    }
     const formatted = String(hashrate).replace(/^(...)/g, '$1.');
     return Number(formatted);
   } catch (error) {
-    console.error('Bitcoin hashrate fetch error:', error);
-    if ((error as FetchError).status) {
-      console.error(`Status: ${(error as FetchError).status}, Endpoint: ${(error as FetchError).endpoint}`);
-    }
+    console.warn('Bitcoin hashrate fetch error:', error);
     return 671.05; // Fallback value
   }
 };
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://ela.elastos.io/api/v1/data-statistics/', {
-      method: 'GET',
+    const response = await fetchWithRetry('https://api.elastos.io/ela', {
+      method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        method: 'getmininginfo',
+        params: []
+      })
     });
     
     const data = await response.json();
-    
-    // Extract network hashrate from the new API response format
-    if (!data || !data.networkHashps) {
-      throw new Error('Network hashrate not found in response');
-    }
-    
-    // Convert network hashrate from H/s to EH/s
-    const hashrateInEH = Number(data.networkHashps) / 1e18;
-    
-    if (isNaN(hashrateInEH)) {
-      throw new Error('Invalid hashrate value received');
-    }
-    
-    // Validate the hashrate is within a reasonable range
-    if (hashrateInEH <= 0 || hashrateInEH > 1000) {
-      throw new Error('Hashrate value out of expected range');
-    }
-    
-    return hashrateInEH;
+    return Number(data.result.networkhashps) / 1e18; // Convert to EH/s
   } catch (error) {
     console.warn('Elastos hashrate fetch error:', error);
-    // Enhanced error logging
-    if ((error as FetchError).status) {
-      console.error(`API Error - Status: ${(error as FetchError).status}, Endpoint: ${(error as FetchError).endpoint}`);
-    } else {
-      console.error('Network or parsing error:', error.message);
-    }
-    // Use recent fallback value with a warning
-    console.warn('Using fallback hashrate value');
-    return 48.52;
+    return 48.52; // Fallback value
   }
 };
 
@@ -151,37 +103,26 @@ export const useHashrateData = () => {
     queryKey: ['hashrate-and-price'],
     queryFn: async () => {
       try {
-        const results = {
-          bitcoinHashrate: 671.05,
-          elastosHashrate: 48.52,
-          bitcoinPrice: 43000,
-          elaPrice: 1.78,
-          bitcoinPriceChange24h: 0,
-          elaPriceChange24h: 0
-        };
-
-        const fetchPromises = [
-          fetchHashrate().then(hr => results.bitcoinHashrate = hr),
-          fetchElastosHashrate().then(hr => results.elastosHashrate = hr),
-          fetchBitcoinPrice().then(({ price, change24h }) => {
-            results.bitcoinPrice = price;
-            results.bitcoinPriceChange24h = change24h;
-          }),
-          fetchELAPrice().then(({ price, change24h }) => {
-            results.elaPrice = price;
-            results.elaPriceChange24h = change24h;
-          })
-        ];
-
-        await Promise.allSettled(fetchPromises);
+        const [bitcoinHashrate, bitcoinPriceData, elaPriceData, elastosHashrate] = await Promise.all([
+          fetchHashrate(),
+          fetchBitcoinPrice(),
+          fetchELAPrice(),
+          fetchElastosHashrate()
+        ]);
         
         return {
-          ...results,
+          bitcoinHashrate,
+          elastosHashrate,
+          bitcoinPrice: bitcoinPriceData.price,
+          elaPrice: elaPriceData.price,
+          bitcoinPriceChange24h: bitcoinPriceData.change24h,
+          elaPriceChange24h: elaPriceData.change24h,
           isLoading: false,
           error: null
         };
       } catch (error) {
-        console.error('Critical failure in data fetching:', error);
+        console.error('Failed to fetch data:', error);
+        // Return fallback values instead of throwing
         return {
           bitcoinHashrate: 671.05,
           elastosHashrate: 48.52,
@@ -197,6 +138,5 @@ export const useHashrateData = () => {
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
     refetchIntervalInBackground: true,
     retry: MAX_RETRIES,
-    retryDelay: (attemptIndex) => Math.min(1000 * Math.pow(2, attemptIndex), 30000), // Exponential backoff capped at 30 seconds
   });
 };

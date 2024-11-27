@@ -165,16 +165,12 @@ const HashrateVisualizer = () => {
                   What is Hashrate?
                 </Button>
               </DialogTrigger>
-              <DialogContent
-                className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
-                aria-labelledby="hashrate-dialog-title"
-                aria-describedby="hashrate-dialog-description"
-              >
+              <DialogContent className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                 <DialogHeader>
-                  <DialogTitle id="hashrate-dialog-title">Understanding Hashrate</DialogTitle>
-                  <DialogDescription id="hashrate-dialog-description">
-                    Learn about network hashrate and its importance in cryptocurrency security
-                  </DialogDescription>
+                  <DialogTitle className="flex items-center gap-2 text-left">
+                    <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
+                    Understanding Hashrate
+                  </DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
                   <div className="text-muted-foreground space-y-4 sm:space-y-6 lg:w-1/2 text-left">
@@ -204,16 +200,12 @@ const HashrateVisualizer = () => {
                   What is EH/s?
                 </Button>
               </DialogTrigger>
-              <DialogContent
-                className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
-                aria-labelledby="ehs-dialog-title"
-                aria-describedby="ehs-dialog-description"
-              >
-                <DialogHeader>
-                  <DialogTitle id="ehs-dialog-title">Understanding EH/s (ExaHashes per second)</DialogTitle>
-                  <DialogDescription id="ehs-dialog-description">
-                    Explore the massive scale of ExaHash computations in blockchain networks
-                  </DialogDescription>
+              <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
+                <DialogHeader className="text-center">
+                  <DialogTitle className="flex items-center justify-center gap-2">
+                    <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-purple-500" />
+                    Understanding EH/s (ExaHashes per second)
+                  </DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4 sm:space-y-6">
                   <div className="text-muted-foreground text-center">
@@ -236,16 +228,12 @@ const HashrateVisualizer = () => {
                   What is Merge Mining?
                 </Button>
               </DialogTrigger>
-              <DialogContent
-                className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
-                aria-labelledby="merge-mining-dialog-title"
-                aria-describedby="merge-mining-dialog-description"
-              >
+              <DialogContent className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
                 <DialogHeader>
-                  <DialogTitle id="merge-mining-dialog-title">Understanding Merge Mining</DialogTitle>
-                  <DialogDescription id="merge-mining-dialog-description">
-                    Learn how Elastos leverages Bitcoin's network security through merge mining
-                  </DialogDescription>
+                  <DialogTitle className="flex items-center gap-2 text-left">
+                    <Network className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
+                    Understanding Merge Mining
+                  </DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
                   <div className="text-muted-foreground space-y-4 sm:space-y-6 lg:w-1/2 text-left">
