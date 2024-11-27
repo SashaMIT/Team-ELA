@@ -151,30 +151,30 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4 w-full">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
-            <div className="w-full bg-blue-50 p-3 rounded-lg">
-              <div className="flex items-center gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
+            <div className="w-full bg-blue-50 p-2 sm:p-3 rounded-lg">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
                 <div>
                   <div className="text-sm text-gray-600">Current Supply</div>
-                  <div className="font-bold text-lg">{currentSupply.toLocaleString()} ELA</div>
+                  <div className="font-bold text-base sm:text-lg">{currentSupply.toLocaleString()} ELA</div>
                   <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
                 </div>
               </div>
             </div>
 
-            <div className="w-full bg-green-50 p-3 rounded-lg">
-              <div className="flex items-center gap-3">
+            <div className="w-full bg-green-50 p-2 sm:p-3 rounded-lg">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <Database className="text-green-500 h-5 w-5" />
                 <div>
                   <div className="text-sm text-gray-600">Total Supply</div>
-                  <div className="font-bold text-lg">28,199,999 ELA</div>
+                  <div className="font-bold text-base sm:text-lg">28,199,999 ELA</div>
                   <div className="text-xs text-gray-500">by 2105</div>
                 </div>
               </div>
             </div>
 
-            <div className="w-full bg-purple-50 p-3 rounded-lg">
+            <div className="w-full bg-purple-50 p-2 sm:p-3 rounded-lg col-span-2 sm:col-span-1">
               <div className="flex items-center gap-3">
                 <Clock className="text-purple-500 h-5 w-5" />
                 <div className="w-full">
