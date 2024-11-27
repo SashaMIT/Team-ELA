@@ -57,9 +57,16 @@ const NavigationMenu: React.FC = () => {
   return (
     <>
       <SidebarHeader className="flex flex-col items-center justify-center gap-4 p-4">
-        <span className="text-lg font-semibold">
-          Team ELA
-        </span>
+        <div className="flex items-center gap-2">
+          <img
+            src="/Elastos New Logo_Kit-03.svg"
+            alt="Elastos Logo"
+            className="w-6 h-6"
+          />
+          <span className="text-lg font-semibold">
+            Team ELA
+          </span>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
