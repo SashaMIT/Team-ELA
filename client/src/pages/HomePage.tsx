@@ -115,20 +115,20 @@ const stats: StatItem[] = [
                         <p>
                           {stat.label.includes("Bitcoin") ? (
                             stat.label.includes("Price") ? 
-                              "Real-time Bitcoin price data sourced from " :
+                              "Real-time Bitcoin price data with 5-minute updates from " :
                             stat.label.includes("Supply") ?
-                              "Total supply information from the Bitcoin protocol via " :
+                              "Verified Bitcoin protocol supply information via " :
                             stat.label.includes("Market Cap") ?
-                              "Market capitalization calculated using real-time data from " :
-                              "Network hashrate data provided by "
+                              "Real-time market capitalization calculations using data from " :
+                              "Bitcoin network hashrate metrics provided by "
                           ) : (
                             stat.label.includes("Price") ?
-                              "Real-time Elastos price data sourced from " :
+                              "Real-time Elastos price data with 5-minute updates from " :
                             stat.label.includes("Supply") ?
-                              "Current circulating supply information from " :
+                              "Current Elastos circulating supply verified by " :
                             stat.label.includes("Market Cap") ?
-                              "Market capitalization calculated using real-time data from " :
-                              "Network hashrate data provided by "
+                              "Real-time Elastos market capitalization from " :
+                              "Elastos network hashrate metrics from "
                           )}
                           {(stat.label.includes("Price") || stat.label.includes("Market Cap") || 
                             (stat.label.includes("Supply") && !stat.label.includes("Bitcoin"))) && (
@@ -145,22 +145,22 @@ const stats: StatItem[] = [
                           )}
                           {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
                             <a 
-                              href="https://blockchain.info/q/hashrate"
+                              href="https://api.blockchain.info/stats"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline"
                             >
-                              Blockchain.info API
+                              Blockchain.info
                             </a>
                           )}
                           {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
                             <a 
-                              href="https://ela.elastos.io/api/v1/block/height/0"
+                              href="https://ela.elastos.io/api/v1/data-statistics"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline"
                             >
-                              Elastos.io API
+                              Elastos Explorer
                             </a>
                           )}
                         </p>
