@@ -25,25 +25,24 @@ const ELASupplyPage = () => {
     const level = value[0];
     setZoomLevel(level);
     
-    // Fixed range boundaries
     const baseMin = 28000000;
     const baseMax = 28220000;
     
     if (level === 0) {
-      // At 0% zoom, show full range
       setYAxisDomain([baseMin, baseMax]);
     } else {
-      // Calculate window size based on zoom level
+      // Calculate window size based on zoom level (smaller window = more zoom)
       const totalRange = baseMax - baseMin;
-      const windowSize = totalRange * (1 - level / 100);
+      const windowSize = totalRange * (1 - (level / 100));
       
-      // Center the window around the middle of the range
-      const midPoint = (baseMax + baseMin) / 2;
+      // Calculate center point of view
+      const centerPoint = (baseMin + baseMax) / 2;
+      
+      // Calculate new min/max keeping the center point
       const halfWindow = windowSize / 2;
-      
       setYAxisDomain([
-        Math.max(baseMin, midPoint - halfWindow),
-        Math.min(baseMax, midPoint + halfWindow)
+        Math.max(baseMin, centerPoint - halfWindow),
+        Math.min(baseMax, centerPoint + halfWindow)
       ]);
     }
   };
@@ -238,16 +237,18 @@ const ELASupplyPage = () => {
             </div>
 
             {/* Zoom Slider */}
-            <div className="mb-4 px-2">
+            <div className="mb-4 px-4">
               <div className="text-xs text-gray-500 mb-2">Zoom Level</div>
-              <Slider
-                defaultValue={[0]}
-                max={100}
-                step={1}
-                value={[zoomLevel]}
-                onValueChange={handleZoomChange}
-                className="relative flex h-6 w-full touch-none select-none items-center"
-              />
+              <div className="touch-pan-y touch-none select-none">
+                <Slider
+                  defaultValue={[0]}
+                  max={100}
+                  step={1}
+                  value={[zoomLevel]}
+                  onValueChange={handleZoomChange}
+                  className="relative flex h-10 w-full touch-none select-none items-center"
+                />
+              </div>
             </div>
 
             <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
