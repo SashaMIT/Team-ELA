@@ -100,15 +100,14 @@ const BuyElaPage = () => {
                       <Info className="w-4 h-4 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>Live network security metrics from Elastos Explorer</p>
+                      <div className="text-sm">
                         <a 
                           href={ELASTOS_API}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                          className="text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          View on Elastos Explorer
+                          View data on Elastos Explorer
                         </a>
                       </div>
                     </TooltipContent>
@@ -127,15 +126,14 @@ const BuyElaPage = () => {
                       <Info className="w-4 h-4 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>Current supply information from CoinGecko</p>
+                      <div className="text-sm">
                         <a 
                           href={`${COINGECKO_API}/coins/elastos`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                          className="text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          View on CoinGecko
+                          View data on CoinGecko
                         </a>
                       </div>
                     </TooltipContent>

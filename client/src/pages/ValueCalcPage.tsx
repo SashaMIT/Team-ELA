@@ -203,14 +203,13 @@ const ValueCalcPage = () => {
                         </TooltipTrigger>
                         <TooltipContent>
                           <div className="text-sm">
-                            Real-time Bitcoin network hashrate data provided by{' '}
                             <a 
                               href="https://blockchain.info/q/hashrate"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
+                              className="text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              Blockchain.info API
+                              View data on Blockchain.info
                             </a>
                           </div>
                         </TooltipContent>
@@ -239,14 +238,13 @@ const ValueCalcPage = () => {
                         </TooltipTrigger>
                         <TooltipContent>
                           <div className="text-sm">
-                            Real-time Elastos network hashrate data provided by{' '}
                             <a 
                               href="https://ela.elastos.io/api/v1/block/height/0"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
+                              className="text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              Elastos.io API
+                              View data on Elastos Explorer
                             </a>
                           </div>
                         </TooltipContent>

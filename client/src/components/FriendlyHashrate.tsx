@@ -80,15 +80,14 @@ const FriendlyHashrate = () => {
                 <Info className="inline-block w-4 h-4 ml-2 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent className="p-3 touch-auto">
-                <div className="text-sm space-y-2">
-                  <p>Live Bitcoin network security metrics provided by Minerstat</p>
+                <div className="text-sm">
                   <a 
                     href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                    className="text-blue-500 hover:text-blue-600 underline p-1"
                   >
-                    View on Minerstat
+                    View data on Minerstat
                   </a>
                 </div>
               </TooltipContent>
@@ -103,8 +102,15 @@ const FriendlyHashrate = () => {
                 <Info className="w-4 h-4 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent className="p-3 touch-auto">
-                <div className="text-sm space-y-2">
-                  <p>Network hashrate is updated every 5 minutes with verified blockchain data</p>
+                <div className="text-sm">
+                  <a 
+                    href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-600 underline p-1"
+                  >
+                    View data on Minerstat
+                  </a>
                 </div>
               </TooltipContent>
             </Tooltip>

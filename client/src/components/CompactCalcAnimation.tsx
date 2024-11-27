@@ -93,25 +93,15 @@ const CompactCalcAnimation = () => {
                         <Info className="w-4 h-4 text-muted-foreground cursor-help" />
                       </TooltipTrigger>
                       <TooltipContent className="p-3 touch-auto">
-                        <div className="text-sm space-y-2">
-                          <p>
-                            {s.label.includes("BTC") ? 
-                              "Bitcoin reward data from Minerstat API" :
-                              s.label.includes("USD") ?
-                                "Price data from CoinGecko API" :
-                                s.label.includes("Share") ?
-                                  "Security share calculated from Elastos and Bitcoin network data" :
-                                  "Token value derived from security metrics and market data"
-                            }
-                          </p>
+                        <div className="text-sm">
                           {s.label.includes("BTC") && (
                             <a 
                               href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                              className="text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              View on Minerstat
+                              View data on Minerstat
                             </a>
                           )}
                           {s.label.includes("USD") && (
@@ -119,9 +109,9 @@ const CompactCalcAnimation = () => {
                               href="https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                              className="text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              View Price Data
+                              View data on CoinGecko
                             </a>
                           )}
                           {s.label.includes("Share") && (
@@ -129,9 +119,9 @@ const CompactCalcAnimation = () => {
                               href="https://ela.elastos.io/api/v1/data-statistics"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                              className="text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              View Network Data
+                              View data on Elastos Explorer
                             </a>
                           )}
                         </div>

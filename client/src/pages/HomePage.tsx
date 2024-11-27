@@ -111,59 +111,40 @@ const stats: StatItem[] = [
                       <Info className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>
-                          {stat.label.includes("Bitcoin") ? (
-                            stat.label.includes("Price") ? 
-                              "Live Bitcoin price data updated every 5 minutes from " :
-                            stat.label.includes("Supply") ?
-                              "Current Bitcoin circulating supply information from " :
-                            stat.label.includes("Market Cap") ?
-                              "Real-time market capitalization data calculated using " :
-                              "Live Bitcoin network hashrate metrics provided by "
-                          ) : (
-                            stat.label.includes("Price") ?
-                              "Real-time Elastos price data with 5-minute updates from " :
-                            stat.label.includes("Supply") ?
-                              "Current Elastos circulating supply verified by " :
-                            stat.label.includes("Market Cap") ?
-                              "Real-time Elastos market capitalization from " :
-                              "Elastos network hashrate metrics from "
-                          )}
-                          {(stat.label.includes("Price") || stat.label.includes("Market Cap") || 
-                            stat.label.includes("Supply")) && (
-                            <a 
-                              href={stat.label.includes("Bitcoin") 
-                                ? "https://www.coingecko.com/en/coins/bitcoin"
-                                : "https://www.coingecko.com/en/coins/elastos"}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
-                            >
-                              View on CoinGecko
-                            </a>
-                          )}
-                          {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
-                            <a 
-                              href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
-                            >
-                              View on Minerstat
-                            </a>
-                          )}
-                          {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
-                            <a 
-                              href="https://ela.elastos.io/api/v1/data-statistics"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
-                            >
-                              View on Elastos Explorer
-                            </a>
-                          )}
-                        </p>
+                      <div className="text-sm">
+                        {(stat.label.includes("Price") || stat.label.includes("Market Cap") || 
+                          stat.label.includes("Supply")) && (
+                          <a 
+                            href={stat.label.includes("Bitcoin") 
+                              ? "https://www.coingecko.com/en/coins/bitcoin"
+                              : "https://www.coingecko.com/en/coins/elastos"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline p-1"
+                          >
+                            View data on CoinGecko
+                          </a>
+                        )}
+                        {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
+                          <a 
+                            href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline p-1"
+                          >
+                            View data on Minerstat
+                          </a>
+                        )}
+                        {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
+                          <a 
+                            href="https://ela.elastos.io/api/v1/data-statistics"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline p-1"
+                          >
+                            View data on Elastos Explorer
+                          </a>
+                        )}
                       </div>
                     </TooltipContent>
                   </Tooltip>

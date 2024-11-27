@@ -268,15 +268,14 @@ const HashrateVisualizer = () => {
                       </div>
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>Live Bitcoin network hashrate data provided by Minerstat</p>
+                      <div className="text-sm">
                         <a 
                           href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                          className="text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          View on Minerstat
+                          View data on Minerstat
                         </a>
                       </div>
                     </TooltipContent>
@@ -296,15 +295,14 @@ const HashrateVisualizer = () => {
                       </div>
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>Real-time Elastos network hashrate from Elastos Explorer</p>
+                      <div className="text-sm">
                         <a 
                           href="https://ela.elastos.io/api/v1/data-statistics"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                          className="text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          View on Elastos Explorer
+                          View data on Elastos Explorer
                         </a>
                       </div>
                     </TooltipContent>
