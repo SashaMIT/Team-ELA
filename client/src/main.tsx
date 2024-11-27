@@ -11,7 +11,6 @@ import SecurityPage from "./pages/SecurityPage";
 import ValueCalcPage from "./pages/ValueCalcPage";
 import SupplyPage from "./pages/SupplyPage";
 import BuyElaPage from "./pages/BuyElaPage";
-import "./i18n/i18n";
 
 function Router() {
   return (
