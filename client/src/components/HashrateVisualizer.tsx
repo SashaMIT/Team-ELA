@@ -1,14 +1,6 @@
-import React, { useState, FC } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Info } from "lucide-react";
-import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor, Shield, Lock } from 'lucide-react';
-import BlockVisualizer from './BlockVisualizer';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import React, { useState } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Monitor, Building2, Laptop, Smartphone, Cpu, Zap, Lock, Network, Server, Shield, Calculator, Info } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -17,17 +9,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useHashrateData } from '../hooks/useHashrateData';
 import FriendlyHashrate from './FriendlyHashrate';
 import HashScaleViz from './HashScaleViz';
+import BlockVisualizer from './BlockVisualizer';
 import MergeMiningViz from './MergeMiningViz';
-import { useHashrateData } from '../hooks/useHashrateData';
 
 interface Scale {
   unit: string;
-  buttonText?: string;
+  buttonText: string;
   base: number;
   icon: React.ReactNode;
   explanation: string;
@@ -35,15 +32,16 @@ interface Scale {
 }
 
 interface Scales {
-  smartphones: Scale;
-  computers: Scale;
-  datacenters: Scale;
-  supercomputers: Scale;
+  [key: string]: Scale;
 }
 
 type ScaleType = keyof Scales;
 
-const HashrateVisualizer = () => {
+interface HashrateVisualizerProps {
+  network: 'bitcoin' | 'elastos';
+}
+
+const HashrateVisualizer: React.FC<HashrateVisualizerProps> = ({ network }) => {
   const [selectedScale, setSelectedScale] = useState<ScaleType>('supercomputers');
   
   const scales: Scales = {
@@ -143,17 +141,20 @@ const HashrateVisualizer = () => {
     return num.toLocaleString();
   };
 
+  const isElastos = network === 'elastos';
+  const currentHashrate = isElastos ? elastosHashrate : bitcoinHashrate;
+  
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader className="p-4 sm:p-6 space-y-2">
-        <CardTitle className="flex items-start gap-2 text-lg sm:text-xl">
-          <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500 shrink-0 mt-1" />
+    <Card className="w-full">
+      <CardHeader className="p-3 sm:p-4">
+        <CardTitle className="flex items-start gap-2 text-base sm:text-lg">
+          <Zap className={`w-5 h-5 sm:w-6 sm:h-6 ${isElastos ? 'text-blue-500' : 'text-orange-500'} shrink-0 mt-1`} />
           <span className="leading-tight">
-            Bitcoin and Elastos Network Computing Power
+            {isElastos ? 'Elastos' : 'Bitcoin'} Network Computing Power
           </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4 sm:p-6">
+      <CardContent className="p-3 sm:p-4">
         <div className="space-y-6">
           {/* Dialog Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -374,46 +375,22 @@ const HashrateVisualizer = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
               {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
-                <TooltipProvider key={key} delayDuration={0}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant={selectedScale === key ? "default" : "outline"}
-                        onClick={() => setSelectedScale(key)}
-                        className={cn(
-                          "w-full gap-2 min-h-[2.5rem] px-2 py-1",
-                          selectedScale === key && "shadow-lg"
-                        )}
-                      >
-                        <span>{scales[key].icon}</span>
-                        <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>{explanation}</p>
-                        {key === 'supercomputers' && (
-                          <>
-                            <p>Comparison details:</p>
-                            <ul className="list-disc pl-4 space-y-1">
-                              <li>Peak Performance: 1.5 EH/s</li>
-                              <li>First exascale system</li>
-                              <li>Located at Oak Ridge Lab</li>
-                            </ul>
-                            <a 
-                              href="https://www.olcf.ornl.gov/frontier/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
-                            >
-                              Learn more about Frontier
-                            </a>
-                          </>
-                        )}
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <Button
+                  key={key}
+                  variant={selectedScale === key ? "secondary" : "outline"}
+                  className={`w-full flex flex-col items-center gap-2 p-4 h-auto ${
+                    selectedScale === key ? "bg-accent" : ""
+                  }`}
+                  onClick={() => setSelectedScale(key)}
+                >
+                  {icon}
+                  <div className="text-center">
+                    <div className="text-sm font-medium">{unit}</div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {formatNumber(calculateEquivalent(currentHashrate, scales[key].base))}
+                    </div>
+                  </div>
+                </Button>
               ))}
             </div>
 
