@@ -150,7 +150,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 px-2 sm:px-0">
             <div className="bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -199,7 +199,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2">
+          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2 mx-2 sm:mx-0">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
@@ -240,8 +240,9 @@ const ELASupplyPage = () => {
                       role="slider"
                       data-touch-action="none"
                       style={{
-                        '--thumb-shadow': '0 2px 4px rgba(0,0,0,0.1)',
-                        '--thumb-hover-shadow': '0 4px 8px rgba(0,0,0,0.2)',
+                        // Use CSS custom properties in a type-safe way
+                        ['--thumb-shadow' as string]: '0 2px 4px rgba(0,0,0,0.1)',
+                        ['--thumb-hover-shadow' as string]: '0 4px 8px rgba(0,0,0,0.2)',
                       }}
                     />
                   </div>

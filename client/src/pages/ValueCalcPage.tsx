@@ -60,9 +60,9 @@ const ValueCalcPage = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
-          <div className="space-y-8">
+          <div className="space-y-4 sm:space-y-8 px-2 sm:px-0">
             {/* Dialog buttons */}
-            <div className="flex flex-col sm:flex-row gap-2 mb-6">
+            <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
@@ -173,7 +173,7 @@ const ValueCalcPage = () => {
             </div>
             
             {/* Value Display */}
-            <div className="bg-accent/10 p-6 rounded-lg text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
+            <div className="bg-accent/10 p-4 sm:p-6 rounded-lg text-xl sm:text-2xl font-bold text-center mb-4 flex flex-col items-center justify-center">
               <div className="flex items-center gap-2 mb-2">
                 <DollarSign className="w-6 h-6 text-green-500" />
                 <span>{estimatedValue.toFixed(2)}</span>
