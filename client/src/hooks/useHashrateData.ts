@@ -65,7 +65,6 @@ const fetchHashrate = async (): Promise<number> => {
     return Number(formatted);
   } catch (error) {
     console.error('Bitcoin hashrate fetch error:', error);
-    // Log detailed error for monitoring
     if ((error as FetchError).status) {
       console.error(`Status: ${(error as FetchError).status}, Endpoint: ${(error as FetchError).endpoint}`);
     }
@@ -78,12 +77,15 @@ const fetchElastosHashrate = async (): Promise<number> => {
     const response = await fetchWithRetry('https://ela.elastos.io/api/v1/data-statistics/', {
       method: 'GET',
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache'
       }
     });
     
     const data = await response.json();
-    if (!data.networkHashps) {
+    
+    // Extract network hashrate from the new API response format
+    if (!data || !data.networkHashps) {
       throw new Error('Network hashrate not found in response');
     }
     
@@ -94,14 +96,22 @@ const fetchElastosHashrate = async (): Promise<number> => {
       throw new Error('Invalid hashrate value received');
     }
     
+    // Validate the hashrate is within a reasonable range
+    if (hashrateInEH <= 0 || hashrateInEH > 1000) {
+      throw new Error('Hashrate value out of expected range');
+    }
+    
     return hashrateInEH;
   } catch (error) {
     console.warn('Elastos hashrate fetch error:', error);
-    // Log detailed error for monitoring
+    // Enhanced error logging
     if ((error as FetchError).status) {
-      console.error(`Status: ${(error as FetchError).status}, Endpoint: ${(error as FetchError).endpoint}`);
+      console.error(`API Error - Status: ${(error as FetchError).status}, Endpoint: ${(error as FetchError).endpoint}`);
+    } else {
+      console.error('Network or parsing error:', error.message);
     }
-    // Use more recent fallback value
+    // Use recent fallback value with a warning
+    console.warn('Using fallback hashrate value');
     return 48.52;
   }
 };
@@ -141,7 +151,6 @@ export const useHashrateData = () => {
     queryKey: ['hashrate-and-price'],
     queryFn: async () => {
       try {
-        // Sequential fetching with individual error handling
         const results = {
           bitcoinHashrate: 671.05,
           elastosHashrate: 48.52,
@@ -151,33 +160,20 @@ export const useHashrateData = () => {
           elaPriceChange24h: 0
         };
 
-        try {
-          results.bitcoinHashrate = await fetchHashrate();
-        } catch (error) {
-          console.error('Bitcoin hashrate fetch failed:', error);
-        }
+        const fetchPromises = [
+          fetchHashrate().then(hr => results.bitcoinHashrate = hr),
+          fetchElastosHashrate().then(hr => results.elastosHashrate = hr),
+          fetchBitcoinPrice().then(({ price, change24h }) => {
+            results.bitcoinPrice = price;
+            results.bitcoinPriceChange24h = change24h;
+          }),
+          fetchELAPrice().then(({ price, change24h }) => {
+            results.elaPrice = price;
+            results.elaPriceChange24h = change24h;
+          })
+        ];
 
-        try {
-          const bitcoinPriceData = await fetchBitcoinPrice();
-          results.bitcoinPrice = bitcoinPriceData.price;
-          results.bitcoinPriceChange24h = bitcoinPriceData.change24h;
-        } catch (error) {
-          console.error('Bitcoin price fetch failed:', error);
-        }
-
-        try {
-          const elaPriceData = await fetchELAPrice();
-          results.elaPrice = elaPriceData.price;
-          results.elaPriceChange24h = elaPriceData.change24h;
-        } catch (error) {
-          console.error('ELA price fetch failed:', error);
-        }
-
-        try {
-          results.elastosHashrate = await fetchElastosHashrate();
-        } catch (error) {
-          console.error('Elastos hashrate fetch failed:', error);
-        }
+        await Promise.allSettled(fetchPromises);
         
         return {
           ...results,
@@ -186,7 +182,6 @@ export const useHashrateData = () => {
         };
       } catch (error) {
         console.error('Critical failure in data fetching:', error);
-        // Return fallback values for complete failure scenario
         return {
           bitcoinHashrate: 671.05,
           elastosHashrate: 48.52,
