@@ -343,7 +343,7 @@ const HashrateVisualizer = () => {
                             rel="noopener noreferrer"
                             className="text-blue-500 hover:text-blue-600 underline p-1"
                           >
-                            View Bitcoin Network Data
+                            View Real-time Bitcoin Network Statistics
                           </a>
                           <a 
                             href="https://ela.elastos.io/api/v1/data-statistics"
