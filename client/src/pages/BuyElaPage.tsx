@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Shield, Lock, Bitcoin, Star, Wallet, ExternalLink, CheckCircle, CheckCircle2 } from 'lucide-react';
+import { Shield, Lock, Bitcoin, Star, Wallet, ExternalLink, CheckCircle, CheckCircle2, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useHashrateData } from '../hooks/useHashrateData';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
 
 const BuyElaPage = () => {
   const { data: hashrateData } = useHashrateData();
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
   const [animatedHashrate, setAnimatedHashrate] = useState(0);
+
+  const COINGECKO_API = 'https://api.coingecko.com/api/v3';
+  const ELASTOS_API = 'https://ela.elastos.io/api/v1/data-statistics';
 
   const realHashrateData = [
     { year: '2018', hashrate: 22, btcHashrate: 101, percentage: "21.8%" },
@@ -83,22 +92,118 @@ const BuyElaPage = () => {
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-4 gap-2">
             <div className="bg-blue-50 p-2 rounded-lg text-center">
-              <Shield className="inline text-blue-500 h-4 w-4 mb-1" />
+              <div className="flex items-center justify-center gap-1">
+                <Shield className="inline text-blue-500 h-4 w-4 mb-1" />
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild className="touch-auto">
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Live network security metrics from Elastos Explorer</p>
+                        <a 
+                          href={ELASTOS_API}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                        >
+                          View on Elastos Explorer
+                        </a>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <div className="text-sm font-bold">{animatedHashrate.toFixed(2)} EH/s</div>
               <div className="text-xs text-gray-600">Security Power</div>
             </div>
             <div className="bg-purple-50 p-2 rounded-lg text-center">
-              <Lock className="inline text-purple-500 h-4 w-4 mb-1" />
+              <div className="flex items-center justify-center gap-1">
+                <Lock className="inline text-purple-500 h-4 w-4 mb-1" />
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild className="touch-auto">
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Current supply information from CoinGecko</p>
+                        <a 
+                          href={`${COINGECKO_API}/coins/elastos`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                        >
+                          View on CoinGecko
+                        </a>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <div className="text-sm font-bold">28.22M</div>
               <div className="text-xs text-gray-600">Max Supply</div>
             </div>
             <div className="bg-green-50 p-2 rounded-lg text-center">
-              <Star className="inline text-green-500 h-4 w-4 mb-1" />
+              <div className="flex items-center justify-center gap-1">
+                <Star className="inline text-green-500 h-4 w-4 mb-1" />
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild className="touch-auto">
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Current staking APY from Elastos Explorer</p>
+                        <a 
+                          href={ELASTOS_API}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                        >
+                          View on Elastos Explorer
+                        </a>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <div className="text-sm font-bold">3.29%</div>
               <div className="text-xs text-gray-600">APY</div>
             </div>
             <div className="bg-orange-50 p-2 rounded-lg text-center">
-              <CheckCircle className="inline text-orange-500 h-4 w-4 mb-1" />
+              <div className="flex items-center justify-center gap-1">
+                <CheckCircle className="inline text-orange-500 h-4 w-4 mb-1" />
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild className="touch-auto">
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Percentage of Bitcoin's security power from real-time network data</p>
+                        <a 
+                          href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                        >
+                          View Bitcoin Data
+                        </a>
+                        <a 
+                          href={ELASTOS_API}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                        >
+                          View Elastos Data
+                        </a>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
               <div className="text-sm font-bold">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
               <div className="text-xs text-gray-600">Security Share</div>
             </div>
@@ -240,7 +345,7 @@ const BuyElaPage = () => {
                 <AreaChart data={realHashrateData}>
                   <XAxis dataKey="year" tick={{fontSize: 10}} />
                   <YAxis tick={{fontSize: 10}} />
-                  <Tooltip />
+                  <RechartsTooltip />
                   <Area 
                     type="monotone" 
                     dataKey="btcHashrate" 

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Lock, ArrowRight } from 'lucide-react';
+import { Lock, ArrowRight, Info } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useHashrateData } from '../hooks/useHashrateData';
 
 const CompactCalcAnimation = () => {
@@ -78,8 +84,61 @@ const CompactCalcAnimation = () => {
                 step >= i ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
             >
-              <div className={`bg-${s.color}-50 p-2 sm:p-3 rounded-lg w-full sm:w-[120px] min-w-[90px]`}>
-                <div className={`text-${s.color}-600 text-[10px] sm:text-xs mb-1`}>{s.label}</div>
+              <div className={`bg-${s.color}-50 p-2 sm:p-3 rounded-lg w-full sm:w-[120px] min-w-[90px] relative`}>
+                <div className="flex items-center justify-between">
+                  <div className={`text-${s.color}-600 text-[10px] sm:text-xs mb-1`}>{s.label}</div>
+                  <TooltipProvider delayDuration={0}>
+                    <Tooltip>
+                      <TooltipTrigger asChild className="touch-auto">
+                        <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="p-3 touch-auto">
+                        <div className="text-sm space-y-2">
+                          <p>
+                            {s.label.includes("BTC") ? 
+                              "Bitcoin reward data from Minerstat API" :
+                              s.label.includes("USD") ?
+                                "Price data from CoinGecko API" :
+                                s.label.includes("Share") ?
+                                  "Security share calculated from Elastos and Bitcoin network data" :
+                                  "Token value derived from security metrics and market data"
+                            }
+                          </p>
+                          {s.label.includes("BTC") && (
+                            <a 
+                              href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                            >
+                              View on Minerstat
+                            </a>
+                          )}
+                          {s.label.includes("USD") && (
+                            <a 
+                              href="https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                            >
+                              View Price Data
+                            </a>
+                          )}
+                          {s.label.includes("Share") && (
+                            <a 
+                              href="https://ela.elastos.io/api/v1/data-statistics"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                            >
+                              View Network Data
+                            </a>
+                          )}
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
                 <div className="font-mono text-[10px] sm:text-sm mb-1">{s.formula}</div>
                 <div className={`text-${s.color}-700 font-bold text-[11px] sm:text-sm`}>{s.result}</div>
               </div>
