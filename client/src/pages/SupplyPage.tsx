@@ -4,6 +4,7 @@ import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, Chev
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
