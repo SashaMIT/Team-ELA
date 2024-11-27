@@ -13,31 +13,22 @@ interface HashrateData {
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000;
-const MOBILE_RETRY_DELAY = 2000; // Longer delay for mobile devices
-const MOBILE_MAX_RETRIES = 5; // More retries for mobile
 
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-const fetchWithRetry = async (url: string, options: RequestInit = {}, retries = isMobile ? MOBILE_MAX_RETRIES : MAX_RETRIES): Promise<Response> => {
-  const retryDelay = isMobile ? MOBILE_RETRY_DELAY : RETRY_DELAY;
-  
+const fetchWithRetry = async (url: string, options: RequestInit = {}): Promise<Response> => {
   try {
     const response = await fetch(url, {
       ...options,
       headers: {
         'Accept': 'application/json',
-        'User-Agent': `Elastos-Dashboard/${isMobile ? 'Mobile' : 'Desktop'}`,
         ...options.headers,
       }
     });
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     return response;
   } catch (error) {
-    if (retries > 0) {
-      console.warn(`Retry ${MAX_RETRIES - retries + 1}/${MAX_RETRIES} for ${url} failed:`, error);
-      await new Promise(resolve => setTimeout(resolve, retryDelay));
-      return fetchWithRetry(url, options, retries - 1);
-    }
+    console.error('Fetch error:', error);
     throw error;
   }
 };
@@ -51,13 +42,15 @@ const fetchHashrate = async (): Promise<number> => {
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://ela.elastos.io/api/v1/data-statistics', {
+    const response = await fetch('https://ela.elastos.io/api/v1/data-statistics', {
       method: 'GET',
       headers: {
-        'Accept': 'application/json',
-        'User-Agent': `Elastos-Dashboard/${isMobile ? 'Mobile' : 'Desktop'}`
-      }
+        'Accept': 'application/json'
+      },
+      cache: 'no-cache'
     });
+    
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const data = await response.json();
     if (!data.networkHashps) {
@@ -65,34 +58,10 @@ const fetchElastosHashrate = async (): Promise<number> => {
     }
     
     const hashrate = Number(data.networkHashps) / 1e18;
-    if (hashrate <= 0) {
-      throw new Error('Invalid hashrate value: must be greater than 0');
-    }
-    
-    // Cache successful response with device type
-    localStorage.setItem('lastElastosHashrate', hashrate.toString());
-    localStorage.setItem('lastElastosHashrateTimestamp', Date.now().toString());
-    localStorage.setItem('lastElastosHashrateDevice', isMobile ? 'mobile' : 'desktop');
-    
     return hashrate;
   } catch (error) {
-    console.error(`Elastos hashrate fetch error (${isMobile ? 'Mobile' : 'Desktop'}):`, error);
-    
-    // Try to use cached data if available and not too old (within last hour)
-    const cachedHashrate = localStorage.getItem('lastElastosHashrate');
-    const cachedTimestamp = localStorage.getItem('lastElastosHashrateTimestamp');
-    const cachedDevice = localStorage.getItem('lastElastosHashrateDevice');
-    
-    if (cachedHashrate && cachedTimestamp && cachedDevice) {
-      const cacheAge = Date.now() - Number(cachedTimestamp);
-      // Use cache if it's less than 1 hour old and from the same device type
-      if (cacheAge < 3600000 && cachedDevice === (isMobile ? 'mobile' : 'desktop')) {
-        console.warn('Using cached hashrate data');
-        return Number(cachedHashrate);
-      }
-    }
-    
-    throw error;
+    console.error('Elastos hashrate fetch error:', error);
+    throw error; // Let React Query handle retries
   }
 };
 
@@ -162,6 +131,6 @@ export const useHashrateData = () => {
     },
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
     refetchIntervalInBackground: true,
-    retry: isMobile ? MOBILE_MAX_RETRIES : MAX_RETRIES,
+    retry: MAX_RETRIES,
   });
 };
