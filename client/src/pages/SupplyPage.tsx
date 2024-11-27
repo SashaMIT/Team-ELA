@@ -151,7 +151,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-2 sm:p-0">
             <div className="bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -218,7 +218,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Supply Chart */}
-          <div className="bg-white border rounded-lg p-2 sm:p-4 -mx-2 sm:mx-0">
+          <div className="bg-white border rounded-lg p-2 sm:p-4 w-full">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
               <h3 className="text-sm font-medium flex items-center gap-2">
                 <Database className="h-4 w-4 text-blue-500" />
@@ -236,16 +236,16 @@ const ELASupplyPage = () => {
                       onValueChange={handleZoomChange}
                       max={100}
                       step={1}
-                      className="w-full touch-pan-x touch-none select-none relative [--slider-thumb-size:32px] [--slider-track-height:12px] hover:cursor-grab active:cursor-grabbing"
+                      className="w-full touch-pan-x touch-none select-none relative [--slider-thumb-size:40px] [--slider-track-height:16px] hover:cursor-grab active:cursor-grabbing"
                       aria-label="Chart zoom level"
                       aria-valuemin={0}
                       aria-valuemax={100}
                       aria-valuenow={zoomLevel[0]}
                       role="slider"
-                      data-touch-action="none"
+                      data-touch-action="pan-x"
                       style={{
-                        ['--thumb-shadow' as string]: '0 2px 4px rgba(0,0,0,0.1)',
-                        ['--thumb-hover-shadow' as string]: '0 4px 8px rgba(0,0,0,0.2)',
+                        ['--thumb-shadow' as string]: '0 4px 8px rgba(0,0,0,0.2)',
+                        ['--thumb-hover-shadow' as string]: '0 6px 12px rgba(0,0,0,0.3)',
                       }}
                     />
                   </div>
@@ -315,7 +315,7 @@ const ELASupplyPage = () => {
           {/* Supply Schedule Dialog */}
           <Dialog open={showData} onOpenChange={setShowData}>
             <DialogContent 
-              className="max-w-[95vw] w-full sm:max-w-4xl mx-auto"
+              className="w-full sm:max-w-4xl mx-auto p-4"
               aria-labelledby="supply-schedule-title"
               aria-describedby="supply-schedule-description"
             >
