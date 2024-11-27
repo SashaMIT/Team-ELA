@@ -145,7 +145,7 @@ const stats: StatItem[] = [
                           )}
                           {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
                             <a 
-                              href="https://minerstat.com/coin/BTC"
+                              href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
