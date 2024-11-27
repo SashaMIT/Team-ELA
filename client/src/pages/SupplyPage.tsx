@@ -149,10 +149,10 @@ const ELASupplyPage = () => {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 w-full">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-2 sm:p-0">
-            <div className="bg-blue-50 p-3 rounded-lg">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2 sm:px-0">
+            <div className="w-full bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
                 <div>
@@ -163,7 +163,7 @@ const ELASupplyPage = () => {
               </div>
             </div>
 
-            <div className="bg-green-50 p-3 rounded-lg">
+            <div className="w-full bg-green-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Database className="text-green-500 h-5 w-5" />
                 <div>
@@ -174,7 +174,7 @@ const ELASupplyPage = () => {
               </div>
             </div>
 
-            <div className="bg-purple-50 p-3 rounded-lg">
+            <div className="w-full bg-purple-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Clock className="text-purple-500 h-5 w-5" />
                 <div className="w-full">
