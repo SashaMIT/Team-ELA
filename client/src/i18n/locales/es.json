@@ -1,0 +1,24 @@
+{
+  "common": {
+    "hashrate": "Tasa de hash",
+    "network": "Red",
+    "security": "Seguridad",
+    "value": "Valor",
+    "calculator": "Calculadora",
+    "supply": "Suministro",
+    "buyELA": "Comprar ELA"
+  },
+  "home": {
+    "title": "Comparación de tasa de hash de Bitcoin y Elastos",
+    "description": "Visualización y comparación de la seguridad de la red a través del análisis de tasa de hash"
+  },
+  "security": {
+    "title": "Seguridad de la Red",
+    "description": "Analizando los aspectos de seguridad de ambas redes"
+  },
+  "calculator": {
+    "title": "Calculadora de Valor",
+    "inputLabel": "Ingrese cantidad",
+    "calculate": "Calcular"
+  }
+}

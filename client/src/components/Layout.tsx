@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'wouter';
 import { Shield, Home, Calculator, TrendingUp, ShoppingCart } from 'lucide-react';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import {
   Sidebar,
   SidebarContent,
@@ -70,6 +71,7 @@ const NavigationMenu: React.FC = () => {
             Team ELA
           </span>
         </div>
+        <LanguageSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>

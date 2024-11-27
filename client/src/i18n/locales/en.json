@@ -1,0 +1,24 @@
+{
+  "common": {
+    "hashrate": "Hashrate",
+    "network": "Network",
+    "security": "Security",
+    "value": "Value",
+    "calculator": "Calculator",
+    "supply": "Supply",
+    "buyELA": "Buy ELA"
+  },
+  "home": {
+    "title": "Bitcoin and Elastos Network Hashrate Comparison",
+    "description": "Visualizing and comparing network security through hashrate analysis"
+  },
+  "security": {
+    "title": "Network Security",
+    "description": "Analyzing the security aspects of both networks"
+  },
+  "calculator": {
+    "title": "Value Calculator",
+    "inputLabel": "Enter amount",
+    "calculate": "Calculate"
+  }
+}

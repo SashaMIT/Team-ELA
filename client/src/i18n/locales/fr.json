@@ -1,0 +1,24 @@
+{
+  "common": {
+    "hashrate": "Taux de hachage",
+    "network": "Réseau",
+    "security": "Sécurité",
+    "value": "Valeur",
+    "calculator": "Calculatrice",
+    "supply": "Offre",
+    "buyELA": "Acheter ELA"
+  },
+  "home": {
+    "title": "Comparaison des taux de hachage Bitcoin et Elastos",
+    "description": "Visualisation et comparaison de la sécurité du réseau via l'analyse du taux de hachage"
+  },
+  "security": {
+    "title": "Sécurité du Réseau",
+    "description": "Analyse des aspects de sécurité des deux réseaux"
+  },
+  "calculator": {
+    "title": "Calculatrice de Valeur",
+    "inputLabel": "Entrez le montant",
+    "calculate": "Calculer"
+  }
+}
