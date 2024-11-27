@@ -172,7 +172,7 @@ const HashrateVisualizer = () => {
                 <DialogHeader>
                   <DialogTitle id="hashrate-dialog-title">Understanding Hashrate</DialogTitle>
                   <DialogDescription id="hashrate-dialog-description">
-                    Learn how network hashrate secures blockchain transactions and its vital role in network security
+                    Understand how network hashrate secures blockchain transactions and its vital role in maintaining network security
                   </DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
@@ -211,7 +211,7 @@ const HashrateVisualizer = () => {
                 <DialogHeader>
                   <DialogTitle id="ehs-dialog-title">Understanding EH/s (ExaHashes per second)</DialogTitle>
                   <DialogDescription id="ehs-dialog-description">
-                    Learn about the measurement units used for network computing power
+                    Explore the measurement units used for quantifying network computing power and security strength
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 sm:space-y-6">
@@ -243,7 +243,7 @@ const HashrateVisualizer = () => {
                 <DialogHeader>
                   <DialogTitle id="merge-mining-dialog-title">Understanding Merge Mining</DialogTitle>
                   <DialogDescription id="merge-mining-dialog-description">
-                    Explore how Elastos leverages Bitcoin's network security through merge mining
+                    Discover how Elastos efficiently leverages Bitcoin's network security through advanced merge mining technology
                   </DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
@@ -287,7 +287,7 @@ const HashrateVisualizer = () => {
                           rel="noopener noreferrer"
                           className="text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          View Bitcoin Network Data on Minerstat
+                          View Real-time Bitcoin Network Data on Minerstat
                         </a>
                       </div>
                     </TooltipContent>

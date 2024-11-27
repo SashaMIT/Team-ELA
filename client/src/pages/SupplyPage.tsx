@@ -202,7 +202,12 @@ const ELASupplyPage = () => {
           {/* Progress Bar */}
           <div className="bg-white/50 p-3 sm:p-4 rounded-none sm:rounded-lg space-y-2.5 w-full mx-0">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2.5">
-              <span>Progress to Total Supply</span>
+              <div className="flex items-center">
+                <span>Progress to Total Supply</span>
+                <span className="text-xs text-muted-foreground ml-2">
+                  ({Math.ceil((new Date('2105-01-01').getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))}d until 2105)
+                </span>
+              </div>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
             </div>
             <div className="w-full bg-accent/20 rounded-full h-3">
