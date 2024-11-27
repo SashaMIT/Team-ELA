@@ -83,6 +83,14 @@ const ELASupplyPage = () => {
   };
 
   useEffect(() => {
+  useEffect(() => {
+    // Force a re-render after mount to ensure proper width calculation
+    const timer = setTimeout(() => {
+      setFilteredData([...supplySchedule]);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
     const timer = setInterval(() => {
       const now = new Date();
       const difference = nextHalvingDate.getTime() - now.getTime();
@@ -149,9 +157,9 @@ const ELASupplyPage = () => {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-4 w-full">
+        <CardContent className="space-y-4 w-full px-0">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2 sm:px-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2">
             <div className="w-full bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -261,8 +269,8 @@ const ELASupplyPage = () => {
                 </Button>
               </div>
             </div>
-            <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y touch-action-pan-y select-none transition-transform duration-300 ease-in-out">
-              <ResponsiveContainer>
+            <div className="w-full touch-none select-none" style={{ width: '100%', height: 300, minWidth: '0' }}>
+              <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={filteredData}
                   margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
