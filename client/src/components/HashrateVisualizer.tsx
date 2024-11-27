@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Info } from "lucide-react";
-import { Zap, Calculator, Cpu, Network, Server, Smartphone, Laptop, Building2, Monitor, Shield, Lock } from 'lucide-react';
+import { Info, AlertTriangle } from "lucide-react";
+import { Zap, Calculator, Cpu, Network, Server, Shield, Lock } from 'lucide-react';
 import BlockVisualizer from './BlockVisualizer';
 import {
   Tooltip,
@@ -51,7 +51,7 @@ const HashrateVisualizer = () => {
       unit: "Frontier Supercomputers",
       buttonText: "Supercomputers",
       base: 1_500_000_000_000,
-      icon: <Monitor className="w-5 h-5 text-orange-500" />,
+      icon: <Cpu className="w-5 h-5 text-orange-500" />,
       explanation: "Compared to Frontier, the world's fastest supercomputer (1.5 EH/s theoretical peak)",
       details: [
         "Frontier: 1.5 EH/s theoretical peak performance",
@@ -63,7 +63,7 @@ const HashrateVisualizer = () => {
       unit: "Large data centers",
       buttonText: "Data Centers",
       base: 500_000_000_000,
-      icon: <Building2 className="w-5 h-5 text-green-500" />,
+      icon: <Server className="w-5 h-5 text-green-500" />,
       explanation: "Based on data center with 1000 servers with multiple GPUs",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
@@ -75,7 +75,7 @@ const HashrateVisualizer = () => {
       unit: "High-end gaming PCs",
       buttonText: "Gaming PCs",
       base: 160_000_000,
-      icon: <Laptop className="w-5 h-5 text-purple-500" />,
+      icon: <Network className="w-5 h-5 text-purple-500" />,
       explanation: "Based on RTX 4090 (~140 MH/s) + CPU (~20 MH/s) for SHA-256",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
@@ -87,7 +87,7 @@ const HashrateVisualizer = () => {
       unit: "iPhone calculations",
       buttonText: "iPhones",
       base: 15_000_000,
-      icon: <Smartphone className="w-5 h-5 text-blue-500" />,
+      icon: <Calculator className="w-5 h-5 text-blue-500" />,
       explanation: "Based on iPhone CPU performing SHA-256 hashes at ~15 MH/s",
       details: [
         "1 EH/s = 1,000,000,000,000 MH/s",
@@ -155,6 +155,51 @@ const HashrateVisualizer = () => {
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
+          {/* Security Cards - Modified Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card className="bg-orange-50 p-4 rounded-lg border-none">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Server className="w-5 h-5 text-orange-500" />
+                  <h3 className="font-semibold">Bitcoin Network</h3>
+                </div>
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-sm">Real-time Bitcoin network hashrate</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <div className="text-2xl font-bold text-orange-600">{bitcoinHashrate.toFixed(2)} EH/s</div>
+              <p className="text-sm text-muted-foreground mt-1">Total Network Computing Power</p>
+            </Card>
+
+            <Card className="bg-blue-50 p-4 rounded-lg border-none">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-blue-500" />
+                  <h3 className="font-semibold">Elastos Security</h3>
+                </div>
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-sm">Security power through merge mining</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <div className="text-2xl font-bold text-blue-600">{elastosHashrate.toFixed(2)} EH/s</div>
+              <p className="text-sm text-muted-foreground mt-1">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}% of Bitcoin's Security</p>
+            </Card>
+          </div>
+
           {/* Dialog Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <Dialog>
@@ -266,106 +311,12 @@ const HashrateVisualizer = () => {
             </Dialog>
           </div>
 
-          {/* Colored Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div className="bg-orange-50 p-4 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Server className="w-5 h-5 text-orange-500" />
-                <TooltipProvider delayDuration={0}>
-                  <Tooltip>
-                    <TooltipTrigger asChild className="touch-auto">
-                      <div className="cursor-help">
-                        <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
-                        <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm">
-                        <a 
-                          href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 underline p-1"
-                        >
-                          View Real-time Bitcoin Network Data on Minerstat
-                        </a>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-blue-500" />
-                <TooltipProvider delayDuration={0}>
-                  <Tooltip>
-                    <TooltipTrigger asChild className="touch-auto">
-                      <div className="cursor-help">
-                        <div className="text-sm text-gray-600">Elastos Hashrate</div>
-                        <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm">
-                        <a 
-                          href="https://ela.elastos.io/api/v1/data-statistics"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 underline p-1"
-                        >
-                          View data on Elastos Explorer
-                        </a>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Lock className="w-5 h-5 text-green-500" />
-                <TooltipProvider delayDuration={0}>
-                  <Tooltip>
-                    <TooltipTrigger asChild className="touch-auto">
-                      <div className="cursor-help">
-                        <div className="text-sm text-gray-600">Security Share</div>
-                        <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm">
-                        <p>Percentage of Bitcoin's network security power utilized through merge mining with Elastos</p>
-                        <div className="flex flex-col gap-2 mt-2">
-                          <a 
-                            href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:text-blue-600 underline p-1"
-                          >
-                            View Real-time Bitcoin Network Statistics
-                          </a>
-                          <a 
-                            href="https://ela.elastos.io/api/v1/data-statistics"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:text-blue-600 underline p-1"
-                          >
-                            View Elastos Network Data
-                          </a>
-                        </div>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </div>
-          </div>
-
+          {/* Block Visualizer */}
           <div className="mb-6">
             <BlockVisualizer />
           </div>
 
+          {/* Comparison to Everyday Devices */}
           <div className="space-y-4">
             <div className="font-medium flex items-center gap-2">
               <Server className="w-5 h-5 text-blue-500" />
@@ -526,6 +477,25 @@ const HashrateVisualizer = () => {
                   <div key={index}>{detail}</div>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Financial Disclaimer */}
+          <div className="mt-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+            <div className="flex items-center gap-2 mb-2">
+              <AlertTriangle className="w-5 h-5 text-yellow-500" />
+              <h3 className="font-semibold text-yellow-700">Financial Disclaimer</h3>
+            </div>
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p>
+                The information provided on this page is for educational purposes only and should not be considered as financial advice. Cryptocurrency investments carry significant risks and may not be suitable for all investors.
+              </p>
+              <p>
+                Historical performance, security metrics, and network statistics do not guarantee future results. Always conduct your own research and consider consulting with a financial advisor before making any investment decisions.
+              </p>
+              <p>
+                Network security data is provided in real-time from blockchain.info and ela.elastos.io APIs. While we strive for accuracy, we cannot guarantee the precision of these metrics at all times.
+              </p>
             </div>
           </div>
         </div>
