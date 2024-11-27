@@ -59,9 +59,12 @@ const NavigationMenu: React.FC = () => {
       <SidebarHeader className="flex flex-col items-center justify-center gap-4 p-4">
         <div className="flex items-center gap-2">
           <img
-            src="/Elastos New Logo_Kit-03.svg"
+            src="/elastos-logo.svg"
             alt="Elastos Logo"
             className="w-6 h-6"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
           />
           <span className="text-lg font-semibold">
             Team ELA
