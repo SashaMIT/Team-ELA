@@ -204,12 +204,12 @@ const ValueCalcPage = () => {
                         <TooltipContent>
                           <div className="text-sm">
                             <a 
-                              href="https://blockchain.info/q/hashrate"
+                              href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              View data on Blockchain.info
+                              View data on Minerstat
                             </a>
                           </div>
                         </TooltipContent>
@@ -239,7 +239,7 @@ const ValueCalcPage = () => {
                         <TooltipContent>
                           <div className="text-sm">
                             <a 
-                              href="https://ela.elastos.io/api/v1/block/height/0"
+                              href="https://ela.elastos.io/api/v1/data-statistics"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-500 hover:text-blue-600 underline p-1"

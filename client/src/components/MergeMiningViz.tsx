@@ -141,21 +141,20 @@ const MergeMiningViz = () => {
         <div className="absolute top-4 right-4 bg-card/90 rounded-lg p-2 text-sm">
           <div className="flex items-center gap-2">
             <div className="text-orange-500">Bitcoin Hashrate: {bitcoinHashrate.toFixed(2)} EH/s</div>
-            <TooltipProvider>
+            <TooltipProvider delayDuration={0}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="w-4 h-4 text-muted-foreground cursor-help" />
                 </TooltipTrigger>
-                <TooltipContent>
-                  <div className="text-xs">
-                    Real-time Bitcoin network hashrate data provided by{' '}
+                <TooltipContent className="p-3 touch-auto">
+                  <div className="text-sm">
                     <a 
-                      href="https://blockchain.info/q/hashrate"
+                      href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-500 hover:text-blue-600 underline"
+                      className="text-blue-500 hover:text-blue-600 underline p-1"
                     >
-                      Blockchain.info API
+                      View data on Minerstat
                     </a>
                   </div>
                 </TooltipContent>
@@ -164,21 +163,20 @@ const MergeMiningViz = () => {
           </div>
           <div className="flex items-center gap-2">
             <div className="text-blue-500">Elastos Security: {securityPercentage}%</div>
-            <TooltipProvider>
+            <TooltipProvider delayDuration={0}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Info className="w-4 h-4 text-muted-foreground cursor-help" />
                 </TooltipTrigger>
-                <TooltipContent>
-                  <div className="text-xs">
-                    Real-time Elastos network security metrics provided by{' '}
+                <TooltipContent className="p-3 touch-auto">
+                  <div className="text-sm">
                     <a 
-                      href="https://ela.elastos.io/api/v1/block/height/0"
+                      href="https://ela.elastos.io/api/v1/data-statistics"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-500 hover:text-blue-600 underline"
+                      className="text-blue-500 hover:text-blue-600 underline p-1"
                     >
-                      Elastos.io API
+                      View data on Elastos Explorer
                     </a>
                   </div>
                 </TooltipContent>
