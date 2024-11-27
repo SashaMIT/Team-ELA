@@ -98,8 +98,8 @@ const ELASupplyPage = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white p-4">
-      <Card className="max-w-4xl mx-auto">
+    <div className="w-full h-full bg-white p-2 sm:p-4">
+      <Card className="max-w-4xl mx-auto overflow-hidden">
         <CardHeader className="p-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <Heart className="w-5 h-5 text-blue-500 shrink-0" />
@@ -114,7 +114,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -163,7 +163,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-4 rounded-lg space-y-2">
+          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
@@ -187,7 +187,7 @@ const ELASupplyPage = () => {
                 <Database className="h-4 w-4 text-blue-500" />
                 Supply Growth
               </h3>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -208,7 +208,7 @@ const ELASupplyPage = () => {
                 </Button>
               </div>
             </div>
-            <div style={{ width: '100%', height: 400 }}>
+            <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
               <ResponsiveContainer>
                 <LineChart
                   data={supplySchedule}
@@ -262,12 +262,12 @@ const ELASupplyPage = () => {
 
           {/* Supply Schedule Dialog */}
           <Dialog open={showData} onOpenChange={setShowData}>
-            <DialogContent className="max-w-4xl">
+            <DialogContent className="max-w-[95vw] sm:max-w-4xl">
               <DialogHeader>
                 <DialogTitle>Supply Schedule Details</DialogTitle>
               </DialogHeader>
-              <div className="overflow-x-auto max-h-[60vh]">
-                <table className="w-full text-sm">
+              <div className="overflow-x-auto max-h-[60vh] -mx-4 sm:mx-0">
+                <table className="w-full text-sm table-auto">
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="p-2 text-left font-medium text-gray-600">Date</th>
