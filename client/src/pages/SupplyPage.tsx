@@ -83,21 +83,26 @@ const ELASupplyPage = () => {
   };
 
   useEffect(() => {
-    // Force a re-render after mount to ensure proper width calculation
+    // Force a re-render after mount
     const reloadTimer = setTimeout(() => {
       setFilteredData([...supplySchedule]);
     }, 0);
 
+    // Countdown timer
     const countdownTimer = setInterval(() => {
       const now = new Date();
       const difference = nextHalvingDate.getTime() - now.getTime();
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
       setCountdown(`${days}d ${hours}h ${minutes}m`);
     }, 1000);
-    return () => clearInterval(timer);
+
+    // Cleanup
+    return () => {
+      clearTimeout(reloadTimer);
+      clearInterval(countdownTimer);
+    };
   }, []);
 
   const getHalvingProgress = () => {
@@ -321,8 +326,6 @@ const ELASupplyPage = () => {
           <Dialog open={showData} onOpenChange={setShowData}>
             <DialogContent 
               className="w-full sm:max-w-4xl mx-auto p-4"
-              aria-labelledby="supply-schedule-title"
-              aria-describedby="supply-schedule-description"
               aria-labelledby="supply-schedule-title"
               aria-describedby="supply-schedule-description"
             >
