@@ -164,10 +164,14 @@ const HashrateVisualizer = () => {
                   What is Hashrate?
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
+              <DialogContent 
+                className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
+                aria-labelledby="hashrate-dialog-title"
+                aria-describedby="hashrate-dialog-description"
+              >
                 <DialogHeader>
-                  <DialogTitle>Understanding Hashrate</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle id="hashrate-dialog-title">Understanding Hashrate</DialogTitle>
+                  <DialogDescription id="hashrate-dialog-description">
                     Learn about network hashrate and its importance in blockchain security
                   </DialogDescription>
                 </DialogHeader>
@@ -199,10 +203,14 @@ const HashrateVisualizer = () => {
                   What is EH/s?
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
+              <DialogContent 
+                className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
+                aria-labelledby="ehs-dialog-title"
+                aria-describedby="ehs-dialog-description"
+              >
                 <DialogHeader>
-                  <DialogTitle>Understanding EH/s (ExaHashes per second)</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle id="ehs-dialog-title">Understanding EH/s (ExaHashes per second)</DialogTitle>
+                  <DialogDescription id="ehs-dialog-description">
                     Learn about the measurement units used for network computing power
                   </DialogDescription>
                 </DialogHeader>
@@ -227,10 +235,14 @@ const HashrateVisualizer = () => {
                   What is Merge Mining?
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm">
+              <DialogContent 
+                className="max-w-[95vw] sm:max-w-5xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm"
+                aria-labelledby="merge-mining-dialog-title"
+                aria-describedby="merge-mining-dialog-description"
+              >
                 <DialogHeader>
-                  <DialogTitle>Understanding Merge Mining</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle id="merge-mining-dialog-title">Understanding Merge Mining</DialogTitle>
+                  <DialogDescription id="merge-mining-dialog-description">
                     Explore how Elastos leverages Bitcoin's network security through merge mining
                   </DialogDescription>
                 </DialogHeader>
@@ -322,8 +334,16 @@ const HashrateVisualizer = () => {
                       </div>
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
+                      <div className="text-sm">
                         <p>Percentage of Bitcoin's network security power utilized through merge mining</p>
+                        <a 
+                          href="https://ela.elastos.io/api/v1/data-statistics"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 hover:text-blue-600 underline p-1"
+                        >
+                          View data on Elastos Explorer
+                        </a>
                       </div>
                     </TooltipContent>
                   </Tooltip>
