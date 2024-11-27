@@ -81,14 +81,14 @@ const FriendlyHashrate = () => {
               </TooltipTrigger>
               <TooltipContent className="p-3 touch-auto">
                 <div className="text-sm space-y-2">
-                  <p>Real-time Bitcoin network security metrics from Blockchain.info</p>
+                  <p>Real-time Bitcoin network security metrics from Minerstat</p>
                   <a 
-                    href="https://api.blockchain.info/stats"
+                    href="https://minerstat.com/coin/BTC"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                   >
-                    View on Blockchain.info
+                    View on Minerstat
                   </a>
                 </div>
               </TooltipContent>

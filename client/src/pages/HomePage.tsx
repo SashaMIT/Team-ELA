@@ -120,7 +120,7 @@ const stats: StatItem[] = [
                               "Current Bitcoin circulating supply data from " :
                             stat.label.includes("Market Cap") ?
                               "Real-time market capitalization calculations using data from " :
-                              "Bitcoin network hashrate metrics provided by "
+                              "Real-time Bitcoin network hashrate metrics from "
                           ) : (
                             stat.label.includes("Price") ?
                               "Real-time Elastos price data with 5-minute updates from " :
@@ -145,12 +145,12 @@ const stats: StatItem[] = [
                           )}
                           {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
                             <a 
-                              href="https://api.blockchain.info/stats"
+                              href="https://minerstat.com/coin/BTC"
                               target="_blank"
                               rel="noopener noreferrer"
                               className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              View on Blockchain.info
+                              View on Minerstat
                             </a>
                           )}
                           {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
