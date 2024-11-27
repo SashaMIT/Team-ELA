@@ -48,7 +48,11 @@ const fetchHashrate = async (): Promise<number> => {
 };
 
 const fetchElastosHashrate = async (): Promise<number> => {
+  let lastSuccessfulFetch = localStorage.getItem('lastElastosHashrate');
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
   try {
+    // Primary endpoint
     const response = await fetchWithRetry('https://ela.elastos.io/api/v1/data-statistics', {
       method: 'GET',
       headers: {
@@ -57,10 +61,33 @@ const fetchElastosHashrate = async (): Promise<number> => {
     });
     
     const data = await response.json();
-    return Number(data.networkHashps) / 1e18; // Convert to EH/s
-  } catch (error) {
-    console.warn('Elastos hashrate fetch error:', error);
-    return 48.52; // Fallback value
+    const hashrate = Number(data.networkHashps) / 1e18;
+    
+    // Store successful fetch
+    localStorage.setItem('lastElastosHashrate', hashrate.toString());
+    return hashrate;
+    
+  } catch (primaryError) {
+    console.warn(`Primary Elastos hashrate fetch error (${isMobile ? 'Mobile' : 'Desktop'}):`, primaryError);
+    
+    try {
+      // Secondary endpoint attempt (if available in the future)
+      console.warn('Primary endpoint failed, attempting secondary endpoint...');
+      // TODO: Add secondary endpoint implementation when available
+      
+      // Use last successful fetch if available
+      if (lastSuccessfulFetch) {
+        console.info('Using last successful fetch from cache');
+        return Number(lastSuccessfulFetch);
+      }
+      
+    } catch (secondaryError) {
+      console.error('Secondary endpoint also failed:', secondaryError);
+    }
+    
+    // Final fallback with device context
+    console.warn(`All endpoints failed. Using fallback value. Device type: ${isMobile ? 'Mobile' : 'Desktop'}`);
+    return 48.52;
   }
 };
 
