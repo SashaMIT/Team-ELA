@@ -83,15 +83,12 @@ const ELASupplyPage = () => {
   };
 
   useEffect(() => {
-  useEffect(() => {
     // Force a re-render after mount to ensure proper width calculation
-    const timer = setTimeout(() => {
+    const reloadTimer = setTimeout(() => {
       setFilteredData([...supplySchedule]);
     }, 0);
-    return () => clearTimeout(timer);
-  }, []);
 
-    const timer = setInterval(() => {
+    const countdownTimer = setInterval(() => {
       const now = new Date();
       const difference = nextHalvingDate.getTime() - now.getTime();
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -143,9 +140,9 @@ const ELASupplyPage = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white">
-      <Card className="w-full overflow-hidden">
-        <CardHeader className="p-3">
+    <div className="w-full h-full min-h-screen bg-white">
+      <Card className="w-full overflow-hidden shadow-sm">
+        <CardHeader className="p-3 sm:p-4">
           <CardTitle className="flex items-center gap-2 text-base">
             <Heart className="w-5 h-5 text-blue-500 shrink-0" />
             <div className="flex flex-col">
@@ -159,7 +156,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4 w-full px-0">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2 sm:px-4">
             <div className="w-full bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -208,7 +205,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2 mx-2 sm:mx-0">
+          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2 mx-2 sm:mx-4">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
@@ -324,6 +321,8 @@ const ELASupplyPage = () => {
           <Dialog open={showData} onOpenChange={setShowData}>
             <DialogContent 
               className="w-full sm:max-w-4xl mx-auto p-4"
+              aria-labelledby="supply-schedule-title"
+              aria-describedby="supply-schedule-description"
               aria-labelledby="supply-schedule-title"
               aria-describedby="supply-schedule-description"
             >
