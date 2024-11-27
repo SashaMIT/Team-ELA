@@ -200,7 +200,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2 mx-2 sm:mx-0">
+          <div className="bg-white/50 p-3 sm:p-4 rounded-none sm:rounded-lg space-y-2">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
