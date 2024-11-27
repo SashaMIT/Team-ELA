@@ -51,9 +51,9 @@ const ValueCalcPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-2 sm:p-4 md:p-6">
-      <Card className="w-full bg-background/95 backdrop-blur-sm">
-        <CardHeader className="p-2 sm:p-4 md:p-6">
+    <div className="min-h-screen bg-background p-2 sm:p-4 md:p-6 w-full">
+      <Card className="w-full bg-background/95 backdrop-blur-sm mx-auto">
+        <CardHeader className="p-2 sm:p-4">
           <CardTitle className="flex items-center gap-2 text-base sm:text-lg md:text-xl">
             <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500 shrink-0 mt-1" />
             <span className="leading-tight">Elastos Value Calculator</span>

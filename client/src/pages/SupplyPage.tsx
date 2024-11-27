@@ -151,7 +151,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4 w-full">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2 sm:px-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
             <div className="w-full bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -200,7 +200,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-3 sm:p-4 rounded-none sm:rounded-lg space-y-2">
+          <div className="bg-white/50 p-2 sm:p-4 rounded-none sm:rounded-lg space-y-2 w-full">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
