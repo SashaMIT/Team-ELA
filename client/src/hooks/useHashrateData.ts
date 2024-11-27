@@ -34,10 +34,14 @@ const fetchWithRetry = async (url: string, options: RequestInit = {}): Promise<R
 };
 
 const fetchHashrate = async (): Promise<number> => {
-  const response = await fetchWithRetry('https://blockchain.info/q/hashrate');
-  const hashrate = await response.json();
-  const formatted = String(hashrate).replace(/^(...)/g, '$1.');
-  return Number(formatted);
+  const response = await fetchWithRetry('https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D');
+  const data = await response.json();
+  
+  if (!data?.[0]?.network_hashrate) {
+    throw new Error('Invalid API response: network_hashrate not found');
+  }
+  
+  return Number(data[0].network_hashrate);
 };
 
 const fetchElastosHashrate = async (): Promise<number> => {
