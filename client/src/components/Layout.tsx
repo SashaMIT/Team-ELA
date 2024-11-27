@@ -18,11 +18,36 @@ interface LayoutProps {
 
 // Define menu items outside component to avoid recreation
 const menuItems = [
-  { icon: <Home className="w-5 h-5" />, label: 'Home', path: '/' },
-  { icon: <Shield className="w-5 h-5" />, label: 'Security', path: '/security' },
-  { icon: <Calculator className="w-5 h-5" />, label: 'Value Calc', path: '/value-calc' },
-  { icon: <TrendingUp className="w-5 h-5" />, label: 'Supply', path: '/supply' },
-  { icon: <ShoppingCart className="w-5 h-5" />, label: 'Buy ELA', path: '/buy-ela' },
+  { 
+    icon: <Home className="w-5 h-5 text-blue-500 transition-colors group-hover:text-blue-600" />, 
+    label: 'Home', 
+    path: '/',
+    activeColor: 'text-blue-600'
+  },
+  { 
+    icon: <Shield className="w-5 h-5 text-green-500 transition-colors group-hover:text-green-600" />, 
+    label: 'Security', 
+    path: '/security',
+    activeColor: 'text-green-600'
+  },
+  { 
+    icon: <Calculator className="w-5 h-5 text-purple-500 transition-colors group-hover:text-purple-600" />, 
+    label: 'Value Calc', 
+    path: '/value-calc',
+    activeColor: 'text-purple-600'
+  },
+  { 
+    icon: <TrendingUp className="w-5 h-5 text-orange-500 transition-colors group-hover:text-orange-600" />, 
+    label: 'Supply', 
+    path: '/supply',
+    activeColor: 'text-orange-600'
+  },
+  { 
+    icon: <ShoppingCart className="w-5 h-5 text-pink-500 transition-colors group-hover:text-pink-600" />, 
+    label: 'Buy ELA', 
+    path: '/buy-ela',
+    activeColor: 'text-pink-600'
+  },
 ];
 
 const NavigationMenu: React.FC = () => {
@@ -47,9 +72,9 @@ const NavigationMenu: React.FC = () => {
                   setOpenMobile(false);
                 }}
                 data-active={location === item.path}
-                className={`flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
+                className={`group flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
                   ${location === item.path 
-                    ? 'bg-accent text-accent-foreground font-medium' 
+                    ? `bg-accent font-medium ${item.activeColor}` 
                     : 'hover:bg-accent/50 active:bg-accent/70'}`}
               >
                 {item.icon}

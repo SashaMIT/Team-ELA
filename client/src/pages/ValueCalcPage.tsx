@@ -62,10 +62,10 @@ const ValueCalcPage = () => {
         <CardContent className="pt-0">
           <div className="space-y-4 sm:space-y-8 px-2 sm:px-0">
             {/* Dialog buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 sm:mb-6">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-2 mb-4 sm:mb-6 px-2 sm:px-0">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="flex items-center justify-center gap-2 w-full sm:w-auto py-6 sm:py-4">
                     <Calculator className="w-5 h-5 text-blue-500" />
                     What is the Value Calculator?
                   </Button>
@@ -116,7 +116,7 @@ const ValueCalcPage = () => {
 
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
+                  <Button variant="outline" className="flex items-center justify-center gap-2 w-full sm:w-auto py-6 sm:py-4">
                     <BarChart2 className="w-5 h-5 text-green-500" />
                     Value Calculation Methodology
                   </Button>
