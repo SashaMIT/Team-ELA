@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MergeMiningAnimation from '../components/MergeMiningAnimation';
 import { useHashrateData } from '../hooks/useHashrateData';
 import { useMarketCapData } from '../hooks/useMarketCapData';
-import { ChevronUp, ChevronDown, Info } from 'lucide-react';
+import { ChevronUp, ChevronDown, Info, AlertTriangle } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -21,7 +30,20 @@ interface StatItem {
 }
 
 const HomePage = () => {
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const { data: hashrateData } = useHashrateData();
+
+  useEffect(() => {
+    const hasSeenDisclaimer = localStorage.getItem('hasSeenDisclaimer');
+    if (!hasSeenDisclaimer) {
+      setShowDisclaimer(true);
+    }
+  }, []);
+
+  const handleAcceptDisclaimer = () => {
+    localStorage.setItem('hasSeenDisclaimer', 'true');
+    setShowDisclaimer(false);
+  };
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
   const elaPrice = hashrateData?.elaPrice ?? 0;
@@ -89,6 +111,35 @@ const stats: StatItem[] = [
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-1 sm:p-2">
+      <Dialog open={showDisclaimer} onOpenChange={setShowDisclaimer}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-yellow-500" />
+              Financial Disclaimer
+            </DialogTitle>
+            <DialogDescription>
+              Please read this important disclaimer before proceeding
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4 text-sm">
+            <p>
+              The information provided on this website is for general informational purposes only and should not be considered as financial advice.
+            </p>
+            <p>
+              Cryptocurrency investments carry significant risks, including the possible loss of all invested capital. Historical performance is not indicative of future results.
+            </p>
+            <p>
+              Always conduct your own research and consult with qualified financial advisors before making any investment decisions.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleAcceptDisclaimer} className="w-full">
+              I Understand and Accept
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 px-2">
         <div className="w-full flex justify-center items-center">
           <MergeMiningAnimation />
