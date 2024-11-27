@@ -131,6 +131,15 @@ const BuyElaPage = () => {
                 Essentials for Android
                 <ExternalLink size={12} />
               </a>
+              <a
+                href="https://elastos.info/staking-elastos-ela/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
+              >
+                How to stake ELA
+                <ExternalLink size={12} />
+              </a>
             </div>
           </div>
 
