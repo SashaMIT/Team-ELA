@@ -117,7 +117,7 @@ const stats: StatItem[] = [
                             stat.label.includes("Price") ? 
                               "Real-time Bitcoin price data with 5-minute updates from " :
                             stat.label.includes("Supply") ?
-                              "Verified Bitcoin protocol supply information via " :
+                              "Current Bitcoin circulating supply data from " :
                             stat.label.includes("Market Cap") ?
                               "Real-time market capitalization calculations using data from " :
                               "Bitcoin network hashrate metrics provided by "
@@ -131,7 +131,7 @@ const stats: StatItem[] = [
                               "Elastos network hashrate metrics from "
                           )}
                           {(stat.label.includes("Price") || stat.label.includes("Market Cap") || 
-                            (stat.label.includes("Supply") && !stat.label.includes("Bitcoin"))) && (
+                            stat.label.includes("Supply")) && (
                             <a 
                               href={stat.label.includes("Bitcoin") 
                                 ? "https://www.coingecko.com/en/coins/bitcoin"
