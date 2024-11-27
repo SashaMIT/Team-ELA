@@ -21,26 +21,40 @@ const fetchWithRetry = async (url: string, options: RequestInit = {}, retries = 
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'Elastos-Dashboard',
+        'Origin': window.location.origin,
+        'Cache-Control': 'no-cache',
         ...options.headers,
-      }
+      },
+      mode: 'cors',
+      cache: 'no-cache',
     });
-    if (!response.ok) throw new Error(response.statusText);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+    }
     return response;
   } catch (error) {
     if (retries > 0) {
-      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+      console.warn(`Retry attempt ${MAX_RETRIES - retries + 1}/${MAX_RETRIES} for ${url}`);
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY * (MAX_RETRIES - retries + 1)));
       return fetchWithRetry(url, options, retries - 1);
     }
+    console.error(`Failed to fetch ${url} after ${MAX_RETRIES} retries:`, error);
     throw error;
   }
 };
 
 const fetchHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://blockchain.info/q/hashrate');
-    const hashrate = await response.json();
-    const formatted = String(hashrate).replace(/^(...)/g, '$1.');
-    return Number(formatted);
+    const response = await fetchWithRetry('/api/blockchain/q/hashrate', {
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+    const hashrate = await response.text();
+    // Format hashrate from GH/s to EH/s
+    return Number(hashrate) / 1000000;
   } catch (error) {
     console.warn('Bitcoin hashrate fetch error:', error);
     return 671.05; // Fallback value
@@ -49,22 +63,23 @@ const fetchHashrate = async (): Promise<number> => {
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://api.elastos.io/ela', {
-      method: 'POST',
+    // Using new REST API endpoint for mining info
+    const response = await fetchWithRetry('/api/elastos/api/v1/mining/info', {
       headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        method: 'getmininginfo',
-        params: []
-      })
+        'Accept': 'application/json'
+      }
     });
-    
     const data = await response.json();
-    return Number(data.result.networkhashps) / 1e18; // Convert to EH/s
+    
+    if (!data || !data.hashrate) {
+      throw new Error('Invalid response format');
+    }
+    
+    // Convert hashrate from H/s to EH/s (data comes in H/s)
+    return Number(data.hashrate) / 1e18;
   } catch (error) {
     console.warn('Elastos hashrate fetch error:', error);
-    return 48.52; // Fallback value
+    return 48.52; // Fallback value if API fails
   }
 };
 

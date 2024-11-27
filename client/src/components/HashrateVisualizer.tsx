@@ -24,6 +24,7 @@ import FriendlyHashrate from './FriendlyHashrate';
 import HashScaleViz from './HashScaleViz';
 import MergeMiningViz from './MergeMiningViz';
 import { useHashrateData } from '../hooks/useHashrateData';
+
 interface Scale {
   unit: string;
   buttonText?: string;
@@ -44,7 +45,6 @@ type ScaleType = keyof Scales;
 
 const HashrateVisualizer = () => {
   const [selectedScale, setSelectedScale] = useState<ScaleType>('supercomputers');
-  
   const scales: Scales = {
     supercomputers: {
       unit: "Frontier Supercomputers",
@@ -95,8 +95,6 @@ const HashrateVisualizer = () => {
       ]
     }
   };
-
-  
 
   const { data: hashrateData, isLoading, error } = useHashrateData();
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
@@ -151,12 +149,29 @@ const HashrateVisualizer = () => {
           <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500 shrink-0 mt-1" />
           <span className="leading-tight">
             Bitcoin and Elastos' Computing Power
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-4 h-4 ml-2 text-muted-foreground inline-block" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="space-y-2 max-w-[300px]">
+                    <p className="text-sm font-medium">Real-time Network Data</p>
+                    <p className="text-xs">Data refreshes every 5 minutes from:</p>
+                    <ul className="text-xs list-disc pl-4">
+                      <li>blockchain.info API for Bitcoin metrics</li>
+                      <li>elastos.io REST API for Elastos data</li>
+                      <li>Auto-retries on failed fetches</li>
+                    </ul>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
         <div className="space-y-6">
-          {/* Dialog Buttons */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <Dialog>
               <DialogTrigger asChild>
@@ -255,13 +270,35 @@ const HashrateVisualizer = () => {
             </Dialog>
           </div>
 
-          {/* Colored Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             <div className="bg-orange-50 p-4 rounded-lg">
               <div className="flex items-center gap-2">
                 <Server className="w-5 h-5 text-orange-500" />
                 <div>
-                  <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
+                  <div className="text-sm text-gray-600 flex items-center gap-2">
+                    Bitcoin Hashrate
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <div className="space-y-2 max-w-[300px]">
+                            <p className="text-sm">Network Security Metrics:</p>
+                            <ul className="text-xs space-y-1">
+                              <li>• Real-time hashrate from blockchain.info API</li>
+                              <li>• Endpoint: <code>/q/hashrate</code> with automatic retries</li>
+                              <li>• 5-minute data refresh with error handling</li>
+                              <li>• Measured in ExaHashes per second (EH/s)</li>
+                              <li>• Fallback value: 671.05 EH/s if API is unavailable</li>
+                              <li>• Represents total Bitcoin network computing power</li>
+                              <li>• Data formatted with decimal precision (.00)</li>
+                            </ul>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
@@ -270,7 +307,31 @@ const HashrateVisualizer = () => {
               <div className="flex items-center gap-2">
                 <Shield className="w-5 h-5 text-blue-500" />
                 <div>
-                  <div className="text-sm text-gray-600">Elastos Hashrate</div>
+                  <div className="text-sm text-gray-600 flex items-center gap-2">
+                    Elastos Hashrate
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <div className="space-y-2 max-w-[300px]">
+                            <p className="text-sm">Merge Mining Stats:</p>
+                            <ul className="text-xs space-y-1">
+                              <li>• Data from elastos.io RPC API (<code>getmininginfo</code>)</li>
+                              <li>• Direct network hashrate measurement</li>
+                              <li>• Auto-updates every 5 minutes with 3 retry attempts</li>
+                              <li>• Current security share: {((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}% of Bitcoin</li>
+                              <li>• Exponential backoff retry strategy</li>
+                              <li>• Real-time hashrate tracking</li>
+                              <li>• Fallback value: 48.52 EH/s if API is unavailable</li>
+                              <li>• Conversion from raw hashrate to EH/s (1 EH/s = 10^18 H/s)</li>
+                            </ul>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
                 </div>
               </div>
@@ -279,7 +340,27 @@ const HashrateVisualizer = () => {
               <div className="flex items-center gap-2">
                 <Lock className="w-5 h-5 text-green-500" />
                 <div>
-                  <div className="text-sm text-gray-600">Security Share</div>
+                  <div className="text-sm text-gray-600 flex items-center gap-2">
+                    Security Share
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="w-4 h-4 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <div className="space-y-2 max-w-[250px]">
+                            <p className="text-sm">Network Security Analysis:</p>
+                            <ul className="text-xs space-y-1">
+                              <li>• Real-time security share calculation</li>
+                              <li>• Based on current network hashrates</li>
+                              <li>• Indicates merge mining efficiency</li>
+                              <li>• Updated every 5 minutes</li>
+                            </ul>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
                   <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
                 </div>
               </div>
@@ -290,14 +371,13 @@ const HashrateVisualizer = () => {
             <BlockVisualizer />
           </div>
 
-          
 
           <div className="space-y-4">
             <div className="font-medium flex items-center gap-2">
               <Server className="w-5 h-5 text-blue-500" />
               Compare to everyday devices:
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
               {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
                 <TooltipProvider key={key}>
