@@ -105,13 +105,13 @@ const stats: StatItem[] = [
                 <div className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground">
                   {stat.label}
                 </div>
-                <TooltipProvider>
+                <TooltipProvider delayDuration={0}>
                   <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Info className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground cursor-help" />
+                    <TooltipTrigger asChild className="touch-auto">
+                      <Info className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
-                    <TooltipContent>
-                      <div className="text-xs sm:text-sm space-y-1">
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
                         <p>
                           {stat.label.includes("Bitcoin") ? (
                             stat.label.includes("Price") ? 
@@ -138,9 +138,9 @@ const stats: StatItem[] = [
                                 : "https://www.coingecko.com/en/coins/elastos"}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              CoinGecko
+                              View on CoinGecko
                             </a>
                           )}
                           {stat.label.includes("Hashrate") && stat.label.includes("Bitcoin") && (
@@ -148,9 +148,9 @@ const stats: StatItem[] = [
                               href="https://api.blockchain.info/stats"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              Blockchain.info
+                              View on Blockchain.info
                             </a>
                           )}
                           {stat.label.includes("Hashrate") && !stat.label.includes("Bitcoin") && (
@@ -158,9 +158,9 @@ const stats: StatItem[] = [
                               href="https://ela.elastos.io/api/v1/data-statistics"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                             >
-                              Elastos Explorer
+                              View on Elastos Explorer
                             </a>
                           )}
                         </p>

@@ -74,26 +74,38 @@ const FriendlyHashrate = () => {
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-500">
           Bitcoin's Network Security
-          <TooltipProvider>
+          <TooltipProvider delayDuration={0}>
             <Tooltip>
-              <TooltipTrigger asChild>
+              <TooltipTrigger asChild className="touch-auto">
                 <Info className="inline-block w-4 h-4 ml-2 text-muted-foreground cursor-help" />
               </TooltipTrigger>
-              <TooltipContent>
-                <p className="text-xs">Real-time Bitcoin network security metrics from Blockchain.info</p>
+              <TooltipContent className="p-3 touch-auto">
+                <div className="text-sm space-y-2">
+                  <p>Real-time Bitcoin network security metrics from Blockchain.info</p>
+                  <a 
+                    href="https://api.blockchain.info/stats"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                  >
+                    View on Blockchain.info
+                  </a>
+                </div>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </h2>
         <p className="text-gray-600 mt-2 flex items-center gap-2">
           {bitcoinHashrate.toFixed(2)} EH/s = {(bitcoinHashrate * 1e18).toLocaleString()} hashes per second 🔒
-          <TooltipProvider>
+          <TooltipProvider delayDuration={0}>
             <Tooltip>
-              <TooltipTrigger asChild>
+              <TooltipTrigger asChild className="touch-auto">
                 <Info className="w-4 h-4 text-muted-foreground cursor-help" />
               </TooltipTrigger>
-              <TooltipContent>
-                <p className="text-xs">Network hashrate updated every 5 minutes with verified blockchain data</p>
+              <TooltipContent className="p-3 touch-auto">
+                <div className="text-sm space-y-2">
+                  <p>Network hashrate updated every 5 minutes with verified blockchain data</p>
+                </div>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
