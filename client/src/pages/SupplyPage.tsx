@@ -7,7 +7,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Slider } from "@/components/ui/slider";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Button } from '@/components/ui/button';
 
@@ -17,35 +16,7 @@ const ELASupplyPage = () => {
 
   const [showData, setShowData] = useState(false);
   const [countdown, setCountdown] = useState('');
-  const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([28000000, 28220000]);
-  const [zoomLevel, setZoomLevel] = useState(0); // 0 = full view, 100 = max zoom
-
-  // Update yAxisDomain based on zoom level within fixed range
-  const handleZoomChange = (value: number[]) => {
-    const level = value[0];
-    setZoomLevel(level);
-    
-    const baseMin = 28000000;
-    const baseMax = 28220000;
-    
-    if (level === 0) {
-      setYAxisDomain([baseMin, baseMax]);
-    } else {
-      // Calculate window size based on zoom level (smaller window = more zoom)
-      const totalRange = baseMax - baseMin;
-      const windowSize = totalRange * (1 - (level / 100));
-      
-      // Calculate center point of view
-      const centerPoint = (baseMin + baseMax) / 2;
-      
-      // Calculate new min/max keeping the center point
-      const halfWindow = windowSize / 2;
-      setYAxisDomain([
-        Math.max(baseMin, centerPoint - halfWindow),
-        Math.min(baseMax, centerPoint + halfWindow)
-      ]);
-    }
-  };
+  const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([24000000, 28500000]);
 
   const supplySchedule = [
     { halvingDate: new Date('2021-12-01'), year: 2021, percentage: null, increment: null, supply: 24620000 },
@@ -71,6 +42,8 @@ const ELASupplyPage = () => {
     { halvingDate: new Date('2101-12-01'), year: 2101, percentage: 0.000003814697265625, increment: 3.0517578125, supply: 28219996.9482421875 },
     { halvingDate: new Date('2105-12-01'), year: 2105, percentage: 0.00000191, increment: 1.52587890, supply: 28219999 }
   ];
+
+  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -218,11 +191,11 @@ const ELASupplyPage = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setZoomLevel(zoomLevel === 0 ? 100 : 0)}
+                  onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28000000, 28500000] : [24000000, 28500000])}
                   className="text-xs flex items-center gap-2"
                 >
-                  <Focus className="h-4 w-4 text-blue-500" />
-                  {zoomLevel === 0 ? 'Zoom In' : 'Reset Zoom'}
+                  <TrendingUp className="h-4 w-4 text-blue-500" />
+                  {yAxisDomain[0] === 24000000 ? 'Zoom Supply' : 'View All'}
                 </Button>
                 <Button
                   variant="outline"
@@ -235,22 +208,6 @@ const ELASupplyPage = () => {
                 </Button>
               </div>
             </div>
-
-            {/* Zoom Slider */}
-            <div className="mb-4 px-4">
-              <div className="text-xs text-gray-500 mb-2">Zoom Level</div>
-              <div className="touch-pan-y touch-none select-none">
-                <Slider
-                  defaultValue={[0]}
-                  max={100}
-                  step={1}
-                  value={[zoomLevel]}
-                  onValueChange={handleZoomChange}
-                  className="relative flex h-10 w-full touch-none select-none items-center"
-                />
-              </div>
-            </div>
-
             <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
               <ResponsiveContainer>
                 <LineChart
@@ -297,6 +254,7 @@ const ELASupplyPage = () => {
                     isAnimationActive={true}
                     animationDuration={2000}
                   />
+                  
                 </LineChart>
               </ResponsiveContainer>
             </div>
