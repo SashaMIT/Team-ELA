@@ -232,8 +232,12 @@ const ELASupplyPage = () => {
                       onValueChange={handleZoomChange}
                       max={100}
                       step={1}
-                      className="w-full touch-pan-x touch-none"
+                      className="w-full touch-pan-x touch-none select-none relative"
                       aria-label="Zoom level"
+                      style={{
+                        '--slider-thumb-size': '24px',
+                        '--slider-track-height': '8px'
+                      }}
                     />
                   </div>
                 </div>
