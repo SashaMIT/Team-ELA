@@ -25,16 +25,16 @@ const ELASupplyPage = () => {
     const baseMin = 24000000;
     const baseMax = 28500000;
     const zoomFactor = value[0] / 100;
+    const targetValue = 28218437.5; // 2065 supply value
     
     if (zoomFactor === 0) {
       setYAxisDomain([baseMin, baseMax]);
     } else {
-      // Focus around 2065 supply value (28,218,437.5) as zoom increases
-      const targetValue = 28218437.5;
-      const range = baseMax - baseMin;
+      // Focus around 2065 supply value with subsequent years visible
+      const range = baseMax - targetValue;
       const newRange = range * (1 - zoomFactor);
-      const newMin = Math.max(baseMin, targetValue - (newRange / 2));
-      const newMax = Math.min(baseMax, targetValue + (newRange / 2));
+      const newMin = Math.max(baseMin, targetValue - (newRange * 0.2)); // Position 2065 near bottom
+      const newMax = Math.min(baseMax, targetValue + (newRange * 0.8)); // Show more data above
       setYAxisDomain([newMin, newMax]);
     }
   };
@@ -224,11 +224,11 @@ const ELASupplyPage = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28218000, 28219000] : [24000000, 28500000])}
-                    className="text-xs flex items-center gap-2"
+                    onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28218437.5, 28220000] : [24000000, 28500000])}
+                    className="text-xs flex items-center gap-2 touch-none"
                   >
                     <TrendingUp className="h-4 w-4 text-blue-500" />
-                    {yAxisDomain[0] === 24000000 ? 'Zoom Supply' : 'View All'}
+                    {yAxisDomain[0] === 24000000 ? 'Zoom to 2065' : 'View All'}
                   </Button>
                   <Button
                     variant="outline"
