@@ -57,7 +57,7 @@ const fetchElastosHashrate = async (): Promise<number> => {
     });
     
     const data = await response.json();
-    return Number(data.hashrate) / 1e18; // Convert to EH/s
+    return Number(data.networkHashps) / 1e18; // Convert to EH/s
   } catch (error) {
     console.warn('Elastos hashrate fetch error:', error);
     return 48.52; // Fallback value
