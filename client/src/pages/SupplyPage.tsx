@@ -223,8 +223,8 @@ const ELASupplyPage = () => {
                 <Database className="h-4 w-4 text-blue-500" />
                 Supply Growth
               </h3>
-              <div className="flex flex-col w-full sm:w-auto gap-4">
-                <div className="flex items-center gap-4 w-full sm:w-64">
+              <div className="flex items-center w-full sm:w-auto gap-4">
+                <div className="flex items-center gap-4 flex-1 sm:w-64">
                   <Focus className="h-4 w-4 text-purple-500" />
                   <div className="flex-1">
                     <Slider
@@ -232,22 +232,20 @@ const ELASupplyPage = () => {
                       onValueChange={handleZoomChange}
                       max={100}
                       step={1}
-                      className="w-full touch-pan-x"
+                      className="w-full touch-pan-x touch-none"
                       aria-label="Zoom level"
                     />
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowData(!showData)}
-                    className="text-xs flex items-center gap-2"
-                  >
-                    <Table className="h-4 w-4 text-green-500" />
-                    {showData ? 'Hide Details' : 'Show Details'}
-                  </Button>
-                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowData(!showData)}
+                  className="text-xs flex items-center gap-2 whitespace-nowrap"
+                >
+                  <Table className="h-4 w-4 text-green-500" />
+                  {showData ? 'Hide Details' : 'Show Details'}
+                </Button>
               </div>
             </div>
             <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
@@ -305,7 +303,7 @@ const ELASupplyPage = () => {
           <Dialog open={showData} onOpenChange={setShowData}>
             <DialogContent className="max-w-[95vw] sm:max-w-4xl">
               <DialogHeader>
-                <DialogTitle>Supply Schedule Details</DialogTitle>
+                <DialogTitle className="text-lg font-semibold">Supply Schedule Details</DialogTitle>
               </DialogHeader>
               <div className="overflow-x-auto max-h-[60vh] -mx-4 sm:mx-0">
                 <table className="w-full text-sm table-auto">
