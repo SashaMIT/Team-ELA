@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
 
 const ELASupplyPage = () => {
   const currentSupply = 25748861;
@@ -17,6 +18,26 @@ const ELASupplyPage = () => {
   const [showData, setShowData] = useState(false);
   const [countdown, setCountdown] = useState('');
   const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([24000000, 28500000]);
+  const [zoomLevel, setZoomLevel] = useState([0]);
+  
+  const handleZoomChange = (value: number[]) => {
+    setZoomLevel(value);
+    const baseMin = 24000000;
+    const baseMax = 28500000;
+    const zoomFactor = value[0] / 100;
+    
+    if (zoomFactor === 0) {
+      setYAxisDomain([baseMin, baseMax]);
+    } else {
+      // Focus around 2065 supply value (28,218,437.5) as zoom increases
+      const targetValue = 28218437.5;
+      const range = baseMax - baseMin;
+      const newRange = range * (1 - zoomFactor);
+      const newMin = Math.max(baseMin, targetValue - (newRange / 2));
+      const newMax = Math.min(baseMax, targetValue + (newRange / 2));
+      setYAxisDomain([newMin, newMax]);
+    }
+  };
 
   const supplySchedule = [
     { halvingDate: new Date('2021-12-01'), year: 2021, percentage: null, increment: null, supply: 24620000 },
@@ -42,8 +63,6 @@ const ELASupplyPage = () => {
     { halvingDate: new Date('2101-12-01'), year: 2101, percentage: 0.000003814697265625, increment: 3.0517578125, supply: 28219996.9482421875 },
     { halvingDate: new Date('2105-12-01'), year: 2105, percentage: 0.00000191, increment: 1.52587890, supply: 28219999 }
   ];
-
-  
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -182,30 +201,45 @@ const ELASupplyPage = () => {
 
           {/* Supply Chart */}
           <div className="bg-white border rounded-lg p-4">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
               <h3 className="text-sm font-medium flex items-center gap-2">
                 <Database className="h-4 w-4 text-blue-500" />
                 Supply Growth
               </h3>
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28000000, 28500000] : [24000000, 28500000])}
-                  className="text-xs flex items-center gap-2"
-                >
-                  <TrendingUp className="h-4 w-4 text-blue-500" />
-                  {yAxisDomain[0] === 24000000 ? 'Zoom Supply' : 'View All'}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowData(!showData)}
-                  className="text-xs flex items-center gap-2"
-                >
-                  <Table className="h-4 w-4 text-green-500" />
-                  {showData ? 'Hide Details' : 'Show Details'}
-                </Button>
+              <div className="flex flex-col w-full sm:w-auto gap-4">
+                <div className="flex items-center gap-4 w-full sm:w-64">
+                  <Focus className="h-4 w-4 text-purple-500" />
+                  <div className="flex-1">
+                    <Slider
+                      value={zoomLevel}
+                      onValueChange={handleZoomChange}
+                      max={100}
+                      step={1}
+                      className="w-full touch-pan-x"
+                      aria-label="Zoom level"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28218000, 28219000] : [24000000, 28500000])}
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <TrendingUp className="h-4 w-4 text-blue-500" />
+                    {yAxisDomain[0] === 24000000 ? 'Zoom Supply' : 'View All'}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowData(!showData)}
+                    className="text-xs flex items-center gap-2"
+                  >
+                    <Table className="h-4 w-4 text-green-500" />
+                    {showData ? 'Hide Details' : 'Show Details'}
+                  </Button>
+                </div>
               </div>
             </div>
             <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
@@ -254,7 +288,6 @@ const ELASupplyPage = () => {
                     isAnimationActive={true}
                     animationDuration={2000}
                   />
-                  
                 </LineChart>
               </ResponsiveContainer>
             </div>
