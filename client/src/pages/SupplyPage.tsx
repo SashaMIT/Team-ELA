@@ -26,15 +26,19 @@ const ELASupplyPage = () => {
     const baseMax = 28500000;
     const zoomFactor = value[0] / 100;
     const targetValue = 28218437.5; // 2065 supply value
+    const maxValue = 28220000; // Slightly above 2065 value to show future data
     
     if (zoomFactor === 0) {
       setYAxisDomain([baseMin, baseMax]);
     } else {
-      // Focus around 2065 supply value with subsequent years visible
-      const range = baseMax - targetValue;
-      const newRange = range * (1 - zoomFactor);
-      const newMin = Math.max(baseMin, targetValue - (newRange * 0.2)); // Position 2065 near bottom
-      const newMax = Math.min(baseMax, targetValue + (newRange * 0.8)); // Show more data above
+      // Calculate range based on zoom factor
+      const totalRange = maxValue - targetValue;
+      const zoomedRange = totalRange / (1 + zoomFactor * 3); // Adjust multiplier for smoother zoom
+      
+      // Position 2065 value near bottom with more space above for future values
+      const newMin = Math.max(baseMin, targetValue - (zoomedRange * 0.1)); // Small buffer below 2065
+      const newMax = Math.min(baseMax, targetValue + (zoomedRange * 0.9)); // More space above for future values
+      
       setYAxisDomain([newMin, newMax]);
     }
   };
@@ -224,7 +228,19 @@ const ELASupplyPage = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setYAxisDomain(yAxisDomain[0] === 24000000 ? [28218437.5, 28220000] : [24000000, 28500000])}
+                    onClick={() => {
+                      if (yAxisDomain[0] === 24000000) {
+                        // Zoom to 2065 with appropriate range
+                        const targetValue = 28218437.5; // 2065 value
+                        const buffer = 1000; // Buffer for better visibility
+                        setYAxisDomain([targetValue - buffer * 0.1, targetValue + buffer * 0.9]);
+                        setZoomLevel([80]); // Set slider to zoomed position
+                      } else {
+                        // Reset to full view
+                        setYAxisDomain([24000000, 28500000]);
+                        setZoomLevel([0]);
+                      }
+                    }}
                     className="text-xs flex items-center gap-2 touch-none"
                   >
                     <TrendingUp className="h-4 w-4 text-blue-500" />
