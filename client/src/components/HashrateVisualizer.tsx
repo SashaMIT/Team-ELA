@@ -24,6 +24,7 @@ import FriendlyHashrate from './FriendlyHashrate';
 import HashScaleViz from './HashScaleViz';
 import MergeMiningViz from './MergeMiningViz';
 import { useHashrateData } from '../hooks/useHashrateData';
+
 interface Scale {
   unit: string;
   buttonText?: string;
@@ -95,8 +96,6 @@ const HashrateVisualizer = () => {
       ]
     }
   };
-
-  
 
   const { data: hashrateData, isLoading, error } = useHashrateData();
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
@@ -262,24 +261,24 @@ const HashrateVisualizer = () => {
                 <Server className="w-5 h-5 text-orange-500" />
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
-                    <TooltipTrigger asChild>
+                    <TooltipTrigger asChild className="touch-auto">
                       <div className="cursor-help">
                         <div className="text-sm text-gray-600">Bitcoin Hashrate</div>
                         <div className="font-bold text-lg">{bitcoinHashrate.toFixed(2)} EH/s</div>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-sm">
-                        Live Bitcoin network hashrate data provided by{' '}
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Live Bitcoin network hashrate data provided by Minerstat</p>
                         <a 
-                          href="https://api.minerstat.com/v2/coins?list=BTC"
+                          href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 underline"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          Minerstat API
+                          View on Minerstat
                         </a>
-                      </p>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -290,24 +289,24 @@ const HashrateVisualizer = () => {
                 <Shield className="w-5 h-5 text-blue-500" />
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
-                    <TooltipTrigger asChild>
+                    <TooltipTrigger asChild className="touch-auto">
                       <div className="cursor-help">
                         <div className="text-sm text-gray-600">Elastos Hashrate</div>
                         <div className="font-bold text-lg">{elastosHashrate.toFixed(2)} EH/s</div>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-sm">
-                        Real-time Elastos network hashrate from{' '}
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Real-time Elastos network hashrate from Elastos Explorer</p>
                         <a 
                           href="https://ela.elastos.io/api/v1/data-statistics"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 underline"
+                          className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          Elastos Explorer API
+                          View on Elastos Explorer
                         </a>
-                      </p>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -318,16 +317,16 @@ const HashrateVisualizer = () => {
                 <Lock className="w-5 h-5 text-green-500" />
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
-                    <TooltipTrigger asChild>
+                    <TooltipTrigger asChild className="touch-auto">
                       <div className="cursor-help">
                         <div className="text-sm text-gray-600">Security Share</div>
                         <div className="font-bold text-lg">{((elastosHashrate/bitcoinHashrate) * 100).toFixed(1)}%</div>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-sm">
-                        Percentage of Bitcoin's network security power utilized through merge mining
-                      </p>
+                    <TooltipContent className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>Percentage of Bitcoin's network security power utilized through merge mining</p>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -339,8 +338,6 @@ const HashrateVisualizer = () => {
             <BlockVisualizer />
           </div>
 
-          
-
           <div className="space-y-4">
             <div className="font-medium flex items-center gap-2">
               <Server className="w-5 h-5 text-blue-500" />
@@ -349,7 +346,7 @@ const HashrateVisualizer = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 mb-6 px-1">
               {(Object.entries(scales) as [ScaleType, Scale][]).map(([key, { icon, unit, explanation }]) => (
-                <TooltipProvider key={key}>
+                <TooltipProvider key={key} delayDuration={0}>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
@@ -364,8 +361,28 @@ const HashrateVisualizer = () => {
                         <span className="text-sm truncate">{scales[key].buttonText || unit}</span>
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-[200px] text-sm">
-                      {explanation}
+                    <TooltipContent side="top" className="p-3 touch-auto">
+                      <div className="text-sm space-y-2">
+                        <p>{explanation}</p>
+                        {key === 'supercomputers' && (
+                          <>
+                            <p>Comparison details:</p>
+                            <ul className="list-disc pl-4 space-y-1">
+                              <li>Peak Performance: 1.5 EH/s</li>
+                              <li>First exascale system</li>
+                              <li>Located at Oak Ridge Lab</li>
+                            </ul>
+                            <a 
+                              href="https://www.olcf.ornl.gov/frontier/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block mt-2 text-blue-500 hover:text-blue-600 underline p-1"
+                            >
+                              Learn more about Frontier
+                            </a>
+                          </>
+                        )}
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -468,15 +485,20 @@ const HashrateVisualizer = () => {
                 </div>
               </motion.div>
             </div>
-          </div>
-
-          <div className="bg-accent/10 p-4 rounded-lg">
-            <div className="font-medium mb-2">{scales[selectedScale].explanation}</div>
-            <ul className="list-disc ml-6 text-sm text-muted-foreground space-y-1">
-              {scales[selectedScale].details.map((detail, index) => (
-                <li key={index}>{detail}</li>
-              ))}
-            </ul>
+            <div className="bg-accent/10 p-4 rounded-lg">
+              <div className="text-sm text-muted-foreground mb-2">
+                {selectedScale === 'supercomputers' ? (
+                  `Equivalent to ${formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} ${scales[selectedScale].unit}`
+                ) : (
+                  `Network power equivalent to ${formatNumber(calculateEquivalent(bitcoinHashrate, scales[selectedScale].base))} ${scales[selectedScale].unit}`
+                )}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {scales[selectedScale].details.map((detail, index) => (
+                  <div key={index}>{detail}</div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </CardContent>
