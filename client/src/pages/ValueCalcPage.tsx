@@ -62,7 +62,7 @@ const ValueCalcPage = () => {
         <CardContent className="pt-0">
           <div className="space-y-4 sm:space-y-8 px-2 sm:px-0">
             {/* Dialog buttons */}
-            <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 sm:mb-6">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2">
@@ -70,7 +70,11 @@ const ValueCalcPage = () => {
                     What is the Value Calculator?
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="w-full sm:max-w-4xl p-2 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm mx-auto" aria-labelledby="calculator-dialog-title" aria-describedby="calculator-dialog-description">
+                <DialogContent 
+                  className="w-full sm:max-w-4xl p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[90vh] backdrop-blur-sm mx-auto" 
+                  aria-labelledby="calculator-dialog-title" 
+                  aria-describedby="calculator-dialog-description"
+                >
                   <DialogHeader>
                     <DialogTitle id="calculator-dialog-title" className="text-lg sm:text-xl">Understanding the Value Calculator</DialogTitle>
                     <DialogDescription id="calculator-dialog-description">

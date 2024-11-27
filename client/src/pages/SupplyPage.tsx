@@ -200,18 +200,18 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-2 sm:p-4 rounded-none sm:rounded-lg space-y-2 w-full">
-            <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
+          <div className="bg-white/50 p-3 sm:p-4 rounded-none sm:rounded-lg space-y-2.5 w-full mx-0">
+            <div className="flex justify-between items-center text-sm text-muted-foreground mb-2.5">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
             </div>
-            <div className="w-full bg-accent/20 rounded-full h-2.5">
+            <div className="w-full bg-accent/20 rounded-full h-3">
               <div
-                className="bg-blue-500 h-2.5 rounded-full transition-all duration-500"
+                className="bg-blue-500 h-3 rounded-full transition-all duration-500"
                 style={{ width: `${(currentSupply / 28199999) * 100}%` }}
               />
             </div>
-            <div className="flex justify-between text-xs text-muted-foreground mt-1">
+            <div className="flex justify-between text-xs text-muted-foreground mt-1.5">
               <span>{currentSupply.toLocaleString()} ELA</span>
               <span>28,199,999 ELA</span>
             </div>
@@ -319,6 +319,12 @@ const ELASupplyPage = () => {
               aria-labelledby="supply-schedule-title"
               aria-describedby="supply-schedule-description"
             >
+              <DialogHeader>
+                <DialogTitle id="supply-schedule-title">Supply Schedule Details</DialogTitle>
+                <DialogDescription id="supply-schedule-description">
+                  Detailed breakdown of ELA supply schedule from 2021 to 2105
+                </DialogDescription>
+              </DialogHeader>
               <DialogHeader>
                 <DialogTitle id="supply-schedule-title" className="text-lg font-semibold">Supply Schedule Details</DialogTitle>
                 <DialogDescription id="supply-schedule-description">
