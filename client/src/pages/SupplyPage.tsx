@@ -20,32 +20,32 @@ const ELASupplyPage = () => {
   const [yAxisDomain, setYAxisDomain] = useState<[number, number]>([28000000, 28220000]);
   const [zoomLevel, setZoomLevel] = useState(0); // 0 = full view, 100 = max zoom
 
-  // Update yAxisDomain based on zoom level
+  // Update yAxisDomain based on zoom level within fixed range
   const handleZoomChange = (value: number[]) => {
     const level = value[0];
     setZoomLevel(level);
     
-    // Calculate dynamic domain based on zoom level with new range
+    // Fixed range boundaries
     const baseMin = 28000000;
     const baseMax = 28220000;
-    const range = baseMax - baseMin;
     
-    // As zoom level increases, we narrow the view range
-    const zoomFactor = (100 - level) / 100;
-    const viewRange = range * zoomFactor;
-    
-    // Center the view around the midpoint of our range
-    const midPoint = (baseMax + baseMin) / 2;
-    const halfRange = viewRange / 2;
-    
-    let newMin = midPoint - halfRange;
-    let newMax = midPoint + halfRange;
-    
-    // Ensure we don't exceed the base bounds
-    newMin = Math.max(newMin, baseMin);
-    newMax = Math.min(newMax, baseMax);
-    
-    setYAxisDomain([newMin, newMax]);
+    if (level === 0) {
+      // At 0% zoom, show full range
+      setYAxisDomain([baseMin, baseMax]);
+    } else {
+      // Calculate window size based on zoom level
+      const totalRange = baseMax - baseMin;
+      const windowSize = totalRange * (1 - level / 100);
+      
+      // Center the window around the middle of the range
+      const midPoint = (baseMax + baseMin) / 2;
+      const halfWindow = windowSize / 2;
+      
+      setYAxisDomain([
+        Math.max(baseMin, midPoint - halfWindow),
+        Math.min(baseMax, midPoint + halfWindow)
+      ]);
+    }
   };
 
   const supplySchedule = [
@@ -246,9 +246,7 @@ const ELASupplyPage = () => {
                 step={1}
                 value={[zoomLevel]}
                 onValueChange={handleZoomChange}
-                className="touch-pan-x touch-none select-none h-6"
-                thumbClassName="h-5 w-5 bg-blue-500 border-2 border-white rounded-full shadow-lg cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                trackClassName="bg-blue-200 h-2 rounded-full"
+                className="relative flex h-6 w-full touch-none select-none items-center"
               />
             </div>
 
