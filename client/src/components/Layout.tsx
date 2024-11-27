@@ -47,7 +47,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <SidebarMenuItem key={item.path}>
                   <div
                     role="button"
-                    onClick={() => setLocation(item.path)}
+                    onClick={() => {
+                      setLocation(item.path);
+                      const sidebarContext = document.querySelector('[data-mobile="true"]')?.parentElement;
+                      if (sidebarContext) {
+                        const closeButton = sidebarContext.querySelector('button[data-state="open"]');
+                        closeButton?.click();
+                      }
+                    }}
                     data-active={location === item.path}
                     className={`flex w-full items-center gap-2 rounded-lg px-3 py-4 md:py-3 text-base md:text-sm transition-all
                       ${location === item.path 
