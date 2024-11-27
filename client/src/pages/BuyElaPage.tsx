@@ -132,7 +132,7 @@ const BuyElaPage = () => {
                 <ExternalLink size={12} />
               </a>
               <a
-                href="https://elastos.info/staking-elastos-ela/"
+                href="https://elastos.info/tutorial/bpos-staking-and-voting-guide/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-xs bg-white text-blue-600 hover:bg-blue-50 px-2 py-1 rounded border border-blue-200 transition-colors"
