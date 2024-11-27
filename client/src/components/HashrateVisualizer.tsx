@@ -172,7 +172,7 @@ const HashrateVisualizer = () => {
                 <DialogHeader>
                   <DialogTitle id="hashrate-dialog-title">Understanding Hashrate</DialogTitle>
                   <DialogDescription id="hashrate-dialog-description">
-                    Learn about network hashrate and its importance in blockchain security
+                    Learn how network hashrate secures blockchain transactions and its vital role in network security
                   </DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-center">
@@ -287,7 +287,7 @@ const HashrateVisualizer = () => {
                           rel="noopener noreferrer"
                           className="text-blue-500 hover:text-blue-600 underline p-1"
                         >
-                          View data on Minerstat
+                          View Bitcoin Network Data on Minerstat
                         </a>
                       </div>
                     </TooltipContent>
@@ -335,15 +335,25 @@ const HashrateVisualizer = () => {
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
                       <div className="text-sm">
-                        <p>Percentage of Bitcoin's network security power utilized through merge mining</p>
-                        <a 
-                          href="https://ela.elastos.io/api/v1/data-statistics"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 underline p-1"
-                        >
-                          View data on Elastos Explorer
-                        </a>
+                        <p>Percentage of Bitcoin's network security power utilized through merge mining with Elastos</p>
+                        <div className="flex flex-col gap-2 mt-2">
+                          <a 
+                            href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline p-1"
+                          >
+                            View Bitcoin Network Data
+                          </a>
+                          <a 
+                            href="https://ela.elastos.io/api/v1/data-statistics"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline p-1"
+                          >
+                            View Elastos Network Data
+                          </a>
+                        </div>
                       </div>
                     </TooltipContent>
                   </Tooltip>
