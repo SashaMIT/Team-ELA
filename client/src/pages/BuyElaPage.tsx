@@ -152,8 +152,7 @@ const BuyElaPage = () => {
                       <Info className="w-4 h-4 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
-                      <div className="text-sm space-y-2">
-                        <p>Current staking APY from Elastos Explorer</p>
+                      <div className="text-sm space-y-0">
                         <a 
                           href={ELASTOS_API}
                           target="_blank"
@@ -180,7 +179,6 @@ const BuyElaPage = () => {
                     </TooltipTrigger>
                     <TooltipContent className="p-3 touch-auto">
                       <div className="text-sm space-y-2">
-                        <p>Percentage of Bitcoin's security power from real-time network data</p>
                         <a 
                           href="https://api.minerstat.com/v2/coins?list=BTC&query=%7B%22method%22:%22GET%22,%22isArray%22:true%7D"
                           target="_blank"
