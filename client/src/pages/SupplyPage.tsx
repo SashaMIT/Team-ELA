@@ -232,12 +232,17 @@ const ELASupplyPage = () => {
                       onValueChange={handleZoomChange}
                       max={100}
                       step={1}
-                      className="w-full touch-pan-x touch-none select-none relative [--slider-thumb-size:24px] [--slider-track-height:8px]"
-                      aria-label="Zoom level"
+                      className="w-full touch-pan-x touch-none select-none relative [--slider-thumb-size:32px] [--slider-track-height:12px] hover:cursor-grab active:cursor-grabbing"
+                      aria-label="Chart zoom level"
                       aria-valuemin={0}
                       aria-valuemax={100}
                       aria-valuenow={zoomLevel[0]}
                       role="slider"
+                      data-touch-action="none"
+                      style={{
+                        '--thumb-shadow': '0 2px 4px rgba(0,0,0,0.1)',
+                        '--thumb-hover-shadow': '0 4px 8px rgba(0,0,0,0.2)',
+                      }}
                     />
                   </div>
                 </div>
@@ -252,7 +257,7 @@ const ELASupplyPage = () => {
                 </Button>
               </div>
             </div>
-            <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y">
+            <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y touch-action-pan-y select-none transition-transform duration-300 ease-in-out">
               <ResponsiveContainer>
                 <LineChart
                   data={filteredData}
