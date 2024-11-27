@@ -83,26 +83,16 @@ const ELASupplyPage = () => {
   };
 
   useEffect(() => {
-    // Force a re-render after mount
-    const reloadTimer = setTimeout(() => {
-      setFilteredData([...supplySchedule]);
-    }, 0);
-
-    // Countdown timer
-    const countdownTimer = setInterval(() => {
+    const timer = setInterval(() => {
       const now = new Date();
       const difference = nextHalvingDate.getTime() - now.getTime();
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
       setCountdown(`${days}d ${hours}h ${minutes}m`);
     }, 1000);
-
-    // Cleanup
-    return () => {
-      clearTimeout(reloadTimer);
-      clearInterval(countdownTimer);
-    };
+    return () => clearInterval(timer);
   }, []);
 
   const getHalvingProgress = () => {
@@ -145,9 +135,9 @@ const ELASupplyPage = () => {
   };
 
   return (
-    <div className="w-full h-full min-h-screen bg-white">
-      <Card className="w-full overflow-hidden shadow-sm">
-        <CardHeader className="p-3 sm:p-4">
+    <div className="w-full h-full bg-white">
+      <Card className="w-full overflow-hidden">
+        <CardHeader className="p-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <Heart className="w-5 h-5 text-blue-500 shrink-0" />
             <div className="flex flex-col">
@@ -159,9 +149,9 @@ const ELASupplyPage = () => {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-4 w-full px-0">
+        <CardContent className="space-y-4 w-full">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2 sm:px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full px-2 sm:px-0">
             <div className="w-full bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -210,7 +200,7 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2 mx-2 sm:mx-4">
+          <div className="bg-white/50 p-3 sm:p-4 rounded-lg space-y-2 mx-2 sm:mx-0">
             <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
               <span>Progress to Total Supply</span>
               <span>{((currentSupply / 28199999) * 100).toFixed(2)}%</span>
@@ -271,8 +261,8 @@ const ELASupplyPage = () => {
                 </Button>
               </div>
             </div>
-            <div className="w-full touch-none select-none" style={{ width: '100%', height: 300, minWidth: '0' }}>
-              <ResponsiveContainer width="100%" height="100%">
+            <div style={{ width: '100%', height: 300 }} className="sm:h-[400px] touch-pan-y touch-action-pan-y select-none transition-transform duration-300 ease-in-out">
+              <ResponsiveContainer>
                 <LineChart
                   data={filteredData}
                   margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
