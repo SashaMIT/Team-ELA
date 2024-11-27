@@ -135,7 +135,7 @@ const ELASupplyPage = () => {
 
   return (
     <div className="w-full h-full bg-white p-2 sm:p-4">
-      <Card className="max-w-4xl mx-auto overflow-hidden">
+      <Card className="w-full max-w-[95vw] sm:max-w-4xl mx-auto overflow-hidden">
         <CardHeader className="p-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <Heart className="w-5 h-5 text-blue-500 shrink-0" />
@@ -311,7 +311,7 @@ const ELASupplyPage = () => {
 
           {/* Supply Schedule Dialog */}
           <Dialog open={showData} onOpenChange={setShowData}>
-            <DialogContent className="max-w-[95vw] sm:max-w-4xl">
+            <DialogContent className="max-w-[95vw] w-full sm:max-w-4xl mx-auto">
               <DialogHeader>
                 <DialogTitle className="text-lg font-semibold">Supply Schedule Details</DialogTitle>
               </DialogHeader>

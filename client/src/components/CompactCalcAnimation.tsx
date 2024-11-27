@@ -59,7 +59,7 @@ const CompactCalcAnimation = () => {
   ];
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-2 sm:p-4 bg-white rounded-xl shadow-lg">
+    <div className="w-full max-w-[95vw] sm:max-w-3xl mx-auto p-2 sm:p-4 bg-white rounded-xl shadow-lg">
       <div className="flex justify-between items-center mb-2 sm:mb-4">
         <h2 className="text-base sm:text-lg font-bold text-gray-800">ELA Security Value</h2>
         <button
@@ -78,7 +78,7 @@ const CompactCalcAnimation = () => {
                 step >= i ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
             >
-              <div className={`bg-${s.color}-50 p-2 sm:p-3 rounded-lg w-[90px] sm:w-[120px]`}>
+              <div className={`bg-${s.color}-50 p-2 sm:p-3 rounded-lg w-full sm:w-[120px] min-w-[90px]`}>
                 <div className={`text-${s.color}-600 text-[10px] sm:text-xs mb-1`}>{s.label}</div>
                 <div className="font-mono text-[10px] sm:text-sm mb-1">{s.formula}</div>
                 <div className={`text-${s.color}-700 font-bold text-[11px] sm:text-sm`}>{s.result}</div>
