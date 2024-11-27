@@ -134,8 +134,8 @@ const ELASupplyPage = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white p-2 sm:p-4">
-      <Card className="w-full max-w-[95vw] sm:max-w-4xl mx-auto overflow-hidden">
+    <div className="w-full h-full bg-white">
+      <Card className="w-full overflow-hidden">
         <CardHeader className="p-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <Heart className="w-5 h-5 text-blue-500 shrink-0" />
@@ -150,7 +150,7 @@ const ELASupplyPage = () => {
 
         <CardContent className="space-y-4">
           {/* Current Supply & Next Halving */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 px-2 sm:px-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div className="bg-blue-50 p-3 rounded-lg">
               <div className="flex items-center gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
@@ -217,16 +217,19 @@ const ELASupplyPage = () => {
           </div>
 
           {/* Supply Chart */}
-          <div className="bg-white border rounded-lg p-4">
+          <div className="bg-white border rounded-lg p-2 sm:p-4 -mx-2 sm:mx-0">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
               <h3 className="text-sm font-medium flex items-center gap-2">
                 <Database className="h-4 w-4 text-blue-500" />
                 Supply Growth
               </h3>
-              <div className="flex items-center w-full sm:w-auto gap-4">
-                <div className="flex items-center gap-4 flex-1 sm:w-64">
-                  <Focus className="h-4 w-4 text-purple-500" />
-                  <div className="flex-1">
+              <div className="flex flex-col w-full gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full">
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <Focus className="h-4 w-4 text-purple-500 shrink-0" />
+                    <span className="text-sm text-muted-foreground">Zoom Level</span>
+                  </div>
+                  <div className="w-full sm:w-64">
                     <Slider
                       value={zoomLevel}
                       onValueChange={handleZoomChange}
@@ -240,7 +243,6 @@ const ELASupplyPage = () => {
                       role="slider"
                       data-touch-action="none"
                       style={{
-                        // Use CSS custom properties in a type-safe way
                         ['--thumb-shadow' as string]: '0 2px 4px rgba(0,0,0,0.1)',
                         ['--thumb-hover-shadow' as string]: '0 4px 8px rgba(0,0,0,0.2)',
                       }}
@@ -311,9 +313,16 @@ const ELASupplyPage = () => {
 
           {/* Supply Schedule Dialog */}
           <Dialog open={showData} onOpenChange={setShowData}>
-            <DialogContent className="max-w-[95vw] w-full sm:max-w-4xl mx-auto">
+            <DialogContent 
+              className="max-w-[95vw] w-full sm:max-w-4xl mx-auto"
+              aria-labelledby="supply-schedule-title"
+              aria-describedby="supply-schedule-description"
+            >
               <DialogHeader>
-                <DialogTitle className="text-lg font-semibold">Supply Schedule Details</DialogTitle>
+                <DialogTitle id="supply-schedule-title" className="text-lg font-semibold">Supply Schedule Details</DialogTitle>
+                <DialogDescription id="supply-schedule-description">
+                  Detailed breakdown of ELA supply schedule from 2021 to 2105, including growth rates and increments
+                </DialogDescription>
               </DialogHeader>
               <div className="overflow-x-auto max-h-[60vh] -mx-4 sm:mx-0">
                 <table className="w-full text-sm table-auto">
