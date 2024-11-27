@@ -241,27 +241,6 @@ const ELASupplyPage = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => {
-                      if (yAxisDomain[0] === 24000000) {
-                        // Zoom to 2065
-                        const targetYear = 2065;
-                        const targetData = supplySchedule.find(item => item.year === targetYear);
-                        if (targetData) {
-                          const zoomPercentage = ((targetYear - 2021) / (2105 - 2021)) * 100;
-                          handleZoomChange([zoomPercentage]);
-                        }
-                      } else {
-                        handleZoomChange([0]);
-                      }
-                    }}
-                    className="text-xs flex items-center gap-2 touch-none"
-                  >
-                    <TrendingUp className="h-4 w-4 text-blue-500" />
-                    {yAxisDomain[0] === 24000000 ? 'Zoom to 2065' : 'View All'}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
                     onClick={() => setShowData(!showData)}
                     className="text-xs flex items-center gap-2"
                   >
