@@ -75,7 +75,7 @@ const fetchHashrate = async (): Promise<number> => {
 
 const fetchElastosHashrate = async (): Promise<number> => {
   try {
-    const response = await fetchWithRetry('https://ela.elastos.io/api/v1/statistics/difficulty', {
+    const response = await fetchWithRetry('https://ela.elastos.io/api/v1/data-statistics/', {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -83,19 +83,26 @@ const fetchElastosHashrate = async (): Promise<number> => {
     });
     
     const data = await response.json();
-    // Convert difficulty to hashrate using Bitcoin's formula
-    // hashrate = difficulty * 2^32 / block_time_seconds
-    const difficulty = Number(data.difficulty);
-    const blockTime = 120; // 2 minutes block time for Elastos
-    const hashrate = (difficulty * Math.pow(2, 32)) / blockTime;
-    return hashrate / 1e18; // Convert to EH/s
+    if (!data.networkHashps) {
+      throw new Error('Network hashrate not found in response');
+    }
+    
+    // Convert network hashrate from H/s to EH/s
+    const hashrateInEH = Number(data.networkHashps) / 1e18;
+    
+    if (isNaN(hashrateInEH)) {
+      throw new Error('Invalid hashrate value received');
+    }
+    
+    return hashrateInEH;
   } catch (error) {
     console.warn('Elastos hashrate fetch error:', error);
     // Log detailed error for monitoring
     if ((error as FetchError).status) {
       console.error(`Status: ${(error as FetchError).status}, Endpoint: ${(error as FetchError).endpoint}`);
     }
-    return 48.52; // Fallback value
+    // Use more recent fallback value
+    return 48.52;
   }
 };
 
