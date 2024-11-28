@@ -33,8 +33,8 @@ const CompactCalcAnimation = () => {
     annualUSD: bitcoinPrice * 164250,
     elastosShare: elastosHashrate / bitcoinHashrate,
     elastosValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)),
-    elaSupply: 26220000,
-    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / 26220000
+    elaSupply: hashrateData?.elastosCirculatingSupply ?? 26220000,
+    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / (hashrateData?.elastosCirculatingSupply ?? 26220000)
   };
 
   const steps = [

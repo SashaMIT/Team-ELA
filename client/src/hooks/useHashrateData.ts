@@ -7,6 +7,8 @@ interface HashrateData {
   elaPrice: number;
   bitcoinPriceChange24h: number;
   elaPriceChange24h: number;
+  elastosCirculatingSupply: number;
+  bitcoinCirculatingSupply: number;
   isLoading: boolean;
   error: Error | null;
 }
@@ -108,12 +110,25 @@ export const useHashrateData = () => {
     queryKey: ['hashrate-and-price'],
     queryFn: async () => {
       try {
-        const [bitcoinHashrate, bitcoinPriceData, elaPriceData, elastosHashrate] = await Promise.all([
+        // Fetch Bitcoin and Elastos data
+        const [bitcoinHashrate, bitcoinPriceData, elaPriceData, elastosHashrate, btcSupplyResponse] = await Promise.all([
           fetchHashrate(),
           fetchBitcoinPrice(),
           fetchELAPrice(),
-          fetchElastosHashrate()
+          fetchElastosHashrate(),
+          fetch('https://blockchain.info/q/totalbc')
         ]);
+
+        // Get Bitcoin circulating supply
+        const btcSupplyData = await btcSupplyResponse.text();
+        const bitcoinCirculatingSupply = parseInt(btcSupplyData) / 100000000; // Convert satoshis to BTC
+
+        // Get Elastos circulating supply from CoinGecko
+        const elaSupplyResponse = await fetch(
+          'https://api.coingecko.com/api/v3/simple/price?ids=elastos&vs_currencies=usd&include_market_cap=true&include_circulating_supply=true'
+        );
+        const elaSupplyData = await elaSupplyResponse.json();
+        const elastosCirculatingSupply = elaSupplyData.elastos.circulating_supply || 22381457; // Fallback supply
         
         // Validate elastosHashrate
         if (!elastosHashrate || elastosHashrate <= 0) {
@@ -127,6 +142,8 @@ export const useHashrateData = () => {
           elaPrice: elaPriceData.price,
           bitcoinPriceChange24h: bitcoinPriceData.change24h,
           elaPriceChange24h: elaPriceData.change24h,
+          bitcoinCirculatingSupply,
+          elastosCirculatingSupply,
           isLoading: false,
           error: null
         };
