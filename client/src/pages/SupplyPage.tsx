@@ -171,34 +171,17 @@ const ELASupplyPage = () => {
                       </div>
                     </TooltipTrigger>
                     <TooltipContent className="p-3 max-w-[320px]">
-                      <div className="text-sm space-y-2">
-                        <p>Supply data is sourced from:</p>
-                        <ul className="list-disc pl-4 space-y-1">
-                          <li>
-                            <a 
-                              href="https://www.coingecko.com/en/api/documentation"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
-                            >
-                              CoinGecko API
-                            </a>
-                            {' '}(primary source)
-                          </li>
-                          <li>
-                            <a 
-                              href="https://ela.elastos.io/api/v1/data-statistics"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-500 hover:text-blue-600 underline"
-                            >
-                              Elastos Explorer API
-                            </a>
-                            {' '}(fallback source)
-                          </li>
-                        </ul>
-                        <p className="text-xs text-muted-foreground">
-                          Updated every 5 minutes • Total Supply: 28,219,999 ELA
+                      <div className="text-sm">
+                        <a 
+                          href="https://api.elastos.io/widgets?q=total_supply"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 hover:text-blue-600 underline"
+                        >
+                          View data on Elastos API
+                        </a>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Updated every 5 minutes
                         </p>
                       </div>
                     </TooltipContent>
