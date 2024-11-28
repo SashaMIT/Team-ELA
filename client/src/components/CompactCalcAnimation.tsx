@@ -13,10 +13,11 @@ const CompactCalcAnimation = () => {
   const [step, setStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const { data: hashrateData } = useHashrateData();
-  const { data: elaSupplyData } = useElaSupply();
+  const { data: elaSupplyData, isLoading: isSupplyLoading } = useElaSupply();
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
+  const currentSupply = elaSupplyData ?? 25748861;
   const securityPercentage = ((elastosHashrate/bitcoinHashrate) * 100).toFixed(1);
 
   useEffect(() => {
@@ -35,8 +36,8 @@ const CompactCalcAnimation = () => {
     annualUSD: bitcoinPrice * 164250,
     elastosShare: elastosHashrate / bitcoinHashrate,
     elastosValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)),
-    elaSupply: elaSupplyData ?? 25748861,
-    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / (elaSupplyData ?? 25748861)
+    elaSupply: currentSupply,
+    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / currentSupply
   };
 
   const steps = [

@@ -172,17 +172,25 @@ const ELASupplyPage = () => {
                     </TooltipTrigger>
                     <TooltipContent className="p-3 max-w-[320px]">
                       <div className="text-sm">
-                        <a 
-                          href="https://api.elastos.io/widgets?q=total_supply"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:text-blue-600 underline"
-                        >
-                          View data on Elastos API
-                        </a>
-                        <p className="text-xs text-muted-foreground mt-2">
-                          Updated every 5 minutes
-                        </p>
+                        <div>
+                          <p className="mb-2">
+                            Current supply data is sourced directly from the Elastos blockchain via the official API.
+                          </p>
+                          <a 
+                            href="https://api.elastos.io/widgets?q=total_supply"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-600 underline block"
+                          >
+                            View data on Elastos API
+                          </a>
+                          <p className="text-xs text-muted-foreground mt-2">
+                            Data automatically refreshes every 5 minutes to ensure accuracy
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Endpoint: /widgets?q=total_supply
+                          </p>
+                        </div>
                       </div>
                     </TooltipContent>
                   </Tooltip>
