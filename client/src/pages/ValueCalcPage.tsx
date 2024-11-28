@@ -33,7 +33,7 @@ const ValueCalcPage = () => {
   const bitcoinPriceChange = hashrateData?.bitcoinPriceChange24h ?? 0;
   const marketPriceChange = hashrateData?.elaPriceChange24h ?? 0;
 
-  const elaSupply = 26.22; // ELA supply in millions
+  const elaSupply = 25.748861; // Current ELA supply in millions
 
   useEffect(() => {
     calculateELAValue();
