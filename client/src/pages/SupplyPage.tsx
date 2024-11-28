@@ -170,14 +170,36 @@ const ELASupplyPage = () => {
                         <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent className="p-3 max-w-[280px]">
+                    <TooltipContent className="p-3 max-w-[320px]">
                       <div className="text-sm space-y-2">
                         <p>Supply data is sourced from:</p>
                         <ul className="list-disc pl-4 space-y-1">
-                          <li>CoinGecko API (primary source)</li>
-                          <li>Elastos.io API (fallback source)</li>
+                          <li>
+                            <a 
+                              href="https://www.coingecko.com/en/api/documentation"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              CoinGecko API
+                            </a>
+                            {' '}(primary source)
+                          </li>
+                          <li>
+                            <a 
+                              href="https://ela.elastos.io/api/v1/data-statistics"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-500 hover:text-blue-600 underline"
+                            >
+                              Elastos Explorer API
+                            </a>
+                            {' '}(fallback source)
+                          </li>
                         </ul>
-                        <p className="text-xs text-muted-foreground">Updated every 5 minutes</p>
+                        <p className="text-xs text-muted-foreground">
+                          Updated every 5 minutes • Total Supply: 28,219,999 ELA
+                        </p>
                       </div>
                     </TooltipContent>
                   </Tooltip>
