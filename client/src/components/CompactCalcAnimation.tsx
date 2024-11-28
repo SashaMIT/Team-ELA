@@ -7,11 +7,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useHashrateData } from '../hooks/useHashrateData';
+import { useElaSupply } from '../hooks/useElaSupply';
 
 const CompactCalcAnimation = () => {
   const [step, setStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
   const { data: hashrateData } = useHashrateData();
+  const { data: elaSupplyData } = useElaSupply();
   const bitcoinPrice = hashrateData?.bitcoinPrice ?? 0;
   const bitcoinHashrate = hashrateData?.bitcoinHashrate ?? 0;
   const elastosHashrate = hashrateData?.elastosHashrate ?? 0;
@@ -33,8 +35,8 @@ const CompactCalcAnimation = () => {
     annualUSD: bitcoinPrice * 164250,
     elastosShare: elastosHashrate / bitcoinHashrate,
     elastosValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)),
-    elaSupply: 25748861,
-    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / 26220000
+    elaSupply: elaSupplyData ?? 25748861,
+    elaValue: (bitcoinPrice * 164250 * (elastosHashrate / bitcoinHashrate)) / (elaSupplyData ?? 25748861)
   };
 
   const steps = [

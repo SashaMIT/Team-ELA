@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ChevronDown, ChevronUp, Calculator, DollarSign, BarChart2, Info } from 'lucide-react';
 import { useHashrateData } from '../hooks/useHashrateData';
+import { useElaSupply } from '../hooks/useElaSupply';
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -33,7 +34,8 @@ const ValueCalcPage = () => {
   const bitcoinPriceChange = hashrateData?.bitcoinPriceChange24h ?? 0;
   const marketPriceChange = hashrateData?.elaPriceChange24h ?? 0;
 
-  const elaSupply = 26.22; // ELA supply in millions
+  const { data: elaSupplyData, isLoading: isSupplyLoading } = useElaSupply();
+  const elaSupply = (elaSupplyData ?? 25748861) / 1000000; // Convert to millions
 
   useEffect(() => {
     calculateELAValue();
