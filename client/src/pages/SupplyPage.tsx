@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Shield, Lock, Coins, Clock, Calendar, Database, Heart, TrendingUp, ChevronRight, Table, Focus } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
+} from "../components/ui/dialog";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { Button } from '../components/ui/button';
+import { Slider } from '../components/ui/slider';
 
 const ELASupplyPage = () => {
   const currentSupply = 25748861;
@@ -155,11 +161,27 @@ const ELASupplyPage = () => {
             <div className="w-full bg-blue-50 p-2 sm:p-3 rounded-lg">
               <div className="flex items-center gap-2 sm:gap-3">
                 <Coins className="text-blue-500 h-5 w-5" />
-                <div>
-                  <div className="text-sm text-gray-600">Current Supply</div>
-                  <div className="font-bold text-base sm:text-lg">{currentSupply.toLocaleString()} ELA</div>
-                  <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
-                </div>
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="cursor-help">
+                        <div className="text-sm text-gray-600">Current Supply</div>
+                        <div className="font-bold text-base sm:text-lg">{currentSupply.toLocaleString()} ELA</div>
+                        <div className="text-xs text-gray-500">{new Date().toLocaleDateString()}</div>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="p-3 max-w-[280px]">
+                      <div className="text-sm space-y-2">
+                        <p>Supply data is sourced from:</p>
+                        <ul className="list-disc pl-4 space-y-1">
+                          <li>CoinGecko API (primary source)</li>
+                          <li>Elastos.io API (fallback source)</li>
+                        </ul>
+                        <p className="text-xs text-muted-foreground">Updated every 5 minutes</p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
@@ -290,7 +312,7 @@ const ELASupplyPage = () => {
                     tickFormatter={formatYAxis}
                     width={60}
                   />
-                  <Tooltip content={<CustomTooltip />} />
+                  <RechartsTooltip content={<CustomTooltip />} />
                   <Legend />
                   <Line
                     name="Smooth Growth"
