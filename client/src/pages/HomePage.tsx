@@ -93,7 +93,7 @@ const stats: StatItem[] = [
     },
     {
       label: "Elastos Supply",
-      value: "25.75 Million",
+      value: "28.22 Million",
       showChange: false
     },
     {

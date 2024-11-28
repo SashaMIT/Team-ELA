@@ -10,7 +10,7 @@ interface MarketCapData {
 }
 
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
-const FALLBACK_ELASTOS_SUPPLY = 25748861; // Current circulating supply from elastos.io
+const FALLBACK_ELASTOS_SUPPLY = 22381457; // Fallback circulating supply from elastos.io
 
 const fetchWithRetry = async (url: string, retries = 3): Promise<Response> => {
   for (let i = 0; i < retries; i++) {
