@@ -165,7 +165,7 @@ const ValueCalcPage = () => {
                             <div className="w-2 h-2 rounded-full bg-purple-500 mt-2"></div>
                             <div>
                               <strong>Per Token Value:</strong>
-                              <div className="text-sm">Elastos Share ÷ Total Supply (26.22M)</div>
+                              <div className="text-sm">Elastos Share ÷ Total Supply (25.75M)</div>
                             </div>
                           </div>
                         </div>
