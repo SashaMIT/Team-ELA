@@ -142,13 +142,10 @@ const stats: StatItem[] = [
       </Dialog>
       <div className="max-w-[1200px] w-full flex flex-col items-center space-y-2 px-2">
         <div className="w-full flex justify-center items-center">
-              <div className="mb-4">
-                <img src="/ELA.png" alt="Elastos Logo" className="w-16 h-16 rounded-full" />
-              </div>
-              <MergeMiningAnimation />
-            </div>
-
-
+          <MergeMiningAnimation />
+        </div>
+        
+        
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full px-1 sm:px-2">
           {stats.map((stat, index) => (
             <div 
