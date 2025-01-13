@@ -137,7 +137,7 @@ const MergeMiningAnimation = () => {
     <div className="w-full max-w-4xl p-1 sm:p-2 md:p-0 bg-gradient-to-br from-slate-0 to-slate-00 rounded-xl">
       {/* Heading */}
       <h1 className="text-center text-base sm:text-lg md:text-2xl font-bold mt-0 mb-0 flex items-center justify-center gap-1 sm:gap-2 px-2 leading-snug">
-        <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-blue-500 shrink-0" />
+        <img src="/ELA.png" alt="ELA Logo" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full shrink-0" />
         ELA: The Bitcoin-Secured BTCFi Reserve Asset
       </h1>
 
